@@ -1,6 +1,6 @@
 # Curso-Python
 
-[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/nlarrea/curso-python/df80e6c07fc79467d97f6a672190c9d53e81ba47?label=commits%20counter&style=flat-square)](https://github.com/nlarrea/curso-python/commits/main)
+[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/nlarrea/curso-python/fde91fb5c08999d8d28b0131381c89b6b71fc9eb?label=commits%20counter&style=flat-square)](https://github.com/nlarrea/curso-python/commits/main)
 [![GitHub last commit](https://img.shields.io/github/last-commit/nlarrea/curso-python?style=flat-square)](https://github.com/NLarrea/curso-python/commits/main)
 
 ## ¿Qué es esto?
