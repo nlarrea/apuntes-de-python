@@ -115,28 +115,36 @@ print(f)    # n
 
 
 
-# DIVISIÓN
+# ACCEDER A LETRAS
+
+name = "Michael Jackson"
+
+print(name[5])          # e
+print(name[-1])         # n -> el último char
 
 language = "Python"
 language_slice = language[1:3]
-print(language_slice) # yt
+print(language_slice)   # yt
 
 language_slice = language[1:]
-print(language_slice) # ython
+print(language_slice)   # ython
 
 language_slice = language[:4]
-print(language_slice) # Pyth
+print(language_slice)   # Pyth
 
 language_slice = language[-2]
-print(language_slice) # o
+print(language_slice)   # o
 
 language_slice = language[0:6:2]
-print(language_slice) # Pto
+print(language_slice)   # Pto
 # crea una especie de rango del 0 al 6 y dando saltos de 2 en 2
 
 # reverse
 language_slice = language[::-1]
-print(language_slice) # nohtyP
+print(language_slice)   # nohtyP
+
+# los strings son inmutables
+# language[0] = "J"     # TypeError: 'str' object does not support item assignment
 
 
 
