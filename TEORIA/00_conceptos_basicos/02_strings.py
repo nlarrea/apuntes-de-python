@@ -9,7 +9,15 @@
 
 
 
+# LONGITUD DE UN STRING -> len()
+
+print(len("Esto es un string"))     # 17 -> los espacios en blanco también se cuentan
+print(len("Hello World!"))          # 12
+
+
+
 # CAMBIAR MINÚSCULAS Y MAYÚSCULAS EN UN STRING CON MÉTODOS
+
 name = "naia larrea"
 print(name.title())     # Naia Larrea
 
@@ -20,18 +28,40 @@ print(name)             # Naia Larrea -> el original no cambia
 
 
 
-# USANDO VARIABLES EN LOS STRINGS & FORMATEO DE STRINGS
-# f"" -> permite dar formato a los strings
+# USANDO VARIABLES EN LOS STRINGS (FORMATEO DE STRINGS) -> 3 formas de hacerlo
 
-first_name = "naia"
-last_name = "larrea"
-full_name = f"{first_name} {last_name}"
+name, surname, age = "Naia", "Larrea", 24
 
-print(full_name.title())        # Naia Larrea
+# PRIMERA FORMA: .format()
+
+print("My name is {} {} and I'm {} years old".format(name, surname, age))
+# imprime: My name is Naia Larrea and I'm 24 years old
+
+# muestra los valores según el orden dentro de .format() -> cuidado con los posibles errores
+print("My name is {} {} and I'm {} years old".format(name, age, surname))
+# imprime: My name is Naia 24 and I'm Larrea years old
+
+# posible solución: indicar la posición dentro del .format() entre las llaves
+print("My name is {0} {2} and I'm {1} years old".format(name, age, surname))
+# imprime: My name is Naia Larrea and I'm 24 years old
+
+
+# SEGUNDA FORMA: %d, %s, ...
+
+print("My name is %s %s and I'm %d years old" %(name, surname, age))
+# imprime: My name is Naia Larrea and I'm 24 years old
+
+
+# TERCERA FORMA: f"" -> permite dar formato a los strings
+
+full_name = f"{name} {surname}"     # podemos guardar un string formateado en una variable
+
+print(full_name.title())            # Naia Larrea
 
 
 
 # AÑADIR ESPACIOS EN BLANCO A UN STRING -> TABULACIONES Y SALTOS DE LNEA
+
 # tabulación    -> \t
 print("Hello\tWorld!")      # Hello    World!
 
@@ -55,6 +85,7 @@ Students:
 
 
 # ELIMINANDO ESPACIOS EN BLANCO
+
 # .rstrip()     -> elimina los espacios en blanco situados a la derecha del string
 # .lstrip()     -> elimina los espacios en blanco situados a la izquierda del string
 # .strip()      -> elimina los espacios en blanco situados a ambos lados del string
@@ -70,6 +101,7 @@ print(language)             # "python"      -> sin espacios en blanco
 
 
 # DESEMPAQUETADO DE CARACTERES
+
 a, b, c, d, e, f = "Python"
 
 print(a)    # P
@@ -84,6 +116,7 @@ print(f)    # n
 
 
 # DIVISIÓN
+
 language = "Python"
 language_slice = language[1:3]
 print(language_slice) # yt
@@ -108,6 +141,7 @@ print(language_slice) # nohtyP
 
 
 # FUNCIONES DEL SISTEMA
+
 language = "hello"
 
 print(language.capitalize())        # Hello
