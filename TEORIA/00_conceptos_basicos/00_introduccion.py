@@ -1,3 +1,43 @@
+# ESTILO DE CÓDIGO
+
+"""
+no se van a seguir todas estas pautas a lo largo de estas explicaciones, sin embargo,
+existen las PEP (Python Enchancement Proposal, o Propuestas de Mejora de Python) que
+dictan ciertas recomendaciones a la hora de estructurar el código. He aquí las
+recomendaciones más notorias:
+
+- usar 4 espacios por nivel de sangrado -> mejora la legibilidad
+- tamaño máximo de línea = 80 caracteres -> esto sirve para poder abrir varias ventanas
+de una y leer el código completo de todas las ventanas
+- usar líneas en blanco para agrupar partes del programa de forma visual
+
+evidentemente, estas directrices no son obligatorias, aunque sí son muy recomendables
+"""
+
+
+
+# COMENTARIOS
+
+"""
+los comentarios son ignorados por el programa, son muy útiles para explicar el
+código que se haya escrito
+
+para escribir comentarios se usan las '#', lo que creará un comentario de una
+única línea. Si queremos crear comentarios de varias líneas, crearemos un bloque
+con tres guiones escribiendo entre dichos guiones toda la información -> """ """
+
+por ejemplo:
+"""
+
+# esto es un comentario de una línea
+
+"""
+esto es un comentario
+de más de una línea
+"""
+
+
+
 # VARIABLES
 
 # sin variables
@@ -35,17 +75,6 @@ ser tratada como una constante y nunca ser cambiada
 """
 
 PI = 3.14
-
-
-
-# COMENTARIOS
-
-# esto es un comentario de una línea
-
-"""
-esto es un comentario
-de más de una línea
-"""
 
 
 
