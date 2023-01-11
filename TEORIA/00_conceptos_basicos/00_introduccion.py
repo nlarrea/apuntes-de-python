@@ -46,3 +46,38 @@ PI = 3.14
 esto es un comentario
 de más de una línea
 """
+
+
+
+# TIPOS DE DATOS
+
+print(type(11))         # int
+print(type(3.14))       # float
+print(type("hello"))    # str
+print(type(True))       # bool
+
+
+# CAMBIO DE TIPO DE DATO
+
+# python: type casting -> significa que se permite el cambio de tipo de dato
+
+# NÚMEROS
+print(float(2))     # 2.0   -> int a float
+print(int(1.1))     # 1     -> float a int -> CUIDADO: haciendo esto se puede perder información!
+
+
+# STRINGS = cadenas de texto
+print(int("4"))         # 4     -> str a int
+print(float("2.2"))     # 2.2   -> str a float
+# print(int("a"))       # ValueError: invalid literal for int() with base 10: 'a'
+
+print(str(34))          # 34    -> str a str
+print(str(5.16))        # 5.16  -> float a str
+
+
+# BOOLEANOS
+print(bool(1))          # True  -> int a bool
+print(bool(0))          # False -> int a bool
+
+print(int(True))        # 1     -> bool a int
+print(int(False))       # 0     -> bool a int
