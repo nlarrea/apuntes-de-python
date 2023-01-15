@@ -25,6 +25,7 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 * **#01** - [Listas y tuplas](./TEORIA/01_listas_y_tuplas/)
     * [Introducción a las listas](./TEORIA/01_listas_y_tuplas/00_introduccion_listas.py)
     * [Operaciones con listas](./TEORIA/01_listas_y_tuplas/01_operaciones_con_listas.py)
+    * [Tuplas](./TEORIA/01_listas_y_tuplas/02_tuplas.py)
 
 <br>
 
@@ -37,6 +38,7 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 * **#01** - [Listas y tuplas](./EJERCICIOS/01_listas_y_tuplas/)
     * [Listas](./EJERCICIOS/01_listas_y_tuplas/00_listas.py)
     * [Bucles en listas](./EJERCICIOS/01_listas_y_tuplas/01_operaciones_con_listas.py)
+    * [Tuplas](./EJERCICIOS/01_listas_y_tuplas/02_tuplas.py)
 * [Open Bootcamp](./EJERCICIOS/OpenBootcamp/)
     * [Introducción](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-del-ejercicio)
         * [Ejercicio 1](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-1)
