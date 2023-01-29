@@ -94,15 +94,19 @@ print(sum(digits))      # 45
 
 # este método es posible para crear cualquier lista a partir de un bucle for
 squares = [value**2 for value in range(1, 11)]
-print(squares)          # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+print(squares)              # [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
 # otra forma de crear listas rápidas (con el mismo tipo de elemento)
 new_list = [5] * 4
-print(new_list)         # [5, 5, 5, 5]
+print(new_list)             # [5, 5, 5, 5]
 
 new_list = [None] * 3
-print(new_list)         # [None, None, None]
+print(new_list)             # [None, None, None]
 # este método es útil cuando queremos crear la estructura de la lista sin dar valores
+
+# otra forma de crear listas usando range()
+new_list = [*range(1, 10)]  # crea una lista con los números del 1 al 9 (incluidos)
+print(new_list)
 
 
 
