@@ -26,6 +26,9 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Introducción a las listas](./TEORIA/01_listas_y_tuplas/00_introduccion_listas.py)
     * [Operaciones con listas](./TEORIA/01_listas_y_tuplas/01_operaciones_con_listas.py)
     * [Tuplas](./TEORIA/01_listas_y_tuplas/02_tuplas.py)
+* **#02** - [Condicionales](./TEORIA/02_condicionales/)
+    * [Condicionales](./TEORIA/02_condicionales/00_condicionales.py)
+    * [Consicionales en listas](./TEORIA/02_condicionales/01_condiciones_en_listas.py)
 
 <br>
 
@@ -39,6 +42,9 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Listas](./EJERCICIOS/01_listas_y_tuplas/00_listas.py)
     * [Bucles en listas](./EJERCICIOS/01_listas_y_tuplas/01_operaciones_con_listas.py)
     * [Tuplas](./EJERCICIOS/01_listas_y_tuplas/02_tuplas.py)
+* **#02** - [Condicionales](./EJERCICIOS/02_condicionales/)
+    * [Condicionales](./EJERCICIOS/02_condicionales/00_condicionales.py)
+    * [Consicionales en listas](./EJERCICIOS/02_condicionales/01_condicionales_en_listas.py)
 * [Open Bootcamp](./EJERCICIOS/OpenBootcamp/)
     * [Introducción](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-del-ejercicio)
         * [Ejercicio 1](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-1)
