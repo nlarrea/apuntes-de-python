@@ -29,6 +29,10 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 * **#02** - [Condicionales](./TEORIA/02_condicionales/)
     * [Condicionales](./TEORIA/02_condicionales/00_condicionales.py)
     * [Consicionales en listas](./TEORIA/02_condicionales/01_condiciones_en_listas.py)
+* **#03** - [Diccionarios](./TEORIA/03_diccionarios/)
+    * [Introducción a diccionarios](./TEORIA/03_diccionarios/00_diccionarios.py)
+    * [Bucles en diccionarios](./TEORIA/03_diccionarios/01_bucles_en_diccionarios.py)
+    * [Anidaciones](./TEORIA/03_diccionarios/02_anidacion.py)
 
 <br>
 
@@ -45,6 +49,9 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 * **#02** - [Condicionales](./EJERCICIOS/02_condicionales/)
     * [Condicionales](./EJERCICIOS/02_condicionales/00_condicionales.py)
     * [Consicionales en listas](./EJERCICIOS/02_condicionales/01_condicionales_en_listas.py)
+* **#03** - [Diccionarios](./EJERCICIOS/03_diccionarios/)
+    * [Introducción a diccionarios](./EJERCICIOS/03_diccionarios/00_diccionarios.py)
+    * [Anidaciones con diccionarios](./EJERCICIOS/03_diccionarios/01_anidaciones.py)
 * [Open Bootcamp](./EJERCICIOS/OpenBootcamp/)
     * [Introducción](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-del-ejercicio)
         * [Ejercicio 1](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-1)
