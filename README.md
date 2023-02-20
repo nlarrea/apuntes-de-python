@@ -1,7 +1,7 @@
 # Curso-Python
 
-[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/nlarrea/curso-python/fde91fb5c08999d8d28b0131381c89b6b71fc9eb?label=commits%20counter&style=flat-square)](https://github.com/nlarrea/curso-python/commits/main)
-[![GitHub last commit](https://img.shields.io/github/last-commit/nlarrea/curso-python?style=flat-square)](https://github.com/NLarrea/curso-python/commits/main)
+[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/nlarrea/curso-python/fde91fb5c08999d8d28b0131381c89b6b71fc9eb?label=commits%20counter&style=flat-square&labelColor=181717&color=2a9d8f)](https://github.com/nlarrea/curso-python/commits/main)
+[![GitHub last commit](https://img.shields.io/github/last-commit/nlarrea/curso-python?style=flat-square&labelColor=181717&color=2a9d8f)](https://github.com/NLarrea/curso-python/commits/main)
 
 ## ¿Qué es esto?
 
@@ -33,6 +33,10 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Introducción a diccionarios](./TEORIA/03_diccionarios/00_diccionarios.py)
     * [Bucles en diccionarios](./TEORIA/03_diccionarios/01_bucles_en_diccionarios.py)
     * [Anidaciones](./TEORIA/03_diccionarios/02_anidacion.py)
+* **#04** - [Entrada de usuario y bucles While](./TEORIA/04_input_y_while/)
+    * [Entrada de usuario](./TEORIA/04_input_y_while/00_input.py)
+    * [Bucles While](./TEORIA/04_input_y_while/01_while_loop.py)
+    * [Combinación con listas y diccionarios](./TEORIA/04_input_y_while/02_uso_en_listas_y_diccionarios.py)
 
 <br>
 
@@ -52,6 +56,10 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 * **#03** - [Diccionarios](./EJERCICIOS/03_diccionarios/)
     * [Introducción a diccionarios](./EJERCICIOS/03_diccionarios/00_diccionarios.py)
     * [Anidaciones con diccionarios](./EJERCICIOS/03_diccionarios/01_anidaciones.py)
+* **#04** - [Entrada de usuario y bucles While](./EJERCICIOS/04_input_y_while/)
+    * [Entrada de usuario](./EJERCICIOS/04_input_y_while/00_input.py)
+    * [Bucles While](./EJERCICIOS/04_input_y_while/01_while.py)
+    * [Combinación con listas y diccionarios](./EJERCICIOS/04_input_y_while/02_uso_en_listas_y_diccionarios.py)
 * [Open Bootcamp](./EJERCICIOS/OpenBootcamp/)
     * [Introducción](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-del-ejercicio)
         * [Ejercicio 1](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-1)
@@ -78,9 +86,11 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 Si tienes alguna duda o sugerencia acerca del contenido de este documento o cualquier otro asunto, no dudes en contactar conmigo:
 
 <div align="center">
-&emsp;<a href="https://twitter.com/nloust_"><img width="16" alt="twitter_logo" src="https://user-images.githubusercontent.com/110897750/195668304-54d1fbb3-bea1-4f9d-9ee7-7e494bd79013.png"> @nloust_</a> <!-- twitter: -->
-&emsp;<a href="https://www.instagram.com/n.loust/"><img width="16" alt="instagram_logo" src="https://seeklogo.com/images/I/instagram-new-2016-logo-4773FE3F99-seeklogo.com.png"> @n.loust</a> <!-- instagram: -->
-&emsp;<a href="https://www.linkedin.com/in/naia-larrea/"><img width="16" alt="linkedin_logo" src="https://user-images.githubusercontent.com/110897750/195669519-30e44b5d-4bef-47d3-9e37-81cff0ee5e55.png"> Naia Larrea</a> <!-- linkedin: -->
+
+[![Twitter](https://img.shields.io/badge/Twitter-@nloust_-1DA1F2?style=flat-square&logo=Twitter&logoColor=white&labelColor=181717&label)](https://twitter.com/nloust_) &emsp;
+[![Instagram](https://img.shields.io/badge/Instagram-@n.loust-E4405F?style=flat-square&logo=Instagram&logoColor=white&labelColor=181717&label)](https://www.instagram.com/n.loust/) &emsp;
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Naia%20Larrea-0A66C2?style=flat-square&logo=LinkedIn&logoColor=white&labelColor=181717&label)](https://www.linkedin.com/in/naia-larrea/)
+
 </div>
 
 
