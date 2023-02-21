@@ -1,4 +1,4 @@
-# Aprende Python
+# Apuntes de Python
 
 [![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/nlarrea/curso-python/fde91fb5c08999d8d28b0131381c89b6b71fc9eb?label=commits%20counter&style=flat-square&labelColor=181717&color=2a9d8f)](https://github.com/nlarrea/curso-python/commits/main)
 [![GitHub last commit](https://img.shields.io/github/last-commit/nlarrea/curso-python?style=flat-square&labelColor=181717&color=2a9d8f)](https://github.com/NLarrea/curso-python/commits/main)
