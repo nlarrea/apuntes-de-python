@@ -15,7 +15,7 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 <br><hr>
 <hr><br>
 
-## Temario del curso - TEORIA
+## TEORIA
 
 * **#00** - [Conceptos básicos](./TEORIA/00_conceptos_basicos/)
     * [Introducción](./TEORIA/00_conceptos_basicos/00_introduccion.py)
@@ -28,7 +28,7 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Tuplas](./TEORIA/01_listas_y_tuplas/02_tuplas.py)
 * **#02** - [Condicionales](./TEORIA/02_condicionales/)
     * [Condicionales](./TEORIA/02_condicionales/00_condicionales.py)
-    * [Consicionales en listas](./TEORIA/02_condicionales/01_condiciones_en_listas.py)
+    * [Condicionales en listas](./TEORIA/02_condicionales/01_condiciones_en_listas.py)
 * **#03** - [Diccionarios](./TEORIA/03_diccionarios/)
     * [Introducción a diccionarios](./TEORIA/03_diccionarios/00_diccionarios.py)
     * [Bucles en diccionarios](./TEORIA/03_diccionarios/01_bucles_en_diccionarios.py)
@@ -37,10 +37,14 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Entrada de usuario](./TEORIA/04_input_y_while/00_input.py)
     * [Bucles While](./TEORIA/04_input_y_while/01_while_loop.py)
     * [Combinación con listas y diccionarios](./TEORIA/04_input_y_while/02_uso_en_listas_y_diccionarios.py)
+* **#05** - [Funciones](./TEORIA/05_funciones/)
+    * [Introducción a funciones](./TEORIA/05_funciones/00_funciones.py)
+    * [Argumentos](./TEORIA/05_funciones/01_argumentos.py)
+    * En proceso...
 
-<br>
+<br><hr><br>
 
-## Temario del curso - EJERCICIOS
+## EJERCICIOS
 
 * **#00** - [Conceptos básicos](./EJERCICIOS/00_conceptos_basicos/)
     * [Primeros pasos](./EJERCICIOS/00_conceptos_basicos/00_introduccion.py)
@@ -60,6 +64,9 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Entrada de usuario](./EJERCICIOS/04_input_y_while/00_input.py)
     * [Bucles While](./EJERCICIOS/04_input_y_while/01_while.py)
     * [Combinación con listas y diccionarios](./EJERCICIOS/04_input_y_while/02_uso_en_listas_y_diccionarios.py)
+
+<br>
+
 * [Open Bootcamp](./EJERCICIOS/OpenBootcamp/)
     * [Introducción](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-del-ejercicio)
         * [Ejercicio 1](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-1)
@@ -72,7 +79,9 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 
 ## Material utilizado
 
-- Para aprender más acerca de este lenguaje de programación, he utilizado el libro ***Python Crash Course, 2nd Edition[^1]***, de *Eric Matthes*. La enseñanza de dicho libro está basada en la realización de proyectos, muchos de los cuales se encontrarán en este repositorio.
+- Para aprender más acerca de este lenguaje de programación, he utilizado el libro ***Python Crash Course, 2nd Edition[^1]***, de *Eric Matthes[^2]*. La enseñanza de dicho libro está basada en la realización de proyectos, muchos de los cuales se encontrarán en este repositorio.
+
+<br>
 
 - Además del material de dicho libro, he tratado de recopilar los ejercicios propuestos por [Open Bootcamp](https://open-bootcamp.com/) en su **curso de Python**.
 
@@ -97,4 +106,6 @@ Si tienes alguna duda o sugerencia acerca del contenido de este documento o cual
 <br><hr>
 
 
-[^1]: Puedes obtenerlo haciendo clic [aquí](https://www.amazon.com/Python-Crash-Course-2nd-Edition/dp/1593279280). 
+[^1]: Puedes obtenerlo haciendo clic [aquí](https://www.amazon.com/Python-Crash-Course-2nd-Edition/dp/1593279280).
+
+[^2]: Te dejo un [link a su repositorio de GitHub](https://github.com/ehmatthes/pcc) por si quieres echarle un vistazo.
