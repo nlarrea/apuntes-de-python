@@ -40,6 +40,7 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 * **#05** - [Funciones](./TEORIA/05_funciones/)
     * [Introducción a funciones](./TEORIA/05_funciones/00_funciones.py)
     * [Argumentos](./TEORIA/05_funciones/01_argumentos.py)
+    * [Funciones anidadas](./TEORIA/05_funciones/02_funciones_anidadas.py)
     * En proceso...
 
 <br><hr><br>
@@ -64,6 +65,8 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Entrada de usuario](./EJERCICIOS/04_input_y_while/00_input.py)
     * [Bucles While](./EJERCICIOS/04_input_y_while/01_while.py)
     * [Combinación con listas y diccionarios](./EJERCICIOS/04_input_y_while/02_uso_en_listas_y_diccionarios.py)
+* **#05** - [Funciones](./EJERCICIOS/05_funciones/)
+    * [Funciones y parámetros](./EJERCICIOS/05_funciones/00_funciones_y_parametros.py)
 
 <br>
 
