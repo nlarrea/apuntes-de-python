@@ -120,7 +120,7 @@ def full_name(first_name, last_name):
 
 
 full_name("Naia", "Larrea")         # por posición -> se imprime: Naia Larrea
-# es preferibla hacerlo así cuando hay más argumentos:
+# es preferible hacerlo así cuando hay más argumentos:
 full_name(first_name="Naia", last_name="Larrea")    # Naia Larrea
 full_name(last_name="Larrea", first_name="Naia")    # Naia Larrea
 
