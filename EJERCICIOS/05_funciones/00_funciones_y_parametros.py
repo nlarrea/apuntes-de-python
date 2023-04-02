@@ -118,3 +118,78 @@ def describe_city(city, country="spain"):
 describe_city("murcia")                 # Murcia is in Spain
 describe_city("bilbao")                 # Bilbao is in Spain
 describe_city("paris", "france")        # Paris is in France
+
+
+
+print("\n\n06 - NOMBRES DE CIUDADES\n")
+"""
+Crea una función llamada 'city_country()' que toma el nombre de una ciudad y su
+país. La función debe retornar un string como el siguiente:
+    'Santiago, Chile'
+Llama a la función 3 veces con diferentes valores e imprime el resultado.
+"""
+
+def city_country(city, country):
+    return f"{city}, {country}"
+
+
+print(city_country("Murcia", "Spain"))          # Murcia, Spain
+print(city_country("London", "England"))        # London, England
+print(city_country("Paris", "France"))          # Paris, France
+
+
+
+print("\n\n07 - ÁLBUM\n")
+"""
+Crea una función llamada 'make_album()' que cree un diccionario describiendo un
+álbum musical. La función debe recibir un artista y el título del álbum, y debe
+retornar un diccionario que contenga esta información. Llama a la función tres
+veces para crear tres álbumes diferentes.
+Utiliza 'None' para añadir información adicional, como el número de canciones.
+Si se añade dicho parámetro, debe añadirse al diccionario. Llama al menos una
+vez a la función con este parámetro de más para mostrarlo.
+"""
+
+def make_album(artist, title, songs_number = None):
+    new_album = {
+        "artist": artist,
+        "album title": title,
+    }
+
+    if songs_number:
+        new_album["number of songs"] = songs_number
+
+    return new_album
+
+
+print(make_album("Asking Alexandria", "The Black"))
+# {'artist': 'Asking Alexandria', 'album title': 'The Black'}
+print(make_album("Alice Wonder", "Que Se Joda Todo Lo Demás", 8))
+# {'artist': 'Alice Wonder', 'album title': 'Que Se Joda Todo Lo Demás', 'number of songs': 8}
+print(make_album("Bring Me The Horizon", "That's The Spirit", 11))
+# {'artist': 'Bring Me The Horizon', 'album title': "That's The Spirit", 'number of songs': 11}
+
+
+
+print("\n\n08 - ÁLBUMES DEL USUARIO")
+"""
+Comienza desde el programa que has creado en el ejercicio anterior. Escribe un
+bucle 'while' que permita al usuario introducir un artista y un título. Una vez
+tengas la información, llama a la función make_album()
+"""
+
+while True:
+    artist = input("\nEnter the artist (enter to exit): ")
+    if not artist: break
+    
+    title = input("Enter the title of the album (enter to exit): ")
+    if not title: break
+
+    songs_number = input("Enter the number of songs (enter to quit, -1 to exit): ")
+    if songs_number == -1: break
+
+    print(songs_number)
+    print(make_album(artist, title, songs_number))
+
+    ans = input("Do you want to make more albums? (y/n): ")
+    if ans.lower() == "n": break
