@@ -41,7 +41,8 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Introducción a funciones](./TEORIA/05_funciones/00_funciones.py)
     * [Argumentos](./TEORIA/05_funciones/01_argumentos.py)
     * [Funciones anidadas](./TEORIA/05_funciones/02_funciones_anidadas.py)
-    * En proceso...
+    * [Funciones lambda](./TEORIA/05_funciones/04_lambdas.py)
+* **#06** - [Módulos](./TEORIA/06_modulos/00_modulos.py)
 
 <br><hr><br>
 
@@ -67,13 +68,9 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Combinación con listas y diccionarios](./EJERCICIOS/04_input_y_while/02_uso_en_listas_y_diccionarios.py)
 * **#05** - [Funciones](./EJERCICIOS/05_funciones/)
     * [Funciones y parámetros](./EJERCICIOS/05_funciones/00_funciones_y_parametros.py)
-
-<br>
-
-* [Open Bootcamp](./EJERCICIOS/OpenBootcamp/)
-    * [Introducción](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-del-ejercicio)
-        * [Ejercicio 1](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-1)
-        * [Ejercicio 2](./EJERCICIOS/OpenBootcamp/00-intro/enunciado.md#enunciado-2)
+    * [Listas como argumentos de funciones](./EJERCICIOS/05_funciones/01_listas_como_argumento.py)
+    * [Parámetros avanzados](./EJERCICIOS/05_funciones/02_parametros_avanzados.py)
+* **#06** - [Módulos](./EJERCICIOS/06_modulos/00_modulos.py)
 
 
 <br><hr>
@@ -83,10 +80,6 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 ## Material utilizado
 
 - Para aprender más acerca de este lenguaje de programación, he utilizado el libro ***Python Crash Course, 2nd Edition[^1]***, de *Eric Matthes[^2]*. La enseñanza de dicho libro está basada en la realización de proyectos, muchos de los cuales se encontrarán en este repositorio.
-
-<br>
-
-- Además del material de dicho libro, he tratado de recopilar los ejercicios propuestos por [Open Bootcamp](https://open-bootcamp.com/) en su **curso de Python**.
 
 
 <br><hr>
