@@ -44,7 +44,7 @@ class Car:
     def increment_odometer(self, kilometers):
         self.odometer_reading += kilometers
 
-    # ANULAR MÉTODO EN LA CLASE HIJA
+    # ANULAR MÉTODO EN LA CLASE HIJA -> polimorfismo
     def fill_gas_tank(self):
         print("Filling the gas tank...")
 
@@ -95,7 +95,7 @@ my_tesla.describe_battery()             # This car has a 75-kWh battery.
 
 
 
-# ANULAR MÉTODOS DE LA CLASE ORIGINAL
+# ANULAR MÉTODOS DE LA CLASE ORIGINAL -> polimorfismo
 
 """
 Se pueden anular métodos de la clase original que no queramos mantener en las
@@ -105,6 +105,9 @@ anular de la clase original.
 Creamos un método en la clase Car llamado 'fill_gas_tank()'. Este método no
 sirve de nada en la clase ElectriCar, por lo que en esta segunda clase vamos a
 anular el método.
+
+POLIMORFIRMO = que cada clase hija puede, aún llamando al mismo método, hacer
+una cosa distinta, ejecutar un código personalizado.
 """
 
 # instancia de la clase Car (clase original)
