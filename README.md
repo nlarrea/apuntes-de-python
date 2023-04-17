@@ -43,6 +43,14 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Funciones anidadas](./TEORIA/05_funciones/02_funciones_anidadas.py)
     * [Funciones lambda](./TEORIA/05_funciones/04_lambdas.py)
 * **#06** - [Módulos](./TEORIA/06_modulos/00_modulos.py)
+* **#07** - [Clases](./TEORIA/07_clases/)
+    * [Introducción a clases](./TEORIA/07_clases/00_intro_clases.py)
+    * [Trabajar con clases](./TEORIA/07_clases/01_trabajar_con_clases.py)
+    * [Herencia y polimorfismo](./TEORIA/07_clases/02_herencia_y_polimorfismo.py)
+    * [Instancias como atributos](./TEORIA/07_clases/03_instancias_como_atributos.py)
+    * [Importar clases](./TEORIA/07_clases/04_importar_clases.py)
+* **#08** - [Archivos y excepciones](./TEORIA/08_archivos_y_excepciones/)
+    * [Leer archivos](./TEORIA/08_archivos_y_excepciones/00_leer_archivos.py)
 
 <br><hr><br>
 
@@ -71,6 +79,10 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Listas como argumentos de funciones](./EJERCICIOS/05_funciones/01_listas_como_argumento.py)
     * [Parámetros avanzados](./EJERCICIOS/05_funciones/02_parametros_avanzados.py)
 * **#06** - [Módulos](./EJERCICIOS/06_modulos/00_modulos.py)
+* **#07** - [Clases](./EJERCICIOS/07_clases/)
+    * [Introductión a clases](./EJERCICIOS/07_clases/00_intro_clases.py)
+    * [Trabajar con clases](./EJERCICIOS/07_clases/01_trabajar_con_clases.py)
+    * [Herencia](./EJERCICIOS/07_clases/02_herencia.py)
 
 
 <br><hr>
