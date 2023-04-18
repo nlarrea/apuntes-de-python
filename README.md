@@ -49,8 +49,8 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Herencia y polimorfismo](./TEORIA/07_clases/02_herencia_y_polimorfismo.py)
     * [Instancias como atributos](./TEORIA/07_clases/03_instancias_como_atributos.py)
     * [Importar clases](./TEORIA/07_clases/04_importar_clases.py)
-* **#08** - [Archivos y excepciones](./TEORIA/08_archivos_y_excepciones/)
-    * [Leer archivos](./TEORIA/08_archivos_y_excepciones/00_leer_archivos.py)
+* **#08** - [Archivos y excepciones](./TEORIA/08_archivos/)
+    * [Leer archivos](./TEORIA/08_archivos/00_leer_archivos.py)
 
 <br><hr><br>
 
