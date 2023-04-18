@@ -1,0 +1,6 @@
+In Python you can create variables
+In Python you can use conditionals
+In Python you can create dictionaries
+In Python you can ask users for input
+In Python you can define functions and classes
+In Python you can export and import data

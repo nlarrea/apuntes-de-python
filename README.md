@@ -49,8 +49,9 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Herencia y polimorfismo](./TEORIA/07_clases/02_herencia_y_polimorfismo.py)
     * [Instancias como atributos](./TEORIA/07_clases/03_instancias_como_atributos.py)
     * [Importar clases](./TEORIA/07_clases/04_importar_clases.py)
-* **#08** - [Archivos y excepciones](./TEORIA/08_archivos/)
+* **#08** - [Archivos](./TEORIA/08_archivos/)
     * [Leer archivos](./TEORIA/08_archivos/00_leer_archivos.py)
+    * [Trabajar con archivos](./TEORIA/08_archivos/01_trabajar_con_archivos.py)
 
 <br><hr><br>
 
@@ -83,6 +84,8 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
     * [Introductión a clases](./EJERCICIOS/07_clases/00_intro_clases.py)
     * [Trabajar con clases](./EJERCICIOS/07_clases/01_trabajar_con_clases.py)
     * [Herencia](./EJERCICIOS/07_clases/02_herencia.py)
+* **#08** - [Archivos](./EJERCICIOS/08_archivos/)
+    * [Introducción a archivos](./EJERCICIOS/08_archivos/00_intro_archivos.py)
 
 
 <br><hr>
