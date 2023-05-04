@@ -241,6 +241,28 @@ Ahora sabemos que la función que hemos creado funciona tanto con dos como con t
 
 
 <br><hr>
+<hr><br>
+
+
+## Métodos 'assert'
+
+En los ejemplos vistos en este apartado hemos utilizado el método `asserEqual()`, que toma dos parámetros y comprueba si ambos parámetros son iguales. En caso de no ser así, lanza una excepción.
+
+Sin embargo, existen varios métodos diferentes con los que poder trabajar pertenecientes también a `unittest.TestCase`.
+
+He aquí una pequeña muestra de los más utilizados:
+
+| **Métodos** | **Uso** |
+| --- | --- |
+| `assertEqual(a, b)` | Comprueba si: `a == b` |
+| `assertNotEqual(a, b)` | Comprueba si: `a != b` |
+| `assertTrue(x)` | Comprueba si: `x == True` |
+| `assertFalse(x)` | Comprueba si: `x == False` |
+| `assertIn(item, list)` | Comprueba si: `item` está dentro de `lista` |
+| `assertNotIn(item, list)` | Comprueba si: `item` no está dentro de `lista` |
+
+
+<br><hr>
 
 
 [^1]: `assertEqual`' es un método que pertenece a la clase `unittest.TestCase`. Este método comprueba que el primer parámetro que le pasamos es igual al segundo parámetro que le pasamos. Si ambos parámetros son iguales, el test se pasa. Si no lo son, el test falla.
