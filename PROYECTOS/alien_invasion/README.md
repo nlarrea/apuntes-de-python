@@ -262,3 +262,145 @@ Los cambios realizados son los siguientes:
 <br>
 
 Si ejecutamos los cambios (*recordatorio: estamos usando `pipenv`*), veremos que el juego sigue funcionando exactamente igual que antes, pero ahora tenemos una clase `Settings` que podemos usar para almacenar todas las configuraciones del juego.
+
+
+<br><hr><br>
+
+
+## Crear la nave espacial
+
+### Seleccionar una imagen
+
+Se pueden utilizar prácticamente imágenes de cualquier formato, sin embargo, el formato más sencillo con el que trabajar en este caso será con los archivos bitmap (`.bmp`), puesto que Pygame carga las imágenes en este formato por defecto.
+
+<br>
+
+Vamos a acceder a cualquier página que nos permita descargar imágenes para utilizarlas en nuestros proyectos o a crear la nuestra propia.
+
+En este caso, la imagen seleccionada para utilizarla como nave espacial en nuestro videojuego es la siguiente:
+
+![ship](./images/ship.bmp)
+
+
+<br><br>
+
+
+### Crear una clase 'Ship'
+
+Después de seleccionar la nave, tenemos que hacer que aparezca en la pantalla. Para ello, vamos a crear una clase en otro archivo llamado `ship.py`, donde definiremos todos los aspectos de la nave espacial que manejará el jugador.
+
+He aquí el código escrito en dicho archivo:
+
+```python
+# ship.py
+
+import pygame
+
+class Ship:
+    """ A class to manage the ship. """
+
+    def __init__(self, ai_game):
+        """ Initialize the ship and set its starting position. """
+        self.screen = ai_game.screen
+        self.screen_rect = ai_game.screen.get_rect()
+
+        # Load the ship image and get its rect
+        self.image = pygame.image.load('./images/')
+        self.rect = self.image.get_rect()
+        # Start each new ship at the botom center of the screen
+        self.rect.midbottom = self.screen_rect.midbottom
+
+    def blitme(self):
+        """ Draw the ship at its current location. """
+        self.screen.blit(self.image, self.rect)
+```
+
+<br>
+
+Una gran ventaja de Pygame es que permite tratar a todos los elementos del juego como si fueran rectángulos (`rect`), lo que facilita muchísimo la geometría.
+
+<br>
+
+En primer lugar, se importa la librería correspondiente (`pygame`) para poder trabajar, y, a continuación, se genera la clase `Ship` que definirá nuestra nave espacial.
+
+El método `__init__()` recibe dos parámetros:
+
+* La referencia `self`
+* La referencia a la instancia actual de la clase `AlienInvasion`.
+
+<br>
+
+Con el objetivo de facilitar el acceso a la pantalla del juego, creamos un atributo `self.screen`. Como vamos a trabajar con *rectángulos*, obtenemos el rectángulo de la ventana de juego con `ai_game.screen.get_rect()`.
+
+Para cargar la imagen de la nave usamos `pygame.image.load()`, a continuación, usamos `get_rect()` para acceder al atributo `rect` de la imagen y, finalmente, establecemos la posición de la nave en la parte inferior central de la pantalla.
+
+<br>
+
+Finalmente, creamos el método `blitme()` que dibuja la imagen de la nave en la pantalla en la posición especificada por `self.rect`.
+
+
+<br><br>
+
+
+### Mostrar la nave en la pantalla
+
+Para mostrar la nave en la pantalla, tenemos que modificar el archivo `alien_invasion.py` de la siguiente forma:
+
+```python
+# alien_invasion.py
+
+import sys
+import pygame
+
+from settings import Settings
+from ship import Ship
+
+class AlienInvasion:
+    """ Overall class to manage game assets and behavior. """
+    
+    def __init__(self):
+        """ Initialize the game, and create game resources. """
+        pygame.init()
+        self.settings = Settings()
+
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
+        pygame.display.set_caption("Alien Invasion")
+
+        self.ship = Ship(self)
+
+    def run_game(self):
+        """ Start the main loop for the game. """
+        while True:
+            # Watch for keyboard and mouse events.
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+
+            # Redraw the screen during each pass through the loop.
+            self.screen.fill(self.settings.bg_color)
+            self.ship.blitme()  # to draw the ship
+            
+            # Make the most recently drawn screen visible
+            pygame.display.flip()
+
+if __name__ == '__main__':
+    # Make a game instance, and run the game
+    ai = AlienInvasion()
+    ai.run_game()
+```
+
+<br>
+
+Los cambios realizados son los siguientes:
+
+* Se ha importado la clase `Ship` desde el módulo `ship`.
+* Se ha creado una instancia de `Ship` en `__init__()`.
+* Se ha añadido el método `self.ship.blitme()` en el bucle `while` para dibujar la nave en la pantalla.
+
+
+<br><hr><br>
+
+
+## Refactorizar métodos: check_events() y update_screen()
+
