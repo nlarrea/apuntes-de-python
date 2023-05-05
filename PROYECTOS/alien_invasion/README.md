@@ -184,3 +184,81 @@ Se ha asignado este color a `self.bg_color` y se ha usado para llenar la pantall
 
 ## Crear una clase 'Settings'
 
+Cada vez que introduzcamos nuevas funcionalidades al programa, vamos a necesitar generar una serie de configuraciones.
+
+Con el objetivo principal de mantener dichas configuraciones en un único lugar, vamos a crear una clase llamada `Settings` dentro de un nuevo archivo, al que llamaremos `settings.py`. De esta forma, si necesitamos cambiar alguna configuración, solo tendremos que modificar el archivo `settings.py` en lugar de tener que buscar en todo el código.
+
+<br>
+
+He aquí el código de la clase `Settings`:
+
+```python
+# settings.py
+
+class Settings:
+    """ A class to store all settings for Alien Invasion. """
+
+    def __init__(self):
+        """ Initialize the game's settings. """
+        # screen settings
+        self.screen_width = 1200
+        self.screen_height = 700
+        self.bg_color = (230, 230, 230)
+```
+
+<br>
+
+Ahora, para crear una instancia de la clase `Settings` y usarla en `alien_invasion.py`, debemos importarla y modificar el código del archivo de tal forma que las configuraciones especificadas en la clase sustituyan a las que teníamos anteriormente:
+
+```python
+# alien_invasion.py
+
+import sys
+import pygame
+
+from settings import Settings
+
+class AlienInvasion:
+    """ Overall class to manage game assets and behavior. """
+    
+    def __init__(self):
+        """ Initialize the game, and create game resources. """
+        pygame.init()
+        self.settings = Settings()
+
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
+        pygame.display.set_caption("Alien Invasion")
+
+    def run_game(self):
+        """ Start the main loop for the game. """
+        while True:
+            # Watch for keyboard and mouse events.
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+
+            # Redraw the screen during each pass through the loop.
+            self.screen.fill(self.settings.bg_color)
+            
+            # Make the most recently drawn screen visible
+            pygame.display.flip()
+
+if __name__ == '__main__':
+    # Make a game instance, and run the game
+    ai = AlienInvasion()
+    ai.run_game()
+```
+
+<br>
+
+Los cambios realizados son los siguientes:
+
+* Se ha importado la clase `Settings` desde el módulo `settings`.
+* Se ha creado una instancia de `Settings` en `__init__()`.
+* Se han sustituido los valores hardcodeados en `pygame.display.set_mode()` por las variables `self.settings.screen_width` y `self.settings.screen_height`.
+* Se ha eliminado el color de fondo definido en `__init__()` y se ha utilizado el valor de `self.settings.bg_color`.
+
+<br>
+
+Si ejecutamos los cambios (*recordatorio: estamos usando `pipenv`*), veremos que el juego sigue funcionando exactamente igual que antes, pero ahora tenemos una clase `Settings` que podemos usar para almacenar todas las configuraciones del juego.
