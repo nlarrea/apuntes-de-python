@@ -402,5 +402,142 @@ Los cambios realizados son los siguientes:
 <br><hr><br>
 
 
-## Refactorizar métodos: check_events() y update_screen()
+## Refactorizar métodos
+
+### Refactorizar check_events()
+
+En proyectos largos, suele ser habitual refactorizar el código para que este sea más fácil de mantener.
+
+En este caso, vamos a refactorizar el método `run_game()`, creando otros métodos auxiliares. Los métodos auxiliares son aquellos que no tienen que llamarse desde fuera de la clase, por lo que se nombran con un guión bajo al principio del nombre, creando así métodos privados.
+
+<br>
+
+El archivo `alien_invasion.py` queda de la siguiente manera tras modificar el método `run_game()` quedará de la siguiente forma:
+
+```python
+# alien_invasion.py
+
+import sys
+import pygame
+
+from settings import Settings
+from ship import Ship
+
+class AlienInvasion:
+    """ Overall class to manage game assets and behavior. """
+    
+    def __init__(self):
+        """ Initialize the game, and create game resources. """
+        pygame.init()
+        self.settings = Settings()
+
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
+        pygame.display.set_caption("Alien Invasion")
+
+        self.ship = Ship(self)
+
+    def run_game(self):
+        """ Start the main loop for the game. """
+        while True:
+            # Watch for keyboard and mouse events.
+            self._check_events()
+
+            # Redraw the screen during each pass through the loop.
+            self.screen.fill(self.settings.bg_color)
+            self.ship.blitme()  # to draw the ship
+            
+            # Make the most recently drawn screen visible
+            pygame.display.flip()
+
+    def _check_events(self):
+        """ Respond to keypresses and mouse events. """
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+
+if __name__ == '__main__':
+    # Make a game instance, and run the game
+    ai = AlienInvasion()
+    ai.run_game()
+```
+
+<br>
+
+Como se puede observar, se ha creado el método `_check_events()` que se encarga de gestionar los eventos de teclado y ratón. Además, se ha eliminado el bucle `for` del método `run_game()` y se ha añadido la llamada al método `_check_events()`. Ahora, para ejecutar esa función, se llama a `self._check_events()` desde el método `run_game()`.
+
+
+<br><br>
+
+
+### Refactorizar update_screen()
+
+De la misma forma que hemos refactorizado el método `run_game()` añadiendo el método `_check_events()`, vamos a refactorizar el método `run_game()` añadiendo el método `_update_screen()`.
+
+Este nuevo método se encargará de actualizar la pantalla en cada iteración del bucle `while`, haciendo que el código sea más fácil de leer.
+
+<br>
+
+El archivo `alien_invasion.py` queda de la siguiente manera tras modificar el método `run_game()` quedará de la siguiente forma:
+
+```python
+# alien_invasion.py
+
+import sys
+import pygame
+
+from settings import Settings
+from ship import Ship
+
+class AlienInvasion:
+    """ Overall class to manage game assets and behavior. """
+    
+    def __init__(self):
+        """ Initialize the game, and create game resources. """
+        pygame.init()
+        self.settings = Settings()
+
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
+        pygame.display.set_caption("Alien Invasion")
+
+        self.ship = Ship(self)
+
+    def run_game(self):
+        """ Start the main loop for the game. """
+        while True:
+            # Watch for keyboard and mouse events.
+            self._check_events()
+
+            # Redraw the screen during each pass through the loop.
+            self._update_screen()
+            
+            # Make the most recently drawn screen visible
+            pygame.display.flip()
+
+    def _check_events(self):
+        """ Respond to keypresses and mouse events. """
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+
+    def _update_screen(self):
+         """ Update images on the screen, and flip to the new screen. """
+         self.screen.fill(self.settings.bg_color)
+         self.ship.blitme()
+
+if __name__ == '__main__':
+    # Make a game instance, and run the game
+    ai = AlienInvasion()
+    ai.run_game()
+```
+
+<br>
+
+Hemos movido el código que se encarga de actualizar la pantalla al método `_update_screen()`, y hemos llamado a este método desde el método `run_game()`.
+
+<br>
+
+Ahora que hemos reestructurado el código, podemos enfocarnos en la parte de la lógica del juego.
+
 
