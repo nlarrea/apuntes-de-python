@@ -305,7 +305,7 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()
 
         # Load the ship image and get its rect
-        self.image = pygame.image.load('./images/')
+        self.image = pygame.image.load('./images/ship.bmp')
         self.rect = self.image.get_rect()
         # Start each new ship at the botom center of the screen
         self.rect.midbottom = self.screen_rect.midbottom
@@ -541,3 +541,258 @@ Hemos movido el código que se encarga de actualizar la pantalla al método `_up
 Ahora que hemos reestructurado el código, podemos enfocarnos en la parte de la lógica del juego.
 
 
+<br><hr><br>
+
+
+## Movimiento de la nave
+
+En la descripción del proyecto, hemos indicado que el usuario sería capaz de mover la nave hacia la derecha e izquierda.
+
+En este apartado, vamos a añadir el código necesario para que el usuario pueda mover la nave pueda realizar dichos movimientos.
+
+
+<br><br>
+
+
+### Respondiendo a eventos de teclado
+
+Pygame detecta y registra como un evento las acciones del usuario, como pulsar una tecla o mover el ratón. Para ello, se hace uso del método `pygame.event.get()`.
+
+En nuestro programa, debemos modificar el método `_check_events()` para que detecte los eventos de teclado. Cuando Pygame detecte un evento de estos, debemos tener en cuenta si la tecla pulsada tiene una acción asociada. En caso de que la tenga, debemos realizar la acción correspondiente.
+
+<br>
+
+En nuestro caso, las teclas que debemos tener en cuenta para el movimiento de la nave son la `flecha derecha` y la `flecha izquierda`.
+
+<br>
+
+Vamos a modificar el método `_check_events()` para que detecte los eventos de teclado y realice las acciones correspondientes.
+
+```python
+# alien_invasion.py
+
+# class AlienInvasion
+def _check_events(self):
+    """ Respond to keypresses and mouse events. """
+    for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:
+                        # Move the ship to the right.
+                        self.ship.rect.x += 1
+```
+
+<br>
+
+En este caso, hemos añadido un nuevo bloque `elif` que se encarga de detectar si el evento es de tipo `pygame.KEYDOWN`, es decir, si se ha pulsado una tecla.
+
+En caso de que se haya pulsado una tecla, se comprueba si la tecla pulsada es la `flecha derecha` (`pygame.K_RIGHT`). Si la tecla pulsada es la `flecha derecha`, se mueve la nave un píxel a la derecha.
+
+<br>
+
+Esto puede ser un movimiento poco fluido, por lo que vamos a tratar de permitir un movimiento más fluido de la nave.
+
+
+<br><br>
+
+
+### Movimiento continuo
+
+Queremos conseguir que la nave se mueva de forma continua mientras se mantenga pulsada la tecla `flecha derecha`.
+
+Vamos a aprovechar el evento `pygame.KEYDOWN` para detectar cuando se pulsa la tecla `flecha derecha`, y el evento `pygame.KEYUP` para detectar cuando se deja de pulsar la tecla `flecha derecha`.
+
+<br>
+
+La clase `Ship` contiene todos los atributos de la nave, por lo que vamos a crear uno llamado `moving_right` que nos indique si la nave se está moviendo hacia la derecha o no, así como un método llamado `update()` que se encargue de actualizar la posición de la nave.
+
+<br>
+
+Así queda la clase `Ship` tras añadir los nuevos atributos y métodos:
+
+```python
+# ship.py
+
+import pygame
+
+class Ship:
+    """ A class to manage the ship. """
+
+    def __init__(self, ai_game):
+        """ Initialize the ship and set its starting position. """
+        self.screen = ai_game.screen
+        self.screen_rect = ai_game.screen.get_rect()
+
+        # Load the ship image and get its rect
+        self.image = pygame.image.load('./images/ship.bmp')
+        self.rect = self.image.get_rect()
+        # Start each new ship at the botom center of the screen
+        self.rect.midbottom = self.screen_rect.midbottom
+
+        # Movement flag
+        self.moving_right = False
+
+    def update(self):
+        """ Update the ship's position based on the movement flag. """
+        if self.moving_right:
+            self.rect.x += 1
+
+    def blitme(self):
+        """ Draw the ship at its current location. """
+        self.screen.blit(self.image, self.rect)
+```
+
+<br>
+
+Ahora, vamos a modificar el método `_check_events()` para que detecte cuando se pulsa la tecla `flecha derecha` y cuando se deja de pulsar.
+
+```python
+# alien_invasion.py
+
+# class AlienInvasion
+def _check_events(self):
+    """ Respond to keypresses and mouse events. """
+    for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
+```
+
+<br>
+
+Finalmente, solo nos queda modificar el método `run_game()` para que llame al método `update()` de la nave en cada iteración del bucle principal.
+
+```python
+# alien_invasion.py
+
+# class AlienInvasion
+def run_game(self):
+    """ Start the main loop for the game. """
+    while True:
+        # Watch for keyboard and mouse events.
+        self._check_events()
+        self.ship.update()
+
+        # Redraw the screen during each pass through the loop.
+        self._update_screen()
+        
+        # Make the most recently drawn screen visible
+        pygame.display.flip()
+```
+
+<br>
+
+Ahora que hemos hecho esto para el movimiento hacia la derecha, vamos a hacer lo mismo para el movimiento hacia la izquierda.
+
+Así es como quedaría el archivo `ship.py` tras añadir ambos movimientos:
+
+```python
+# ship.py
+
+import pygame
+
+class Ship:
+    """ A class to manage the ship. """
+
+    def __init__(self, ai_game):
+        """ Initialize the ship and set its starting position. """
+        self.screen = ai_game.screen
+        self.screen_rect = ai_game.screen.get_rect()
+
+        # Load the ship image and get its rect
+        self.image = pygame.image.load('./images/ship.bmp')
+        self.rect = self.image.get_rect()
+        # Start each new ship at the botom center of the screen
+        self.rect.midbottom = self.screen_rect.midbottom
+
+        # Movement flags
+        self.moving_right = False
+        self.moving_left = False
+
+    def update(self):
+        """ Update the ship's position based on the movement flags. """
+        if self.moving_right:
+            self.rect.x += 1
+        if self.moving_left:
+            self.rect.x -= 1
+
+    def blitme(self):
+        """ Draw the ship at its current location. """
+        self.screen.blit(self.image, self.rect)
+```
+
+<br>
+
+Y así es como queda el archivo `alien_invasion.py` tras añadir ambos movimientos:
+
+```python
+# alien_invasion.py
+
+import sys
+import pygame
+
+from settings import Settings
+from ship import Ship
+
+class AlienInvasion:
+    """ Overall class to manage game assets and behavior. """
+    
+    def __init__(self):
+        """ Initialize the game, and create game resources. """
+        pygame.init()
+        self.settings = Settings()
+
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))
+        pygame.display.set_caption("Alien Invasion")
+
+        self.ship = Ship(self)
+
+    def run_game(self):
+        """ Start the main loop for the game. """
+        while True:
+            # Watch for keyboard and mouse events.
+            self._check_events()
+            self.ship.update()
+
+            # Redraw the screen during each pass through the loop.
+            self._update_screen()
+            
+            # Make the most recently drawn screen visible
+            pygame.display.flip()
+
+    def _check_events(self):
+        """ Respond to keypresses and mouse events. """
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RIGHT:
+                        self.ship.moving_right = True
+                    elif event.key == pygame.K_LEFT:
+                        self.ship.moving_left = True
+
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_RIGHT:
+                        self.ship.moving_right = False
+                    elif event.key == pygame.K_LEFT:
+                        self.ship.moving_left = False
+                        
+
+    def _update_screen(self):
+         """ Update images on the screen, and flip to the new screen. """
+         self.screen.fill(self.settings.bg_color)
+         self.ship.blitme()
+
+if __name__ == '__main__':
+    # Make a game instance, and run the game
+    ai = AlienInvasion()
+    ai.run_game()
+```
