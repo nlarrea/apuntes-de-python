@@ -895,3 +895,53 @@ def update(self):
 <br/>
 
 Este código comprueba la posición actual de la nave antes de permitir el cambio de posición. Si la posición de la nave es menor que el ancho de la pantalla, se permite el movimiento hacia la derecha. Si la posición de la nave es mayor que 0, se permite el movimiento hacia la izquierda.
+
+
+<br/><hr/><br/>
+
+
+## Refactorizar _check_events()
+
+A medida que la programación del juego vaya avanzando, el código de `_check_events()` se irá haciendo más largo. Por ello, vamos a refactorizarlo para que sea más fácil de leer.
+
+Vamos a dividir el código de dicho método en otros dos:
+
+```python
+# alien_invasion.py
+
+import sys
+import pygame
+
+from settings import Settings
+from ship import Ship
+
+class AlienInvasion:
+    # ...
+
+    def _check_events(self):
+        """ Respond to keypresses and mouse events. """
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+
+                elif event.type == pygame.KEYDOWN:
+                    self._check_keydown_events(event)
+
+                elif event.type == pygame.KEYUP:
+                    self._check_keyup_events(event)
+
+    def _check_keydown_events(self, event):
+        """ Respond to keypresses. """
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = True
+    
+    def _check_keyup_events(self, event):
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
+
+    # ...
+```
