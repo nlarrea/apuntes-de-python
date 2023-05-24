@@ -945,3 +945,45 @@ class AlienInvasion:
 
     # ...
 ```
+
+
+<br/><hr/><br/>
+
+
+## Pulsar 'Q' para salir del juego
+
+Vamos a añadir la funcionalidad de que el usuario pueda salir del juego pulsando la tecla `Q`.
+
+Para ello, vamos a modificar uno de los métodos que acabamos de crear: `_check_keydown_events()`.
+
+```python
+# alien_invasion.py
+
+def _check_keydown_events(self, event):
+    """ Respond to keypresses. """
+    # ...
+    elif event.key == pygame.K_q:
+        sys.exit()
+```
+
+
+<br/><hr/><br/>
+
+
+## Jugar a pantalla completa
+
+Para permitir jugar en pantalla completa, se deben realizar las siguientes modificaciones en el constructor de la clase `AlienInvasion`:
+
+```python
+# alien_invasion.py
+
+def __init__(self):
+    """ Initialize the game, and create game resources. """
+    # ...
+
+    self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    self.settings.screen_width = self.screen.get_rect().width
+    self.settings.screen_height = self.screen.get_rect().height
+
+    # ...
+```
