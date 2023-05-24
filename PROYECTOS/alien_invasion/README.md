@@ -869,3 +869,29 @@ Lo que hemos hecho es crear un atributo `settings` para la nave, de esta forma, 
 Por ello, hemos creado el atributo `self.x` que almacenará el valor decimal de la posición horizontal de la nave. En el método `update()`, actualizamos el valor de `self.x` en lugar de `self.rect.x`, y después, actualizamos el valor de `self.rect.x` con el valor de `self.x`.
 
 
+<br/><hr/><br/>
+
+
+## Limitar el rango de movimiento de la nave
+
+Ahora mismo, la nave es capaz de moverse fuera de la pantalla. Vamos a limitar el rango de movimiento de la nave para que no pueda salirse de la misma.
+
+Para ello, moficaremos el método `update()` de la clase `Ship`:
+
+```python
+# ship.py
+
+def update(self):
+    """ Update the ship's position based on the movement flags. """
+    # update the ship's x value, not the rect
+    if self.moving_right and self.rect.right < self.screen_rect.right:
+        self.x += self.settings.ship_speed
+    if self.moving_left and self.rect.left > 0:
+        self.x -= self.settings.ship_speed
+    
+    # ...
+```
+
+<br/>
+
+Este código comprueba la posición actual de la nave antes de permitir el cambio de posición. Si la posición de la nave es menor que el ancho de la pantalla, se permite el movimiento hacia la derecha. Si la posición de la nave es mayor que 0, se permite el movimiento hacia la izquierda.
