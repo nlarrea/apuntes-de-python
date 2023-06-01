@@ -1061,3 +1061,83 @@ class Bullet(Sprite):
         """ Draw the bullet to the screen. """
         pygame.draw.rect(self.screen, self.color, self.rect)
 ```
+
+
+<br/><br/>
+
+
+### Almacenar las balas disparadas
+
+Ahora que tenemos la clase `Bullet` creada, podemos hacer que se dispare una bala cada vez que el jugador presione una tecla en concreto.
+
+Vamos a crear un grupo en `AlienInvasion` para almacenar todas las balas disparadas, este grupo será una instancia de `pygame.sprite.Group()`.
+
+```python
+# alien_invasion.py
+
+class AlienInvasion:
+    def __init__(self):
+        # ...
+
+        self.bullets = pygame.sprite.Group()
+```
+
+<br/>
+
+Además, debemos actualizar la posición de las balas en cada iteración del bucle principal:
+
+```python
+# alien_invasion.py
+
+class AlienInvasion:
+    # ...
+
+    def run_game(self):
+        while True:
+            # ...
+            # self.ship.update()
+            self.bullets.update()
+```
+
+<br/>
+
+Cuando se llama a `update()` en un grupo, éste llama a `update()` en cada sprite del grupo.
+
+
+<br/><br/>
+
+
+### Disparar balas
+
+Necesitamos modificar el método `_check_keydown_events()` para que cree una nueva bala cada vez que el usuario pulse la tecla `espacio`:
+
+```python
+# alien_invasion.py
+
+# ...
+from bullet import Bullet
+
+class AlienInvasion:
+    # ...
+
+    def _check_keydown_events(self, event):
+        # ...
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+
+    # ...
+
+    def _fire_bullet(self):
+        """ Create a new bullet and add it to the bullets group. """
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
+    def _update_screen(self):
+        # ...
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+```
+
+<br/>
+
+Al arrancar el juego, ahora el jugador debería ser capaz de disparar balas cada vez que pulse la tecla `space`.
