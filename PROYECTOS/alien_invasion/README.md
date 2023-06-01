@@ -1205,3 +1205,38 @@ class AlienInvasion:
 ```
 
 
+<br/><br/>
+
+
+### Refactorizar _update_bullets()
+
+Vamos a reorganizar el código ahora que hemos comprobado que funciona correctamente.
+
+Primero, vamos a crear un método llamado `_update_bullets()` que se encargue de actualizar la posición de las balas y eliminar las balas antiguas:
+
+```python
+# alien_invasion.py
+
+class AlienInvasion:
+    # ...
+
+    def run_game(self):
+        """ Start the main loop for the game. """
+        while True:
+            # ...
+            # self.ship.update()
+            self._update_bullets()
+
+
+    def _update_bullets(self):
+            """ Update the position of bullets and get rid of old bullets. """
+            # update bullet positions
+            self.bullets.update()
+
+            # get rid of bullets that have disappeared
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+                # to see in the terminal the number of bullets
+                # print(len(self.bullets))
+```
