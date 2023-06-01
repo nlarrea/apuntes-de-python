@@ -1141,3 +1141,67 @@ class AlienInvasion:
 <br/>
 
 Al arrancar el juego, ahora el jugador debería ser capaz de disparar balas cada vez que pulse la tecla `space`.
+
+
+<br/><br/>
+
+
+### Eliminar balas antiguas
+
+Ahora mismo, las balas se quedan en la pantalla para siempre. Vamos a eliminar las balas que ya no se ven en la pantalla para que el juego no se ralentice.
+
+Para ello, vamos a modificar el método `run_game()` para que elimine las balas que ya no se ven en la pantalla:
+
+```python
+# alien_invasion.py
+
+class AlienInvasion:
+    # ...
+
+    def run_game(self):
+        while True:
+            # ...
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+                # to see in the terminal the number of bullets
+                # print(len(self.bullets))
+```
+
+
+<br/><br/>
+
+
+### Limitar el número de balas
+
+Muchos juegos limitan el número de balas que el jugador puede disparar a la vez. Vamos a hacer lo mismo en nuestro juego.
+
+Primero, vamos a modificar los atributos de `settings` para que se limite el número de balas:
+
+```python
+# settings.py
+
+class Settings:
+    def __init__(self):
+        # ...
+        self.bullets_allowed = 3
+```
+
+<br/>
+
+Ahora, modificaremos el método `_fire_bullet()` para que solo se dispare una bala si el número de balas en pantalla es menor que el número de balas permitidas:
+
+```python
+# alien_invasion.py
+
+class AlienInvasion:
+    # ...
+
+    def _fire_bullet(self):
+        """ Create a new bullet and add it to the bullets group. """
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+```
+
+

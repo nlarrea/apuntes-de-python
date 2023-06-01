@@ -21,6 +21,7 @@ class AlienInvasion:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
 
+
     def run_game(self):
         """ Start the main loop for the game. """
         while True:
@@ -29,11 +30,19 @@ class AlienInvasion:
             self.ship.update()
             self.bullets.update()
 
+            # get rid of bullets that have disappeared
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+                # to see in the terminal the number of bullets
+                # print(len(self.bullets))
+
             # Redraw the screen during each pass through the loop.
             self._update_screen()
             
             # Make the most recently drawn screen visible
             pygame.display.flip()
+
 
     def _check_events(self):
         """ Respond to keypresses and mouse events. """
@@ -47,6 +56,7 @@ class AlienInvasion:
                 elif event.type == pygame.KEYUP:
                     self._check_keyup_events(event)
 
+
     def _check_keydown_events(self, event):
         """ Respond to keypresses. """
         if event.key == pygame.K_RIGHT:
@@ -58,16 +68,20 @@ class AlienInvasion:
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
     
+
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
+
     def _fire_bullet(self):
         """ Create a new bullet and add it to the bullets group. """
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+
 
     def _update_screen(self):
         """ Update images on the screen, and flip to the new screen. """
@@ -76,6 +90,7 @@ class AlienInvasion:
 
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+
 
 if __name__ == '__main__':
     # Make a game instance, and run the game
