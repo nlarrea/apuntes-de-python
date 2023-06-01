@@ -987,3 +987,77 @@ def __init__(self):
 
     # ...
 ```
+
+
+<br/><hr/><br/>
+
+
+## Disparar
+
+Vamos a añadir la funcionalidad de disparar a nuestro juego. Para ello, vamos a comenzar creando las propiedades `settings` necesarias de las `bullets`:
+
+```python
+# settings.py
+
+class Settings:
+    def __init__(self):
+        # ...
+
+        # bullet settings
+        self.bullet_speed = 1.0
+        self.bullet_width = 3
+        self.bullet_height = 15
+        self.bullet_color = (60, 60, 60)
+```
+
+<br/>
+
+Ahora, vamos a crear la clase `Bullet`:
+
+```python
+# bullet.py
+
+import pygame
+from pygame.sprite import Sprite
+
+class Bullet(Sprite):
+    """ A class to manage bullets fired from the ship. """
+
+    def __init__(self, ai_game):
+        """ Create a bullet object at the ship's current position. """
+        super().__init__()
+        self.screen = ai_game.screen
+        self.settings = ai_game.settings
+        self.color = self.settings.bullet_color
+
+        # create a bullet rect at (0, 0) and then set correct position
+        self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
+        self.rect.midtop = ai_game.ship.rect.midtop
+
+        # store the bullet's position as a decimal value
+        self.y = float(self.rect.y)
+```
+
+<br/>
+
+A continuación, vamos a crear los métodos `update()` y `draw_bullet()` de la clase `Bullet`:
+
+```python
+# bullet.py
+
+class Bullet(Sprite):
+    # ...
+
+    def update(self):
+        """ Move the bullet up the screen. """
+        # update the decimal position of the bullet
+        self.y -= self.settings.bullet_speed
+
+        # update the rect position
+        self.rect.y = self.y
+
+    
+    def draw_bullet(self):
+        """ Draw the bullet to the screen. """
+        pygame.draw.rect(self.screen, self.color, self.rect)
+```
