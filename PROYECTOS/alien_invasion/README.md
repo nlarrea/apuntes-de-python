@@ -1,5 +1,38 @@
 # ALIEN INVASION
 
+<div id="index"></div>
+
+* [Antes de comenzar](#antes-de-comenzar)
+    * [Descripción del proyecto](#descripción-del-proyecto)
+    * [Instalar Pygame](#instalar-pygame)
+* [Crear las bases del proyecto](#crear-las-bases-del-proyecto)
+    * [Crear la ventana de Pygame y responder a la entrada de usuario](#crear-la-ventana-de-pygame-y-responder-a-la-entrada-de-usuario)
+    * [Crear un fondo para el juego](#crear-un-fondo-para-el-juego)
+    * [Crear una clase Settings](#crear-una-clase-settings)
+* [Crear la nave espacial](#crear-la-nave-espacial)
+    * [Seleccionar una imagen](#seleccionar-una-imagen)
+    * [Crear una clase Ship](#crear-una-clase-ship)
+    * [Mostrar la nave en la pantalla](#mostrar-la-nave-en-la-pantalla)
+* [Refactorizar métodos](#refactorizar-métodos)
+    * [Refactorizar check_events()](#refactorizar-check_events)
+    * [Refactorizar update_screen()](#refactorizar-update_screen)
+* [Movimiento de la nave](#movimiento-de-la-nave)
+    * [Respondiendo a eventos de teclado](#respondiendo-a-eventos-de-teclado)
+    * [Movimiento continuo](#movimiento-continuo)
+    * [Ajustar la velocidad de la nave](#ajustar-la-velocidad-de-la-nave)
+    * [Limitar el rango de movimiento de la nave](#limitar-el-rango-de-movimiento-de-la-nave)
+* [Refactorizar _check_events()](#refactorizar-_check_events)
+* [Pulsar Q para salir del juego](#pulsar-q-para-salir-del-juego)
+* [Jugar a pantalla completa](#jugar-a-pantalla-completa)
+* [Disparar](#disparar)
+    * [Crear la clase Bullet](#crear-la-clase-bullet)
+    * [Almacenar las balas disparadas](#almacenar-las-balas-disparadas)
+    * [Disparar balas](#disparar-balas)
+    * [Eliminar balas antiguas](#eliminar-balas-antiguas)
+    * [Limitar el número de balas](#limitar-el-número-de-balas)
+    * [Refactorizar _update_bullets()](#refactorizar-_update_bullets)
+
+
 <br/><hr/>
 <hr/><br/>
 
@@ -8,8 +41,6 @@
 En esta ocasión vamos a crear el más que conocido *'juego de los alienígenas'*.
 
 Antes de comenzar a descargar paquetes, se va a hacer uso de un entorno virtual mediante `pipenv` para evitar posibles problemas posteriores, así como la instalación de *demasiados* recursos.
-
-<br/>
 
 Por ello, en primer lugar y desde el directorio actual en la terminal, se ejecuta lo siguiente:
 
@@ -37,7 +68,7 @@ Si el jugador destruye a todos los enemigos, una nueva flota aparece, una que se
 <br/><hr/><br/>
 
 
-## Intalación de Pygame
+## Instalar Pygame
 
 Antes de comenzar a crear el programa, es necesario instalar `Pygame`, un paquete que permitirá trabajar de forma mucho más sencilla a lo largo de este proyecto.
 
@@ -60,7 +91,7 @@ pipenv install pygame
 <hr/><br/>
 
 
-# Creación del proyecto
+# Crear las bases del proyecto
 
 Vamos a comenzar a crear el programa creando una ventana vacía de Pygame. Después, dibujaremos los elementos (*las naves, los aliens, etc.*).
 
@@ -111,17 +142,11 @@ if __name__ == '__main__':
 
 En primer lugar, se importan los módulos `sys` y `pygame`. El módulo `sys` se usará para salir del juego cuando el usuario haga clic en el botón de cerrar. El módulo `pygame` contiene las funcionalidades necesarias para crear un juego.
 
-<br/>
-
 A continuación, se crea la clase `AlienInvasion`. Esta clase representa el juego en sí. En el método `__init__()` se inicializan los recursos del juego. En este caso, se inicializa el fondo de la pantalla y se crea una instancia de `pygame.display`.
-
-<br/>
 
 El método `run_game()` contiene un bucle `while` que contiene un bucle `for` para detectar los eventos del teclado y del ratón. El bucle `while` se ejecuta continuamente para mantener la ventana del juego abierta. El bucle `for` se ejecuta cada vez que el usuario realiza una acción, como pulsar una tecla o mover el ratón. El bucle `for` contiene una serie de declaraciones `if` para detectar eventos específicos y realizar las acciones apropiadas, en nuestro caso, por ahora solo hemos creado una acción: salir del juego.
 
 La llamada a `pygame.display.flip()` actualiza la pantalla con cada ejecución del bucle `while` y dibuja una pantalla vacía en cada pasada del bucle, borrando la pantalla anterior para mostrar la nueva.
-
-<br/>
 
 Por último, se crea una instancia de `AlienInvasion` y se llama al método `run_game()` para ejecutar el juego.
 
@@ -182,7 +207,7 @@ Se ha asignado este color a `self.bg_color` y se ha usado para llenar la pantall
 <br/><hr/><br/>
 
 
-## Crear una clase 'Settings'
+## Crear una clase Settings
 
 Cada vez que introduzcamos nuevas funcionalidades al programa, vamos a necesitar generar una serie de configuraciones.
 
@@ -264,12 +289,18 @@ Los cambios realizados son los siguientes:
 Si ejecutamos los cambios (*recordatorio: estamos usando `pipenv`*), veremos que el juego sigue funcionando exactamente igual que antes, pero ahora tenemos una clase `Settings` que podemos usar para almacenar todas las configuraciones del juego.
 
 
-<br/><hr/><br/>
+<br/><hr/>
+<hr/><br/>
 
 
-## Crear la nave espacial
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
 
-### Seleccionar una imagen
+
+# Crear la nave espacial
+
+## Seleccionar una imagen
 
 Se pueden utilizar prácticamente imágenes de cualquier formato, sin embargo, el formato más sencillo con el que trabajar en este caso será con los archivos bitmap (`.bmp`), puesto que Pygame carga las imágenes en este formato por defecto.
 
@@ -282,10 +313,10 @@ En este caso, la imagen seleccionada para utilizarla como nave espacial en nuest
 ![ship](./images/ship.bmp)
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Crear una clase 'Ship'
+## Crear una clase Ship
 
 Después de seleccionar la nave, tenemos que hacer que aparezca en la pantalla. Para ello, vamos a crear una clase en otro archivo llamado `ship.py`, donde definiremos todos los aspectos de la nave espacial que manejará el jugador.
 
@@ -319,8 +350,6 @@ class Ship:
 
 Una gran ventaja de Pygame es que permite tratar a todos los elementos del juego como si fueran rectángulos (`rect`), lo que facilita muchísimo la geometría.
 
-<br/>
-
 En primer lugar, se importa la librería correspondiente (`pygame`) para poder trabajar, y, a continuación, se genera la clase `Ship` que definirá nuestra nave espacial.
 
 El método `__init__()` recibe dos parámetros:
@@ -334,15 +363,13 @@ Con el objetivo de facilitar el acceso a la pantalla del juego, creamos un atrib
 
 Para cargar la imagen de la nave usamos `pygame.image.load()`, a continuación, usamos `get_rect()` para acceder al atributo `rect` de la imagen y, finalmente, establecemos la posición de la nave en la parte inferior central de la pantalla.
 
-<br/>
-
 Finalmente, creamos el método `blitme()` que dibuja la imagen de la nave en la pantalla en la posición especificada por `self.rect`.
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Mostrar la nave en la pantalla
+## Mostrar la nave en la pantalla
 
 Para mostrar la nave en la pantalla, tenemos que modificar el archivo `alien_invasion.py` de la siguiente forma:
 
@@ -399,18 +426,22 @@ Los cambios realizados son los siguientes:
 * Se ha añadido el método `self.ship.blitme()` en el bucle `while` para dibujar la nave en la pantalla.
 
 
-<br/><hr/><br/>
+<br/><hr/>
+<hr/><br/>
 
 
-## Refactorizar métodos
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
 
-### Refactorizar check_events()
+
+# Refactorizar métodos
+
+## Refactorizar check_events()
 
 En proyectos largos, suele ser habitual refactorizar el código para que este sea más fácil de mantener.
 
 En este caso, vamos a refactorizar el método `run_game()`, creando otros métodos auxiliares. Los métodos auxiliares son aquellos que no tienen que llamarse desde fuera de la clase, por lo que se nombran con un guión bajo al principio del nombre, creando así métodos privados.
-
-<br/>
 
 El archivo `alien_invasion.py` queda de la siguiente manera tras modificar el método `run_game()` quedará de la siguiente forma:
 
@@ -467,16 +498,14 @@ if __name__ == '__main__':
 Como se puede observar, se ha creado el método `_check_events()` que se encarga de gestionar los eventos de teclado y ratón. Además, se ha eliminado el bucle `for` del método `run_game()` y se ha añadido la llamada al método `_check_events()`. Ahora, para ejecutar esa función, se llama a `self._check_events()` desde el método `run_game()`.
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Refactorizar update_screen()
+## Refactorizar update_screen()
 
 De la misma forma que hemos refactorizado el método `run_game()` añadiendo el método `_check_events()`, vamos a refactorizar el método `run_game()` añadiendo el método `_update_screen()`.
 
 Este nuevo método se encargará de actualizar la pantalla en cada iteración del bucle `while`, haciendo que el código sea más fácil de leer.
-
-<br/>
 
 El archivo `alien_invasion.py` queda de la siguiente manera tras modificar el método `run_game()` quedará de la siguiente forma:
 
@@ -536,35 +565,35 @@ if __name__ == '__main__':
 
 Hemos movido el código que se encarga de actualizar la pantalla al método `_update_screen()`, y hemos llamado a este método desde el método `run_game()`.
 
-<br/>
-
 Ahora que hemos reestructurado el código, podemos enfocarnos en la parte de la lógica del juego.
 
 
-<br/><hr/><br/>
+<br/><hr/>
+<hr/><br/>
 
 
-## Movimiento de la nave
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Movimiento de la nave
 
 En la descripción del proyecto, hemos indicado que el usuario sería capaz de mover la nave hacia la derecha e izquierda.
 
 En este apartado, vamos a añadir el código necesario para que el usuario pueda mover la nave pueda realizar dichos movimientos.
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Respondiendo a eventos de teclado
+## Respondiendo a eventos de teclado
 
 Pygame detecta y registra como un evento las acciones del usuario, como pulsar una tecla o mover el ratón. Para ello, se hace uso del método `pygame.event.get()`.
 
 En nuestro programa, debemos modificar el método `_check_events()` para que detecte los eventos de teclado. Cuando Pygame detecte un evento de estos, debemos tener en cuenta si la tecla pulsada tiene una acción asociada. En caso de que la tenga, debemos realizar la acción correspondiente.
 
-<br/>
-
 En nuestro caso, las teclas que debemos tener en cuenta para el movimiento de la nave son la `flecha derecha` y la `flecha izquierda`.
-
-<br/>
 
 Vamos a modificar el método `_check_events()` para que detecte los eventos de teclado y realice las acciones correspondientes.
 
@@ -589,25 +618,19 @@ En este caso, hemos añadido un nuevo bloque `elif` que se encarga de detectar s
 
 En caso de que se haya pulsado una tecla, se comprueba si la tecla pulsada es la `flecha derecha` (`pygame.K_RIGHT`). Si la tecla pulsada es la `flecha derecha`, se mueve la nave un píxel a la derecha.
 
-<br/>
-
 Esto puede ser un movimiento poco fluido, por lo que vamos a tratar de permitir un movimiento más fluido de la nave.
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Movimiento continuo
+## Movimiento continuo
 
 Queremos conseguir que la nave se mueva de forma continua mientras se mantenga pulsada la tecla `flecha derecha`.
 
 Vamos a aprovechar el evento `pygame.KEYDOWN` para detectar cuando se pulsa la tecla `flecha derecha`, y el evento `pygame.KEYUP` para detectar cuando se deja de pulsar la tecla `flecha derecha`.
 
-<br/>
-
 La clase `Ship` contiene todos los atributos de la nave, por lo que vamos a crear uno llamado `moving_right` que nos indique si la nave se está moviendo hacia la derecha o no, así como un método llamado `update()` que se encargue de actualizar la posición de la nave.
-
-<br/>
 
 Así queda la clase `Ship` tras añadir los nuevos atributos y métodos:
 
@@ -798,10 +821,10 @@ if __name__ == '__main__':
 ```
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Ajustar la velocidad de la nave
+## Ajustar la velocidad de la nave
 
 Ahora mismo, la nave se mueve un píxel por cada ciclo del bucle `while` del programa. Podemos ajustar esta velocidad añadiendo un atributo `ship_speed` a la clase `Settings`.
 
@@ -897,10 +920,16 @@ def update(self):
 Este código comprueba la posición actual de la nave antes de permitir el cambio de posición. Si la posición de la nave es menor que el ancho de la pantalla, se permite el movimiento hacia la derecha. Si la posición de la nave es mayor que 0, se permite el movimiento hacia la izquierda.
 
 
-<br/><hr/><br/>
+<br/><hr/>
+<hr/><br/>
 
 
-## Refactorizar _check_events()
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Refactorizar _check_events()
 
 A medida que la programación del juego vaya avanzando, el código de `_check_events()` se irá haciendo más largo. Por ello, vamos a refactorizarlo para que sea más fácil de leer.
 
@@ -947,10 +976,16 @@ class AlienInvasion:
 ```
 
 
-<br/><hr/><br/>
+<br/><hr/>
+<hr/><br/>
 
 
-## Pulsar 'Q' para salir del juego
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Pulsar Q para salir del juego
 
 Vamos a añadir la funcionalidad de que el usuario pueda salir del juego pulsando la tecla `Q`.
 
@@ -967,10 +1002,16 @@ def _check_keydown_events(self, event):
 ```
 
 
-<br/><hr/><br/>
+<br/><hr/>
+<hr/><br/>
 
 
-## Jugar a pantalla completa
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Jugar a pantalla completa
 
 Para permitir jugar en pantalla completa, se deben realizar las siguientes modificaciones en el constructor de la clase `AlienInvasion`:
 
@@ -989,10 +1030,16 @@ def __init__(self):
 ```
 
 
-<br/><hr/><br/>
+<br/><hr/>
+<hr/><br/>
 
 
-## Disparar
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Disparar
 
 Vamos a añadir la funcionalidad de disparar a nuestro juego. Para ello, vamos a comenzar creando las propiedades `settings` necesarias de las `bullets`:
 
@@ -1038,7 +1085,11 @@ class Bullet(Sprite):
         self.y = float(self.rect.y)
 ```
 
-<br/>
+
+<br/><hr/><br>
+
+
+## Crear la clase Bullet
 
 A continuación, vamos a crear los métodos `update()` y `draw_bullet()` de la clase `Bullet`:
 
@@ -1063,10 +1114,10 @@ class Bullet(Sprite):
 ```
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Almacenar las balas disparadas
+## Almacenar las balas disparadas
 
 Ahora que tenemos la clase `Bullet` creada, podemos hacer que se dispare una bala cada vez que el jugador presione una tecla en concreto.
 
@@ -1104,10 +1155,10 @@ class AlienInvasion:
 Cuando se llama a `update()` en un grupo, éste llama a `update()` en cada sprite del grupo.
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Disparar balas
+## Disparar balas
 
 Necesitamos modificar el método `_check_keydown_events()` para que cree una nueva bala cada vez que el usuario pulse la tecla `espacio`:
 
@@ -1143,10 +1194,10 @@ class AlienInvasion:
 Al arrancar el juego, ahora el jugador debería ser capaz de disparar balas cada vez que pulse la tecla `space`.
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Eliminar balas antiguas
+## Eliminar balas antiguas
 
 Ahora mismo, las balas se quedan en la pantalla para siempre. Vamos a eliminar las balas que ya no se ven en la pantalla para que el juego no se ralentice.
 
@@ -1169,10 +1220,10 @@ class AlienInvasion:
 ```
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Limitar el número de balas
+## Limitar el número de balas
 
 Muchos juegos limitan el número de balas que el jugador puede disparar a la vez. Vamos a hacer lo mismo en nuestro juego.
 
@@ -1205,10 +1256,10 @@ class AlienInvasion:
 ```
 
 
-<br/><br/>
+<br/><hr/><br/>
 
 
-### Refactorizar _update_bullets()
+## Refactorizar _update_bullets()
 
 Vamos a reorganizar el código ahora que hemos comprobado que funciona correctamente.
 
