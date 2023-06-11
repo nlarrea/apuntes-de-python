@@ -31,6 +31,9 @@
     * [Eliminar balas antiguas](#eliminar-balas-antiguas)
     * [Limitar el número de balas](#limitar-el-número-de-balas)
     * [Refactorizar _update_bullets()](#refactorizar-_update_bullets)
+* [Aliens](#aliens)
+    * [Crear la clase Alien](#crear-la-clase-alien)
+    * [Crear la flota de aliens](#crear-la-flota-de-aliens)
 
 
 <br/><hr/>
@@ -1291,3 +1294,132 @@ class AlienInvasion:
                 # to see in the terminal the number of bullets
                 # print(len(self.bullets))
 ```
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Aliens
+
+En este apartado vamos a realizar las siguientes tareas:
+
+* Crear un único alien en la esquina superior izquierda de la pantalla, con un espacio a su alrededor.
+* Teniendo en cuenta el tamaño del alien y el espacio, determinar cuántos aliens vamos a añadir.
+* Hacer que la flota creada se pueda desplazar.
+
+
+<br/><hr/><br/>
+
+
+## Crear la clase Alien
+
+Para crear esta clase comenzaremos creando el archivo `alien.py`:
+
+```python
+# alien.py
+
+import pygame
+from pygame.sprite import Sprite
+
+class Alien(Sprite):
+    """ A class to represent a single alien in the fleet. """
+
+    def __init__(self, ai_game):
+        """ Initialize the alien and set its starting position. """
+        super().__init__()
+        self.screen = ai_game.screen
+
+        # load the alien image and set its rect attribute
+        self.image = pygame.image.load("./images/alien.bmp")
+        self.rect = self.image.get_rect()
+
+        # start each new alien near the top left of the screen
+        self.rect.x = self.rect.width
+        self.rect.y = self.rect.height
+
+        # store the alien's exact horizontal position
+        self.x = float(self.rect.x)
+```
+
+<br/>
+
+Una vez creada la clase, vamos a crear una instancia de la misma. Para ello, vamos a modificar el método `__init__()` de la clase `AlienInvasion`:
+
+```python
+# alien_invasion.py
+
+# ...
+from alien import Alien
+
+class AlienInvasion:
+    def __init__(self):
+        # ...
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
+```
+
+<br/>
+
+Hemos creado un grupo de aliens y hemos llamado al método (*aún por crear*) `_create_fleet()`. Vamos a crear dicho método dentro del archivo `alien_invasion.py`:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _create_fleet(self):
+        """ Create the fleet of aliens. """
+        # make an alien
+        alien = Alien(self)
+        self.aliens.add(alien)
+```
+
+<br/>
+
+Dentro de este método, estamos creando una instancia de `Alien` y la añadimos al grupo de aliens, el cual será la flota de aliens.
+
+El alien será colocado por defecto en la esquina superior izquierda de la pantalla, que para el primer alien, es lo que queremos.
+
+Ahora, vamos a hacer que el alien aparezca en pantalla. Para ello, debemos llamar al método `draw()` en `_update_screen()`:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _update_screen(self):
+        # ...
+        self.aliens.draw(self.screen)
+```
+
+<br/>
+
+Cada vez que se llama al método `draw()` en un grupo, Pygame dibuja cada elemento del grupo en la posición definida por su atributo `rect`. El método requiere de un argumento: el lugar donde se dibujará cada elemento del grupo (*la pantalla o ventana*).
+
+Si arrancamos el juego de nuevo, deberíamos ver un alien en la esquina superior izquierda de la pantalla.
+
+> Como estamos trabajando con `pipenv`, para arrancar el juego, recordar ejecutar los siguientes comandos desde consola:
+>
+> ```bash
+> # desde la carpeta del proyecto
+> pipenv shell
+> python alien_invasion.py
+> ```
+
+<br/><hr/><br/>
+
+
+## Crear la flota de aliens
