@@ -34,6 +34,8 @@
 * [Aliens](#aliens)
     * [Crear la clase Alien](#crear-la-clase-alien)
     * [Crear la flota de aliens](#crear-la-flota-de-aliens)
+        * [Determinar cuántos aliens caben en una fila](#determinar-cuántos-aliens-caben-en-una-fila)
+        * [Crear una fila de aliens](#crear-una-fila-de-aliens)
 
 
 <br/><hr/>
@@ -1419,7 +1421,76 @@ Si arrancamos el juego de nuevo, deberíamos ver un alien en la esquina superior
 > python alien_invasion.py
 > ```
 
+
 <br/><hr/><br/>
 
 
 ## Crear la flota de aliens
+
+Para dibujar una flota, primero debemos saber cuántos aliens caben en una fila.
+
+<br/>
+
+### Determinar cuántos aliens caben en una fila
+
+Para saber cuántos aliens caben en una fila, debemos calcular el espacio horizontal disponible para los aliens. El ancho de la ventana está guardado en `settings.screen_width`. Debemos tener en cuenta también el ancho del alien en sí:
+
+```python
+available_space_x = self.settings.screen_width - (2 * alien_width)
+```
+
+<br/>
+
+Debemos indicar también el espacio entre aliens, que será igual al ancho de un alien. Por tanto:
+
+```python
+number_aliens_x = available_space_x // (2 * alien_width)
+```
+
+<br/>
+
+Usaremos estos cálculos cuando creemos la flota de aliens.
+
+
+<br/>
+
+
+### Crear una fila de aliens
+
+Habiendo realizado los cálculos anteriores, estamos listos para generar una flota completa de aliens.
+
+Para crearla, vamos a modificar la clase `AlienInvasion`, modificando el método `_create_fleet()` al que habíamos llamado anteriormente:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _create_fleet(self):
+        """ Create the fleet of aliens. """
+        # create an alien and find the number of aliens in a row
+        # spacing between each alien is equal to one alien width
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+
+        # create the first row of aliens
+        for alien_number in range(number_aliens_x):
+            # create an alien and place it in the row
+            alien = Alien(self)
+            alien.x = alien_width + 2 * alien_width * alien_number
+            alien.rect.x = alien.x
+            self.aliens.add(alien)
+```
+
+<br/>
+
+En primer lugar, hemos creado un alien para tener en cuenta sus medidas para poder realizar los cálculos. Sin embargo, este alien **no pertenecerá a la flota**, por lo que es importante **eliminar el `self.aliens.add(alien)`** para este alien en concreto.
+
+Despues de realizar dichos cálculos, creamos los aliens, les asignamos una posición y los añadimos a la flota.
+
+Si ahora se ejecuta el juego, deberíamos ver una fila de aliens en la parte superior de la pantalla.
