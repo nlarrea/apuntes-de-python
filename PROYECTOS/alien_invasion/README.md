@@ -38,6 +38,7 @@
         * [Crear una fila de aliens](#crear-una-fila-de-aliens)
         * [Refactorizar _create_fleet()](#refactorizar-_create_fleet)
         * [Crear filas de aliens](#crear-filas-de-aliens)
+* [Mover la flota de aliens](#mover-la-flota-de-aliens)\
 
 
 <br/><hr/>
@@ -1602,5 +1603,79 @@ class AlienInvasion:
         alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
 ```
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Mover la flota de aliens
+
+En primer lugar, vamos a crear una nueva propiedad en `settings` para controlar la velocidad de los aliens:
+
+```python
+# settings.py
+
+# ...
+
+class Settings:
+    def __init__(self):
+        # ...
+
+        # alien settings
+        self.alien_speed = 1.0
+```
+
+<br/>
+
+Hecho esto, vamos a modificar el archivo `alien.py` para que los aliens se muevan a la derecha:
+
+```python
+# alien.py
+
+# ...
+
+class Alien(Sprite):
+    # ...
+
+    def update(self):
+        """ Move the alien to the right. """
+        self.x += self.settings.alien_speed
+        self.rect.x = self.x
+```
+
+<br/>
+
+Hemos creado el método `update()` para que mueva el alien a la derecha. Para ello, hemos creado el atributo `x` para almacenar la posición horizontal del alien, y hemos creado el atributo `settings` para poder acceder a la velocidad de los aliens.
+
+Ahora, vamos a modificar el bucle `while` del método `run_game()` para que llame al método `update()` de los aliens:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def run_game(self):
+        """ Start the main loop for the game. """
+        while True:
+            # ...
+            self._update_aliens()
+
+    def _update_aliens(self):
+        """ Update the positions of all aliens in the fleet. """
+        self.aliens.update()
+```
+
+<br/>
+
+Para no ensuciar el código, vamos a crear un método para actualizar la posición de los aliens llamado `_update_aliens()`.
 
 
