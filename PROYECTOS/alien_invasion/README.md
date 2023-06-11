@@ -1494,3 +1494,44 @@ En primer lugar, hemos creado un alien para tener en cuenta sus medidas para pod
 Despues de realizar dichos cálculos, creamos los aliens, les asignamos una posición y los añadimos a la flota.
 
 Si ahora se ejecuta el juego, deberíamos ver una fila de aliens en la parte superior de la pantalla.
+
+
+<br/>
+
+
+### Refactorizar _create_fleet()
+
+Si no necesitaramos crear más código, el método `_create_fleet()` podría quedarse como está. Sin embargo, esto no es así, por lo que vamos a refactorizarlo para evitar que se haga demasiado largo.
+
+Vamos a crear el método `_create_alien()` que se encargará de crear un alien y añadirlo a la flota:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _create_fleet(self):
+        """ Create the fleet of aliens. """
+        # create an alien and find the number of aliens in a row
+        # spacing between each alien is equal to one alien width
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+
+        # create the first row of aliens
+        for alien_number in range(number_aliens_x):
+            self._create_alien(alien_number)
+
+
+    def _create_alien(self, alien_number):
+        """ Create an alien and place it in the row. """
+        alien = Alien(self)
+        alien_width = alien.rect.width
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        self.aliens.add(alien)
+```
