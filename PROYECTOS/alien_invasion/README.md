@@ -31,11 +31,13 @@
     * [Eliminar balas antiguas](#eliminar-balas-antiguas)
     * [Limitar el número de balas](#limitar-el-número-de-balas)
     * [Refactorizar _update_bullets()](#refactorizar-_update_bullets)
-* [Aliens](#aliens)
+* [Crear aliens](#crear-aliens)
     * [Crear la clase Alien](#crear-la-clase-alien)
     * [Crear la flota de aliens](#crear-la-flota-de-aliens)
         * [Determinar cuántos aliens caben en una fila](#determinar-cuántos-aliens-caben-en-una-fila)
         * [Crear una fila de aliens](#crear-una-fila-de-aliens)
+        * [Refactorizar _create_fleet()](#refactorizar-_create_fleet)
+        * [Crear filas de aliens](#crear-filas-de-aliens)
 
 
 <br/><hr/>
@@ -1307,7 +1309,7 @@ class AlienInvasion:
 </div>
 
 
-# Aliens
+# Crear aliens
 
 En este apartado vamos a realizar las siguientes tareas:
 
@@ -1535,3 +1537,70 @@ class AlienInvasion:
         alien.rect.x = alien.x
         self.aliens.add(alien)
 ```
+
+
+<br/>
+
+
+### Crear filas de aliens
+
+Ahora que hemos creado una fila de aliens, vamos a crear varias filas.
+
+De nuevo, necesitamos conocer el espacio disponible, esta vez, el espacio vertical, el cual será el siguiente:
+
+```python
+available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
+```
+
+<br/>
+
+En esta ocasión, el espacio vertical disponible será el alto de la pantalla menos tres alturas de alien, menos la altura de la nave.
+
+Ahora, vamos a calcular el número de filas que caben en la pantalla:
+
+```python
+number_rows = available_space_y // (2 * alien_height)
+```
+
+<br/>
+
+Ahora que conocemos la cantidad de filas que podemos añadir, vamos a repetir el proceso de creación de filas de aliens:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _create_fleet(self):
+        """ Create the fleet of aliens. """
+        # create an alien and find the number of aliens in a row
+        # spacing between each alien is equal to one alien width
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+
+        # determine the number of rows of aliens that fit on the screen
+        ship_height = self.ship.rect.height
+        available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
+        number_rows = available_space_y // (2 * alien_height)
+
+        # create the first row of aliens
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row_number)
+    
+    def _create_alien(self, alien_number, row_number):
+        """ Create an alien and place it in the row. """
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+        self.aliens.add(alien)
+```
+
+
