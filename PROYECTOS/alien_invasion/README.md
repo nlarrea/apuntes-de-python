@@ -1343,6 +1343,7 @@ class Alien(Sprite):
         """ Initialize the alien and set its starting position. """
         super().__init__()
         self.screen = ai_game.screen
+        self.settings = ai_game.settings
 
         # load the alien image and set its rect attribute
         self.image = pygame.image.load("./images/alien.bmp")
@@ -1792,4 +1793,32 @@ Hemos creado el método `_check_fleet_edges()` para comprobar si algún alien ha
 
 
 # Disparar aliens
+
+Ahora que hemos creado las naves del juego y las balas, vamos a hacer que se detecte cuándo una bala alcanza a un alien y que se eliminen ambos.
+
+
+<br/><hr/><br/>
+
+
+## Detectar colisiones
+
+Vamos a modificar el código de `alien_invasion.py` para que se comparen las posiciones de las balas y los aliens para detectar posibles colisones. Por suerte, Pygame nos proporciona un método para comprobar esto en los grupos que hemos creado:
+
+```python
+# alien_invasion.py
+
+class AlienInvasion:
+    def _update_bullets(self):
+        # ...
+
+        # check for any bullets that have hit aliens
+        # if so, get rid of the bullet and the alien
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.aliens, True, True
+        )
+```
+
+<br/>
+
+Al indicar dos veces `True` en el método `groupcollide()`, le estamos diciendo a Pygame que elimine las balas y los aliens. Si indicamos `False` en el primer argumento, las balas no se eliminarán, y si lo indicamos en el segundo, los aliens no se eliminarán.
 
