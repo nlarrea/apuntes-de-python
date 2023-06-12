@@ -38,7 +38,9 @@
         * [Crear una fila de aliens](#crear-una-fila-de-aliens)
         * [Refactorizar _create_fleet()](#refactorizar-_create_fleet)
         * [Crear filas de aliens](#crear-filas-de-aliens)
-* [Mover la flota de aliens](#mover-la-flota-de-aliens)\
+* [Mover la flota de aliens](#mover-la-flota-de-aliens)
+    * [Crear los ajustes de los movimientos de los aliens](#crear-los-ajustes-de-movimiento-de-los-aliens)
+    * [Hacer que los aliens desciendan y cambien de dirección](#hacer-que-los-aliens-desciendan-y-cambien-de-dirección)
 
 
 <br/><hr/>
@@ -1679,3 +1681,61 @@ class AlienInvasion:
 Para no ensuciar el código, vamos a crear un método para actualizar la posición de los aliens llamado `_update_aliens()`.
 
 
+<br/><hr/><br/>
+
+
+## Crear los ajustes de los movimientos de los aliens
+
+Vamos a modificar los ajustes para que los aliens puedan moverse también.
+
+En primer lugar, crearemos un nuevo atributo en `settings` para controlar la velocidad a la que descienden los aliens:
+
+```python
+# settings.py
+
+# ...
+
+class Settings:
+    def __init__(self):
+        # ...
+
+        # alien settings
+        # ...
+        self.fleet_drop_speed = 10
+        # fleet_direction = 1 (right), fleet_direction = -1 (left)
+        self.fleet_direction = 1
+```
+
+<br/>
+
+Hecho esto, vamos a detectar cuándo un alien ha alcanzado el borde de la ventana para evitar que se puedan mover en cualquier dirección en esos casos:
+
+```python
+# alien.py
+
+# ...
+
+class Alien(Sprite):
+    # ...
+
+    def check_edges(self):
+    """ Return if alienis at edge of screen. """
+    screen_rect = self.screen.get_rect()
+    return self.rect.right >= screen_rect.rigth or self.rect.left <= 0
+
+    
+    def update(self):
+        """ Move the alien right or left. """
+        self.x += self.settings.alien_speed * self.settings.fleet_direction
+        # ...
+```
+
+<br/>
+
+Ahora podemos llamar al método `check_edges()` con cualquier alien para comprobar si ha alcanzado cualquiera de los bordes laterales de la pantalla. Hemos modificado también el método `update()` para que mueva el alien a la derecha o a la izquierda dependiendo del valor de `fleet_direction`.
+
+
+<br/><hr/><br/>
+
+
+## Hacer que los aliens desciendan y cambien de dirección
