@@ -41,6 +41,8 @@
 * [Mover la flota de aliens](#mover-la-flota-de-aliens)
     * [Crear los ajustes de los movimientos de los aliens](#crear-los-ajustes-de-movimiento-de-los-aliens)
     * [Hacer que los aliens desciendan y cambien de dirección](#hacer-que-los-aliens-desciendan-y-cambien-de-dirección)
+* [Disparar aliens](#disparar-aliens)
+    * [Detectar colisiones de balas](#detectar-colisiones-de-balas)
 
 
 <br/><hr/>
@@ -1719,9 +1721,9 @@ class Alien(Sprite):
     # ...
 
     def check_edges(self):
-    """ Return if alienis at edge of screen. """
-    screen_rect = self.screen.get_rect()
-    return self.rect.right >= screen_rect.rigth or self.rect.left <= 0
+        """ Return if alienis at edge of screen. """
+        screen_rect = self.screen.get_rect()
+        return self.rect.right >= screen_rect.rigth or self.rect.left <= 0
 
     
     def update(self):
@@ -1739,3 +1741,55 @@ Ahora podemos llamar al método `check_edges()` con cualquier alien para comprob
 
 
 ## Hacer que los aliens desciendan y cambien de dirección
+
+Cuando un alien toca un borde, haremos que la flota entera desccienda y cambie de dirección. El lugar en el que comprobaremos si los aliens han llegado o no a cualquiera de los extremos será el archivo `alien_invasion.py`:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _update_aliens(self):
+        """
+        Check if the fleet is at an edge, then update
+        the positions of all aliens in the fleet.
+        """
+        self._check_fleet_edges()
+        self.aliens.update()
+
+
+    def _check_fleet_edges(self):
+        """ Respond appropriately if any aliens have reached an edge. """
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+
+    def _change_fleet_direction(self):
+        """ Drop the entire fleet and change the fleet's direction. """
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        
+        self.settings.fleet_direction *= -1
+```
+
+<br/>
+
+Hemos creado el método `_check_fleet_edges()` para comprobar si algún alien ha alcanzado un borde, y el método `_change_fleet_direction()` para hacer que la flota entera descienda y cambie de dirección.
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Disparar aliens
+
