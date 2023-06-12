@@ -1848,3 +1848,35 @@ class Settings:
 <br/>
 
 Si ejecutamos el juego, veremos unas balas muy anchas que eliminan a todos los aliens que tocan.
+
+
+<br/><hr/><br/>
+
+
+## Crear una nueva flota
+
+Cada vez que la flota actual sea destruida, el juego deberá crear una nueva flota. Para eso, antes de hacer aparecer a la nueva flota, primero debemos comprobar que la flota anterior ha sido destruida.
+
+Para ello, vamos a modificar el método `_update_bullets()` del archivo `alien_invasion.py`:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    def _update_bullets(self):
+        # ...
+
+        if not self.aliens:
+            # destroy existing bullets and create new fleet
+            self.bullets.empty()
+            self._create_fleet()
+```
+
+<br/>
+
+Con este código, primero comprobamos si quedan aliens en el grupo. En caso negativo, eliminamos las balas existentes y creamos una nueva flota.
+
+
+<br/><hr/><br/>

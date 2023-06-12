@@ -92,6 +92,11 @@ class AlienInvasion:
             self.bullets, self.aliens, True, True
         )
 
+        if not self.aliens:
+            # destroy existing bullets and create new fleet
+            self.bullets.empty()
+            self._create_fleet()
+
 
     def _fire_bullet(self):
         """ Create a new bullet and add it to the bullets group. """
