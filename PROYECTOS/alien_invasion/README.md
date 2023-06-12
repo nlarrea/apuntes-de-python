@@ -43,6 +43,7 @@
     * [Hacer que los aliens desciendan y cambien de dirección](#hacer-que-los-aliens-desciendan-y-cambien-de-dirección)
 * [Disparar aliens](#disparar-aliens)
     * [Detectar colisiones de balas](#detectar-colisiones-de-balas)
+    * [Crear balas grandes para testear](#crear-balas-grandes-para-testear)
 
 
 <br/><hr/>
@@ -1822,3 +1823,28 @@ class AlienInvasion:
 
 Al indicar dos veces `True` en el método `groupcollide()`, le estamos diciendo a Pygame que elimine las balas y los aliens. Si indicamos `False` en el primer argumento, las balas no se eliminarán, y si lo indicamos en el segundo, los aliens no se eliminarán.
 
+
+<br/><hr/><br/>
+
+
+## Crear balas grandes para testear
+
+Vamos a crear unas balas muy anchas para testear si elimina bien a los aliens o no.
+
+Para ello, vamos a modificar el archivo `settings.py`:
+
+```python
+# settings.py
+
+# ...
+
+class Settings:
+    def __init__(self):
+        # ...
+        bullet_width = 300
+        # ...
+```
+
+<br/>
+
+Si ejecutamos el juego, veremos unas balas muy anchas que eliminan a todos los aliens que tocan.
