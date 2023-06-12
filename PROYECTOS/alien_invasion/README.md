@@ -44,6 +44,7 @@
 * [Disparar aliens](#disparar-aliens)
     * [Detectar colisiones de balas](#detectar-colisiones-de-balas)
     * [Crear balas grandes para testear](#crear-balas-grandes-para-testear)
+    * [Refactorizar _update_bullets()](#refactorizar-_update_bullets-1)
 
 
 <br/><hr/>
@@ -1880,3 +1881,43 @@ Con este código, primero comprobamos si quedan aliens en el grupo. En caso nega
 
 
 <br/><hr/><br/>
+
+
+## Refactorizar _update_bullets()
+
+Vamos a refactorizar el método `_update_bullets()` para que sea más fácil de leer y de mantener, dividiéndolo en dos métodos:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    def _update_bullets(self):
+        """ Update the position of bullets and get rid of old bullets. """
+        # update bullet positions
+        self.bullets.update()
+
+        # get rid of bullets that have disappeared
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+            # to see in the terminal the number of bullets
+            # print(len(self.bullets))
+
+        self._check_bullet_alien_collitions()
+
+
+    def _check_bullet_alien_collitions(self):
+        """ Respond to bullet-alien collisions. """
+        # remove any bullets and aliens that have collided
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.aliens, True, True
+        )
+
+        if not self.aliens:
+            # destroy existing bullets and create new fleet
+            self.bullets.empty()
+            self._create_fleet()
+```
+

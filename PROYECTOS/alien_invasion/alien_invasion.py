@@ -86,8 +86,12 @@ class AlienInvasion:
             # to see in the terminal the number of bullets
             # print(len(self.bullets))
 
-        # check for any bullets that have hit aliens
-        # if so, get rid of the bullet and the alien
+        self._check_bullet_alien_collitions()
+
+
+    def _check_bullet_alien_collitions(self):
+        """ Respond to bullet-alien collisions. """
+        # remove any bullets and aliens that have collided
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True
         )
