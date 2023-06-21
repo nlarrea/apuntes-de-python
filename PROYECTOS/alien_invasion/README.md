@@ -45,7 +45,8 @@
     * [Detectar colisiones de balas](#detectar-colisiones-de-balas)
     * [Crear balas grandes para testear](#crear-balas-grandes-para-testear)
     * [Refactorizar _update_bullets()](#refactorizar-_update_bullets-1)
-
+* [Finalizar el juego](#finalizar-el-juego)
+    * [Detectar colisiones entre aliens y la nave](#detectar-colisiones-entre-aliens-y-la-nave)
 
 <br/><hr/>
 <hr/><br/>
@@ -1921,3 +1922,196 @@ class AlienInvasion:
             self._create_fleet()
 ```
 
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Finalizar el juego
+
+En esta sección vamos a añadir la lógica necesaria para que se finalice el juego en ciertos casos.
+
+
+<br/><hr/><br/>
+
+
+## Detectar colisiones entre aliens y la nave
+
+Vamos a comenzar modificando el código del archivo `alien_invasion.py` para que detecte colisiones entre los aliens y la nave:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _update_aliens(self):
+        # ...
+
+        # look for alien-ship collisions
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print("Ship hit!!")
+```
+
+<br/>
+
+El método `spritecollideany()` recibe dos argumentos: un *sprite* y un *grupo*. La función comprueba si algún elemento del grupo colisiona con el sprite, y deja de comprobarlo en cuanto encuentra una colisión. Si no ha habido colisiones, devuelve un `None`.
+
+Cada vez que haya una colisión, el programa deberá hacer varias tareas:
+
+* Eliminar los aliens y las balas restantes.
+* Volver a centrar la nave.
+* Crear una nueva flota.
+
+
+<br/><hr/><br/>
+
+
+## Responder a las colisiones entre aliens y la nave
+
+Ahora, en vez de eliminar la instancia de la nave cada vez que ésta sea alcanzada por un alien, lo que se hará será contar las veces que la nave fue alcanzada. De esta forma, podremos realizar cálculos estadísticos sobre la partida, e incluso añadir un marcador.
+
+Vamos a crear una nueva clase llamada `GameStats` en el archivo `game_stats.py`:
+
+```python
+# game_stats.py
+
+class GameStats:
+    """ Track statistics for Alien Invasion. """
+    def __init__(self, ai_game):
+        """ Initialize statistics. """
+        self.settings = ai_game.settings
+        self.reset_stats()
+
+    def reset_stats(self):
+        """ Initialize statistics that can change during the game. """
+        self.ships_left = self.settings.ship_limit
+```
+
+<br/>
+
+Vamos a crear una única instancia para el juego de la clase `GameStats`, pero necesitaremos una manera de resetear las estadísticas cada vez que el usuario comience un nuevo juego.
+
+Para ello, vamos a inicializar la mayoría de los *stats* en el método `reset_stats()`. Se llama al método desde el método `__init__()` para inicializar las estadísticas cuando se cree una instancia de `GameStats`, y también se llamará cada vez que el jugador comience una nueva partida.
+
+<br/>
+
+Vamos a modificar ahora el archivo `settings.py` para añadir un nuevo atributo llamado `ship_limit`:
+
+```python
+# settings.py
+
+class Settings:
+    def __init__(self):
+        # ship settings
+        # self.ship_speed = 1.5
+        self.ship_limit = 3
+```
+
+<br/>
+
+También necesitamos realizar algunos cambios en el archivo `alien_invasion.py`:
+
+```python
+# alien_invasion.py
+
+# ...
+from time import sleep
+
+# ...
+from game_stats import GameStats
+# ...
+
+class AlienInvasion:
+    def __init__(self):
+        # ...
+
+        # create an instance to store game statistics
+        self.stats = GameStats(self)
+```
+
+<br/>
+
+Importamos el módulo `sleep` para que el juego se detenga durante un segundo cuando la nave sea alcanzada por un alien, además importamos también la clase `GameStats` y creamos una instancia de la misma.
+
+Cuando un alien alcance a la nave, vamos a restar uno a la cantidad de naves restantes, eliminaremos los aliens y las balas restantes, y crearemos una nueva flota.
+
+Para hacer todo esto, crearemos un nuevo método llamado `_ship_hit()`:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _ship_hit(self):
+        """ Respond to the ship being hit by an alien. """
+        # decrement ships_left
+        self.stats.ships_left -= 1
+
+        # get rid of any remaining aliens and bullets
+        self.aliens.empty()
+        self.bullets.empty()
+
+        # create a new fleet and center the ship
+        self._create_fleet()
+        self.ship.center_ship()
+
+        # pause
+        sleep(0.5)
+```
+
+<br/>
+
+En este nuevo método, se usa el método `center_ship()` para centrar la nave, aunque aún no lo hemos creado. Antes, añadiremos la llamada al método que acabamos de crear en el método `_update_aliens()`:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _update_aliens(self):
+        # ...
+
+        # look for alien-ship collisions
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
+```
+
+<br/>
+
+Hemos sustituido el `print()` por la llamada al método `_ship_hit()`.
+
+Vamos ahora a crear el método `center_ship()` en el archivo `ship.py`:
+
+```python
+# ship.py
+
+# ...
+
+class Ship:
+    # ...
+
+    def center_ship(self):
+        """ Center the ship on the screen. """
+        self.rect.midbottom = self.screen_rect.midbottom
+        self.x = float(self.rect.x)
+```
+
+<br/>
+
+Centramos la nave y actualizamos la posición `x` de la nave.
+
+Arranca el juego, dispara a unos aliens y deja de uno de ellos te alcance. Verás que la nave se centra y se crea una nueva flota.
