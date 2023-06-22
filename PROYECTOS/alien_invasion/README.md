@@ -47,6 +47,11 @@
     * [Refactorizar _update_bullets()](#refactorizar-_update_bullets-1)
 * [Finalizar el juego](#finalizar-el-juego)
     * [Detectar colisiones entre aliens y la nave](#detectar-colisiones-entre-aliens-y-la-nave)
+    * [Aliens que llegan al final de la pantalla](#aliens-que-llegan-al-final-de-la-pantalla)
+    * [Game Over](#game-over)
+* [Puntuaciones e interfaces](#puntuaciones-e-interfaces)
+    * [Añadir el botón Play](#añadir-un-botón-de-play)
+        * [Dibujar el objeto Button en la pantalla](#dibujar-el-objeto-button-en-la-pantalla)
 
 <br/><hr/>
 <hr/><br/>
@@ -2236,3 +2241,145 @@ class AlienInvasion:
 <br/>
 
 Necesitamos seguir observando los eventos porque tenemos que saber si el usuario pulsa la tecla `Q` para cerrar el juego. Sin embargo, no necesitamos actualizar la posición de la nave, las balas o los aliens cuando el juego no esté activo.
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Puntuaciones e interfaces
+
+En esta sección, vamos a finalizar el juego añadiendo el botón de `Play`, y realizando pequeñas mejoras.
+
+
+<br/><hr/><br/>
+
+
+## Añadir un botón de Play
+
+El botón de `Play` aparecerá antes de que se inicie el juego, y reaparecerá cuando el juego termine.
+
+Vamos a comenzar el juego en un estado *inactivo* y a pedir al usuario que inicie pulsando el botón de `Play`:
+
+```python
+# game_stats.py
+
+class GameStats:
+    def __init__(self, ai_game):
+        # ...
+
+        # start Alien Invasion in an inactive state
+        self.game_active = False
+```
+
+<br/>
+
+Ahora, vamos a crear el botón de `Play`, para lo que crearemos un nuevo archivo llamado `button.py`:
+
+```python
+# button.py
+
+import pygame.font
+
+class Button:
+    def __init__(self, ai_game, msg):
+        """ Initialize button attributes. """
+        self.screen = ai_game.screen
+        self.screen_rect = self.screen.get_rect()
+
+        # set the dimensions and properties of the button
+        self.width, self.height = 200, 50
+        self.button_color = (0, 255, 0)
+        self.text_color = (255, 255, 255)
+        self.font = pygame.font.SysFont(None, 48)
+
+        # build the button's rect object and center it
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.center = self.screen_rect.center
+
+        # the button message needs to be prepped only once
+        self._prep_msg(msg)
+
+
+    def _prep_msg(self, msg):
+        """ Turn msg into a rendered image and center text on the button. """
+        self.msg_image = self.font.render(
+            msg, True, self.text_color, self.button_color
+        )
+        self.msg_image_rect = self.msg_image.get_rect()
+        self.msg_image_rect.center = self.rect.center
+```
+
+<br/>
+
+Primero, importamos el módulo `pygame.font` para poder mostrar texto en pantalla. El parámetro `msg` es el texto que se mostrará en el botón.
+
+En `pygame.font.SysFont(None, 48)` estamos indicando que queremos usar la fuente por defecto de Pygame, y que el tamaño del texto será de 48 píxeles.
+
+Dentro del método `_prep_msg()`, creamos una imagen del texto y la centramos en el botón. Para ello, llamamos a `self.font.render()` para crear una imagen del texto, y le pasamos el texto, un booleano para activar o desactivar el suavizado del texto, el color del texto y el color de fondo.
+
+Después, centramos el texto en el botón.
+
+Ahora, vamos a crear un método para dibujar el botón en la pantalla:
+
+```python
+# button.py
+
+# ...
+
+class Button:
+    # ...
+
+    def draw_button(self):
+        # draw blank button and then draw message
+        self.screen.fill(self.button_color, self.rect)
+        self.screen.blit(self.msg_image, self.msg_image_rect)
+```
+
+<br/>
+
+Llamamos a `self.screen.fill()` para dibujar el rectángulo del botón, y después llamamos a `self.screen.blit()` para dibujar la imagen del texto en la pantalla.
+
+
+<br/><br/>
+
+
+### Dibujar el objeto Button en la pantalla
+
+Solo necesitamos un botón de `Play` en todo el juego, así que lo importaremos en el archivo `alien_invasion.py`, y crearemos una instancia de la clase en el método `__init__()`:
+
+```python
+# alien_invasion.py
+
+# ...
+from button import Button
+
+class AlienInvasion:
+    def __init__(self):
+        # ...
+
+        # make the Play button
+        self.play_button = Button(self, "Play")
+
+    # ...
+
+    def _update_screen(self):
+        # ...
+
+        # draw the play button if the game is inactive
+        if not self.stats.game_active:
+            self.play_button.draw_button()
+```
+
+<br/>
+
+Con este código, creamos una única instancia de la clase `Button` y la dibujamos en la pantalla si el juego está inactivo.
+
+Para hacer que el botón se vea por encima del resto de elementos, lo dibujaremos después de dibujar los aliens y la nave.
+
+Ahora, si se arranca el juego, deberíamos ver el botón de `Play` en la pantalla.
