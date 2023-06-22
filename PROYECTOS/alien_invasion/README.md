@@ -65,6 +65,8 @@
         * [Actualizar el marcador a medida que se juega](#actualizar-el-marcador-a-medida-que-se-juega)
         * [Resetear las puntuaciones](#resetear-las-puntuaciones)
         * [Puntuar todas las colisiones](#puntuar-todas-las-colisiones)
+        * [Aumentar el valor de los puntos](#aumentar-el-valor-de-los-puntos)
+        * [Redondear las puntuaciones](#redondear-las-puntuaciones)
 
 
 <br/><hr/>
@@ -2942,5 +2944,33 @@ class Settings:
         print(self.alien_points)
 ```
 
+
+<br/><br/>
+
+
+### Redondear las puntuaciones
+
+Muchos juegos de *arcade* redondeaban las puntuaciones a múltiplos de 10, así que aquí vamos a hacer lo mismo:
+
+```python
+# scoreboard.py
+
+# ...
+
+class Scoreboard:
+    # ...
+
+    def prep_score(self):
+        """ Turn the score into a rendered image. """
+        rounded_score = round(self.stats.score, -1)
+        score_str = "{:,}".format(rounded_score)
+        # ...
+    
+    # ...
+```
+
 <br/>
 
+La función `round()` normalmente redondea el número a un número decimal, pero si se le pasa un segundo argumento negativo, lo que hace es redondear al múltiplo más cercano de 10.
+
+Después, usamos la función `format()` para insertar comas entre los miles, es decir, que el número `1000000` se mostrará como `1,000,000`.
