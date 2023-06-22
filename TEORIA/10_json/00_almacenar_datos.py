@@ -70,7 +70,7 @@ filename = "./files/user_name.json"
 with open(filename, "w") as f:
     json.dump(user_name, f)
 
-""" Ahora, vamos a crear otro archivo llamado 'greet_user.py', donde vamos a
+""" Ahora, vamos a crear otro caso 'greet user', donde vamos a
 acceder a la información que acaba de dar el usuario para saludarlo sin tener
 que pedirle de nuevo su nombre.
 
