@@ -67,6 +67,7 @@
         * [Puntuar todas las colisiones](#puntuar-todas-las-colisiones)
         * [Aumentar el valor de los puntos](#aumentar-el-valor-de-los-puntos)
         * [Redondear las puntuaciones](#redondear-las-puntuaciones)
+        * [Puntuaciones altas](#puntuaciones-altas)
 
 
 <br/><hr/>
@@ -2974,3 +2975,96 @@ class Scoreboard:
 La función `round()` normalmente redondea el número a un número decimal, pero si se le pasa un segundo argumento negativo, lo que hace es redondear al múltiplo más cercano de 10.
 
 Después, usamos la función `format()` para insertar comas entre los miles, es decir, que el número `1000000` se mostrará como `1,000,000`.
+
+
+<br/><br/>
+
+
+### Puntuaciones altas
+
+Todos los jugadores quieren batir el récord de un juego, así que vamos a añadir un marcador de puntuación más alta.
+
+Para ello, vamos a modificar el código de la clase `GameStats`:
+
+```python
+# game_stats.py
+
+class GameStats:
+    def __init__(self, ai_game):
+        # ...
+
+        # high score should never be reset
+        self.high_score = 0
+```
+
+<br/>
+
+Ahora, modificamos el archivo `scoreboard.py`:
+
+```python
+# scoreboard.py
+
+# ...
+
+class Scoreboard:
+    def __init__(self, ai_game):
+        # ...
+
+        # prepare the initial score images
+        # self.prep_score...
+        self.prep_high_score()
+    
+    # ...
+
+    def prep_high_score(self):
+        """ Turn the high score into a rendered image. """
+        high_score = round(self.stats.high_score, -1)
+        high_score_str = "{:,}".format(high_score)
+        self.high_score_image = self.font.render(
+            high_score_str, True, self.text_color, self.settings.bg_color
+        )
+
+        # center the high score at the top of the screen
+        self.high_score_rect = self.high_score_image.get_rect()
+        self.high_score_rect.centerx = self.screen_rect.centerx
+        self.high_score_rect.top = self.score_rect.top
+
+    def show_score(self):
+        # ...
+        self.screen.blit(self.high_score_image, self.high_score_rect)
+
+    def check_high_score(self):
+        """ Check to see if there's a new high score. """
+        if self.stats.score > self.stats.high_score:
+            self.stats.high_score = self.stats.score
+            self.prep_high_score()
+```
+
+<br/>
+
+Se han añadido nuevos métodos para mostrar en pantalla la putuación más alta, y para comprobar si se ha superado el récord.
+
+Además, hay que modificar el código de `alien_invasion.py` para que se ejecute la comprobación de la puntuación más alta:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _check_bullet_alien_collitions(self):
+        # ...
+
+        # if collisions:
+        #     for aliens in collisions.values():
+        #         self.stats.score += self.settings.alien_points * len(aliens)
+
+            # self.sb.prep_score()
+            self.sb.check_high_score()
+
+        # ...
+
+    # ...
+```
