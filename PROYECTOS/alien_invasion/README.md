@@ -69,6 +69,8 @@
         * [Redondear las puntuaciones](#redondear-las-puntuaciones)
         * [Puntuaciones altas](#puntuaciones-altas)
     * [Mostrar el nivel](#mostrar-el-nivel)
+    * [Mostrar la cantidad de naves](#mostrar-la-cantidad-de-naves)
+* [Fin](#fin)
 
 
 <br/><hr/>
@@ -3164,3 +3166,118 @@ class AlienInvasion:
 <br/>
 
 Llamamos al método `prep_level()` cada vez que se inicie una nueva partida, y cada vez que se pase de nivel para asegurarnos de que se muestra correctamente el nivel en todo momento.
+
+
+<br/><hr/><br/>
+
+
+## Mostrar la cantidad de naves
+
+Vamos a mostrar la cantidad de naves que le quedan al jugador en la parte superior izquierda de la pantalla. Pero para ello, vamos a utilizar imágenes de la nave, por lo que vamos a hacer que la clase `Ship` herede de `Sprite`:
+
+```python
+# ship.py
+
+# ...
+from pygame.sprite import Sprite
+
+class Ship(Sprite):
+    """ A class to manage the ship. """
+
+    def __init__(self, ai_game):
+        """ Initialize the ship and set its starting position. """
+        super().__init__()
+        # ...
+    
+    # ...
+```
+
+<br/>
+
+Ahora, tenemos que modificar el archivo `scoreboard.py` para crear y mostrar el grupo de naves:
+
+```python
+# scoreboard.py
+
+# ...
+from pygame.sprite import Group
+
+from ship import Ship
+
+class Scoreboard:
+    def __init__(self, ai_game):
+        """ Initialize scorekeeping attributes. """
+        self.ai_game = ai_game
+        # ...
+        self.prep_ships()
+
+    # ...
+
+    def prep_ships(self):
+        """ Show how many ships are left. """
+        self.ships = Group()
+
+        for ship_number in range(self.stats.ships_left):
+            ship = Ship(self.ai_game)
+            ship.rect.x = 10 + ship_number * ship.rect.width
+            ship.rect.y = 10
+            self.ships.add(ship)
+
+    
+    def show_score(self):
+        # ...
+        self.ships.draw(self.screen)
+
+    # ...
+```
+
+<br/>
+
+Para mostrar al usuario la cantidad de naves restantes, debemos llamar al método `prep_ships()` cada vez que se inicie una nueva partida, y cada vez que se pierda una nave:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _check_play_button(self, mouse_pos):
+        # ...
+
+        if button_clicked and not self.stats.game_active:
+            # ...
+            self.sb.prep_ships()
+    
+    # ...
+
+    def _ship_hit(self):
+        """ Respond to the ship being hit by an alien. """
+        if self.stats.ships_left > 0:
+            # decrement ships_left and update scoreboard
+            # self.stats.ships_left -= 1
+            self.sb.prep_ships()
+
+            # ...
+        
+        # ...
+    
+    # ...
+```
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Fin
+
+**Este es el final del proyecto.** Si has llegado hasta aquí, ¡enhorabuena! Has creado un juego completo de principio a fin. Ahora, puedes modificarlo a tu gusto, añadir nuevas características, etc.
+
+Espero que hayas disfrutado de este proyecto tanto como yo. ¡Hasta la próxima!
