@@ -55,6 +55,7 @@
         * [Comenzar el juego](#comenzar-el-juego)
         * [Resetear el juego](#resetear-el-juego)
         * [Desactivar el Play Button](#desactivar-el-play-button)
+    * [Ocultar el cursor del mouse](#ocultar-el-cursor-del-mouse)
 
 <br/><hr/>
 <hr/><br/>
@@ -2498,4 +2499,42 @@ La variable `button_clicked` almacena un `True` o `False`, por lo que, para que 
 
 
 <br/><hr/><br/>
+
+
+## Ocultar el cursor del mouse
+
+Queremos poder ver el cursor para pulsar el botón al inicio del juego, pero no queremos verlo durante el juego. Una solución a esto, es hacerlo visible mientras el juego esté inactivo y ocultarlo cuando esté activo.
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _check_play_button(self, mouse_pos):
+        """ Start a new game when the player click Play. """
+        # ...
+
+        if button_clicked and not self.stats.game_active:
+            # ...
+
+            # hide the mouse cursor
+            pygame.mouse.set_visible(False)
+
+    # ...
+
+    def _ship_hit(self):
+        """ Respond to the ship being hit by an alien. """
+        if self.stats.ships_left > 0:
+            # ...
+        else:
+            # ...
+            pygame.mouse.set_visible(True)
+    
+    # ...
+```
+
+<br/>
 
