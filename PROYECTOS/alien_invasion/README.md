@@ -2115,3 +2115,47 @@ class Ship:
 Centramos la nave y actualizamos la posición `x` de la nave.
 
 Arranca el juego, dispara a unos aliens y deja de uno de ellos te alcance. Verás que la nave se centra y se crea una nueva flota.
+
+
+## Aliens que llegan al final de la pantalla
+
+Cuando un alien llega al final de la pantalla, el juego deberá hacer lo mismo que cuando la nave es alcanzada por un alien.
+
+Para conseguir esto, vamos a modificar el archivo `alien_invasion.py`:
+
+```python
+# alien_invasion
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _update_aliens(self):
+        # ...
+        #         
+        # look for aliens hitting the bottom of the screen
+        self._check_aliens_bottom()
+
+    # ...
+
+    def _check_aliens_bottom(self):
+        """ Check if any aliens have reached the bottom of the screen. """
+        screen_rect = self.screen.get_rect()
+
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                # treat this the same as if the ship got hit
+                self._ship_hit()
+                break
+    
+    # ...
+```
+
+<br/>
+
+Creamos un método (`_check_aliens_bottom()`) para comprobar si algún alien ha llegado al final de la pantalla. Si es así, se llama al método `_ship_hit()` para que se actúe de la misma forma que cuando la nave es alcanzada por un alien.
+
+Se llama a este método desde el método `_update_aliens()`.
+
+Si arrancamos el juego, veremos que cuando un alien llega al final de la pantalla, se crea una nueva flota y la nave se centra.
