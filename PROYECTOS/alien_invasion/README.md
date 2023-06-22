@@ -52,8 +52,9 @@
 * [Puntuaciones e interfaces](#puntuaciones-e-interfaces)
     * [Añadir el botón Play](#añadir-un-botón-de-play)
         * [Dibujar el objeto Button en la pantalla](#dibujar-el-objeto-button-en-la-pantalla)
-* [Comenzar el juego](#comenzar-el-juego)
-* [Resetear el juego](#resetear-el-juego)
+        * [Comenzar el juego](#comenzar-el-juego)
+        * [Resetear el juego](#resetear-el-juego)
+        * [Desactivar el Play Button](#desactivar-el-play-button)
 
 <br/><hr/>
 <hr/><br/>
@@ -2387,16 +2388,10 @@ Para hacer que el botón se vea por encima del resto de elementos, lo dibujaremo
 Ahora, si se arranca el juego, deberíamos ver el botón de `Play` en la pantalla.
 
 
-<br/><hr/>
-<hr/><br/>
+<br/><br/>
 
 
-<div align="right">
-    <a href="#index">Volver arriba</a>
-</div>
-
-
-# Comenzar el juego
+### Comenzar el juego
 
 Vamos a añadir el código necesario para que el juego se inicie cuando el usuario pulse el botón que acabamos de crear:
 
@@ -2432,16 +2427,10 @@ En el método `_check_events()`, comprobamos si el usuario ha pulsado algún bot
 Por ello, creamos y llamamos al método `_check_play_button()`, que en caso de que coincidan, pondrá el juego en estado *activo*.
 
 
-<br/><hr/>
-<hr/><br/>
+<br/><br/>
 
 
-<div align="right">
-    <a href="#index">Volver arriba</a>
-</div>
-
-
-# Resetear el juego
+### Resetear el juego
 
 Cuando el jugador se quede sin vidas, el jugador no podrá reiniciar puesto que no hemos hecho que las causas que hacen que termine el juego se reseteen.
 
@@ -2476,4 +2465,37 @@ class AlienInvasion:
 <br/>
 
 Con esto, primero reseteamos las estadísticas del juego, lo que da al usuario 3 nuevas naves. Después, activamos el juego, eliminamos los aliens y las balas restantes, creamos una nueva flota y centramos la nave.
+
+
+<br/><br/>
+
+
+### Desactivar el Play Button
+
+Ahora mismo, tenemos un problema: a pesar de no estar visible el botón de `Play`, si pulsamos en el lugar en el que se encuentra, el juego se reiniciará.
+
+Tenemos que solucionar esto, para ello, vamos a modificar el método `_check_play_button()`:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _check_play_button(self, mouse_pos):
+        """ Start a new game when the player click Play. """
+        button_clicked = self.play_button.rect.collidedpoint(mouse_pos)
+        
+        if button_clicked and not self.stats.game_active:
+            # ...
+```
+
+<br/>
+
+La variable `button_clicked` almacena un `True` o `False`, por lo que, para que se pueda pulsar el botón, el usuario debe clicar sobre la superficie en la que éste se encuentra **y el juego debe estar inactivo**.
+
+
+<br/><hr/><br/>
 
