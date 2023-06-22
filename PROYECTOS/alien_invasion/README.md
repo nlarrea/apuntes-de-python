@@ -56,6 +56,10 @@
         * [Resetear el juego](#resetear-el-juego)
         * [Desactivar el Play Button](#desactivar-el-play-button)
     * [Ocultar el cursor del mouse](#ocultar-el-cursor-del-mouse)
+    * [Subir de nivel](#subir-de-nivel)
+        * [Modificar la velocidad](#modificar-la-velocidad)
+        * [Resetear la velocidad](#resetear-la-velocidad)
+
 
 <br/><hr/>
 <hr/><br/>
@@ -2536,5 +2540,124 @@ class AlienInvasion:
     # ...
 ```
 
+
+<br/><hr/><br/>
+
+
+## Subir de nivel
+
+Por ahora, cada vez que la flota enemiga sea eliminada, el usuario alcanza otro nivel, sin embargo, el nivel de dificultad se mantine. Vamos a hacer que esto cambie.
+
+
+<br/><br/>
+
+
+### Modificar la velocidad
+
+Vamos a hacer que la velocidad vaya aumentando a medida que se sube de nivel, para complicar un poco más el juego.
+
+Comenzaremos modificando la clase `Settings`:
+
+```python
+# settings.py
+
+class Settings:
+    """ A class to store all settings for Alien Invasion. """
+
+    def __init__(self):
+        """ Initialize the game's statistics settings. """
+        # screen settings
+        self.screen_width = 1200
+        self.screen_height = 650
+        self.bg_color = (230, 230, 230)
+
+        # ship settings
+        self.ship_limit = 3
+
+        # bullet settings
+        self.bullet_width = 3
+        self.bullet_height = 15
+        self.bullet_color = (60, 60, 60)
+        self.bullets_allowed = 3
+
+        # alien settings
+        self.fleet_drop_speed = 10
+
+        # how quickly the game speeds up
+        self.speedup_scale = 1.1
+
+        self.initialize_dynamic_settings()
+
+    
+    def initialize_dynamic_settings(self):
+        """ Initialize settings that change throughout the game. """
+        self.ship_speed = 1.5
+        self.bullet_speed = 3.0
+        self.alien_speed = 1.0
+
+        # fleet direction of 1 represents rigth, -1 represents left
+        self.fleet_direction = 1
+
+
+    def increase_speed(self):
+        """ Increase speed settings. """
+        self.ship_speed *= self.speedup_scale
+        self.bullet_speed *= self.speedup_scale
+        self.alien_speed *= self.speedup_scale
+```
+
 <br/>
+
+Así es como queda tras las modificaciones. Hemos apartado a un método concreto todos aquellos parámetros que son dinámicos, es decir, los que deben ir siendo modificados.
+
+Además, hemos creado otro nuevo método para aumentar la velocidad de cada elemento multiplicando su velocidad actual por la variable `speedup_scale`.
+
+Ahora, aplicaremos estas nuevas características cuando el último alien haya sido destruido:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _check_bullet_alien_collitions(self):
+        # ...
+
+        if not self.aliens:
+            # ...
+            self.settings.increase_speed()
+        
+        # ...
+```
+
+
+<br/><br/>
+
+
+### Resetear la velocidad
+
+Tenemos que hacer que las variables vuelvan a su estado inicial cuando el juego se inicie:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _check_play_button(self, mouse_pos):
+        """ Start a new game when the player click Play. """
+        # ...
+
+        if button_clicked and not self.stats.game_active:
+            # reset the game settings
+            self.settings.initialize_dynamic_settings()
+
+            # ...
+    
+    # ...
+```
 
