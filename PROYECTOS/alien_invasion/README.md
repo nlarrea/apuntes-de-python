@@ -59,6 +59,9 @@
     * [Subir de nivel](#subir-de-nivel)
         * [Modificar la velocidad](#modificar-la-velocidad)
         * [Resetear la velocidad](#resetear-la-velocidad)
+    * [Puntuar](#puntuar)
+        * [Mostrar la puntuación](#mostrar-la-puntuación)
+        * [Crear el Scoreboard](#crear-el-scoreboard)
 
 
 <br/><hr/>
@@ -2661,3 +2664,116 @@ class AlienInvasion:
     # ...
 ```
 
+
+<br/><hr/><br/>
+
+
+## Puntuar
+
+Vamos a introducir un sistema de puntos para mostrar la puntuación más alta, el nivel y el número de naves restantes.
+
+`score` es un estadístico del juego, así que lo añadiremos como atributo de la clase `GameStats`:
+
+```python
+# game_stats.py
+
+class GameStats:
+    """ Track statistics for Alien Invasion. """
+    # ...
+
+    def reset_stats(self):
+        """ Initialize statistics that can change during the game. """
+        # ...
+        self.score = 0
+```
+
+<br/>
+
+Como queremos que la puntuación se reinicie cada vez que se inicie el juego, la inicializaremos en el método `reset_stats()`.
+
+
+<br/><br/>
+
+
+### Mostrar la puntuación
+
+Vamos a mostrar la puntuación en la parte superior derecha de la pantalla, para ello, vamos a crear una nueva clase llamada `Scoreboard` en el archivo `scoreboard.py`:
+
+```python
+# scoreboard.py
+
+import pygame.font
+
+class Scoreboard:
+    """ A class to report scoring information. """
+
+    def __init__(self, ai_game):
+        """ Initialize scorekeeping attributes. """
+        self.screen = ai_game.screen
+        self.screen_rect = self.screen.get_rect()
+        self.settings = ai_game.stats
+
+        # font settings for scoring information
+        self.text_color = (30, 30, 30)
+        self.font = pygame.font.SysFont(None, 48)
+
+        # prepare the initial score image
+        self.prep_score()
+
+
+    def prep_score(self):
+        """ Turn the score into a rendered image. """
+        score_str = str(self.stats.score)
+        self.score_image = self.font.render(
+            score_str, True, self.text_color, self.settings.bg_color
+        )
+
+        # displany the score at the top right of the screen
+        self.score_rect = self.score_image.get_rect()
+        self.score_rect.right = self.screen_rect.right - 20
+        self.score_rect.top = 20
+
+    
+    def show_score(self):
+        """ Draw score to the screen. """
+        self.screen.blit(self.score_image, self.score_rect)
+```
+
+<br/>
+
+Con estos métodos añadidos a la clase, primero creamos los ajustes básicos necesarios (método `__init__()`), después, damos el tamaño necesario para el texto y lo situamos en la parte superior derecha de la pantalla. Finalmente, dibujamos el texto en la pantalla.
+
+
+<br/><br/>
+
+
+### Crear el Scoreboard
+
+Para hacer que se muestre el panel, debemos crear una instancia de la clase en el archivo `alien_invasion.py`, y añadir las siguientes líneas de código:
+
+```python
+# alien_invasion.py
+
+# ...
+from scoreboard import Scoreboard
+
+class AlienInvasion:
+    def __init__(self):
+        """ Initialize the game, and create game resources. """
+        # ...
+
+        # create an instance to store game statistics and scoreboard
+        # self.stats...
+        self.sb = Scoreboard(self)
+
+    # ...
+
+    def _update_screen(self):
+        """ Update images on the screen, and flip to the new screen. """
+        # self.aliens.draw(...)
+
+        # draw the score information
+        self.sb.show_score()
+
+        # ...
+```
