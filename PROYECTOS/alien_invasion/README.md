@@ -2159,3 +2159,80 @@ Creamos un método (`_check_aliens_bottom()`) para comprobar si algún alien ha 
 Se llama a este método desde el método `_update_aliens()`.
 
 Si arrancamos el juego, veremos que cuando un alien llega al final de la pantalla, se crea una nueva flota y la nave se centra.
+
+
+<br/><hr/><br/>
+
+
+## Game Over
+
+Aunque el juego parezca estar casi completo, aún quedan cosas por hacer. Por ahora, el juego no termina nunca, porque aunque se reste una *vida* cada vez que un alien alcance la nave o el final de la pantalla, el juego no termina nunca.
+
+Vamos a añadir un *flag* llamado `game_active` como un atributo de `GameStats` para finalizar el juego cuando el jugador se quede sin vidas:
+
+```python
+# game_stats.py
+
+class GameStats:
+    def __init__(self, ai_game):
+        # ...
+
+        # start Alien Invasion in an active state
+        self.game_active = True
+
+    # ...
+```
+
+<br/>
+
+Ahora, vamos a modificar el método `_ship_hit()` para que compruebe si el jugador se ha quedado sin vidas:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _ship_hit(self):
+        """ Respond to the ship being hit by an alien. """
+        if self.stats.ships_left > 0:
+            # todo el código que ya teníamos
+        else:
+            self.stats.game_active = False
+    
+    # ...
+```
+
+<br/>
+
+Necesitamos identificar qué partes del juego deben ejecutarse cuando el juego esté activo y qué partes cuando no lo esté. Para ello, vamos a modificar el método `run_game()`:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def run_game(self):
+        while True:
+            # Watch for keyboard and mouse events.
+            # self._check_events()
+
+            if self.stats.game_active:
+                # self.ship.update()
+                # self._update_bullets()
+                # self._update_aliens()
+
+            # self._update_screen()
+            # ...
+    
+    # ...
+```
+
+<br/>
+
+Necesitamos seguir observando los eventos porque tenemos que saber si el usuario pulsa la tecla `Q` para cerrar el juego. Sin embargo, no necesitamos actualizar la posición de la nave, las balas o los aliens cuando el juego no esté activo.
