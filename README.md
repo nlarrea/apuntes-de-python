@@ -19,8 +19,8 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 ## Contenido
 
 
-| Tema | Teoría | Ejercicios |
-| :--- | :---: | :---: |
+|  | Teoría | Ejercicios |
+| --- | --- | --- |
 | **#00** - Conceptos básicos | [Introducción](./TEORIA/00_conceptos_basicos/00_introduccion.py) <br/> [Operadores](./TEORIA/00_conceptos_basicos/01_operadores.py) <br/> [Strings](./TEORIA/00_conceptos_basicos/02_strings.py) <br/> [Datos numéricos](./TEORIA/00_conceptos_basicos/03_numeros.py) | <!-- EJERCICIOS TEMA 0 --> [Primeros pasos](./EJERCICIOS/00_conceptos_basicos/00_introduccion.py) <br/> [Operadores y números](./EJERCICIOS/00_conceptos_basicos/01_operadores.py) <br/> [Strings](./EJERCICIOS/00_conceptos_basicos/02_strings.py) |
 | **#01** - Listas y tuplas | [Introducción a las listas](./TEORIA/01_listas_y_tuplas/00_introduccion_listas.py) <br/> [Operaciones con listas](./TEORIA/01_listas_y_tuplas/01_operaciones_con_listas.py) <br/> [Tuplas](./TEORIA/01_listas_y_tuplas/02_tuplas.py) | <!-- EJERCICIOS TEMA #1 --> [Listas](./EJERCICIOS/01_listas_y_tuplas/00_listas.py) <br/> [Bucles en listas](./EJERCICIOS/01_listas_y_tuplas/01_operaciones_con_listas.py) <br/> [Tuplas](./EJERCICIOS/01_listas_y_tuplas/02_tuplas.py) |
 | **#02** - Condicionales | [Condicionales](./TEORIA/02_condicionales/00_condicionales.py) <br/> [Condicionales en listas](./TEORIA/02_condicionales/01_condiciones_en_listas.py) | <!-- EJERCICIOS TEMA #2 --> [Condicionales](./EJERCICIOS/02_condicionales/00_condicionales.py) <br/> [Consicionales en listas](./EJERCICIOS/02_condicionales/01_condicionales_en_listas.py) |
