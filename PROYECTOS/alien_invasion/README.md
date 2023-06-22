@@ -2497,7 +2497,7 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """ Start a new game when the player click Play. """
-        button_clicked = self.play_button.rect.collidedpoint(mouse_pos)
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         
         if button_clicked and not self.stats.game_active:
             # ...
@@ -2714,7 +2714,8 @@ class Scoreboard:
         """ Initialize scorekeeping attributes. """
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
-        self.settings = ai_game.stats
+        self.settings = ai_game.settings
+        self.stats = ai_game.stats
 
         # font settings for scoring information
         self.text_color = (30, 30, 30)
@@ -2851,7 +2852,7 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """ Start a new game when the player click Play. """
-        button_clicked = self.play_button.rect.collidedpoint(mouse_pos)
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
 
         if button_clicked and not self.stats.game_active:
             # reset the game settings
@@ -2908,4 +2909,38 @@ class AlienInvasion:
 <br/>
 
 Creamos un bucle a través de todos los valores del diccionario `collisions`, donde cada valor es una lista de aliens que han sido alcanzados por la bala. Multiplicamos el número de aliens de la lista por la puntuación que se obtiene al alcanzar a un único alien.
+
+
+<br/><br/>
+
+
+### Aumentar el valor de los puntos
+
+Como el juego se dificulta a medida que se avanzan niveles, vamos a hacer que los puntos que se obtienen al alcanzar a un alien aumenten a medida que se avanza de nivel.
+
+Vamos a modificar la clase `Settings`:
+
+```python
+# settings.py
+
+class Settings:
+    def __init__(self):
+        # ...
+
+        # how quickly the alien points increase
+        self.score_scale = 1.5
+
+        # self.initialize_...
+
+    # ...
+
+    def increase_speed(self):
+        """ Increase speed settings and alien point values. """
+        # ...
+
+        self.alien_points = int(self.alien_points * self.score_scale)
+        print(self.alien_points)
+```
+
+<br/>
 
