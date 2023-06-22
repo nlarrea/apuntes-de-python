@@ -62,6 +62,7 @@
     * [Puntuar](#puntuar)
         * [Mostrar la puntuación](#mostrar-la-puntuación)
         * [Crear el Scoreboard](#crear-el-scoreboard)
+        * [Actualizar el marcador a medida que se juega](#actualizar-el-marcador-a-medida-que-se-juega)
 
 
 <br/><hr/>
@@ -2777,3 +2778,55 @@ class AlienInvasion:
 
         # ...
 ```
+
+
+<br/><br/>
+
+
+### Actualizar el marcador a medida que se juega
+
+Para actualizar la puntuación, vamos a actualizar el valor de `stats.score` cada vez que un alien sea eliminado, y después llamaremos al método `prep_score()` para actualizar la imagen de la puntuación. Pero antes, vamos a determinar cuántos puntos consigue el jugador cada vez que alcance a un alien:
+
+```python
+# settings.py
+
+class Settings:
+    # ...
+
+    def initialize_dynamic_settings(self):
+        """ Initialize settings that change throughout the game. """
+        # ...
+
+        # scoring
+        self.alien_points = 50
+```
+
+<br/>
+
+A medida que el juego avance, se incrementará el valor de `self.alien_points`:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _check_bullet_alien_collitions(self):
+        """ Respond to bullet-alien collisions. """
+        # remove any bullets and aliens that have collided
+        # ...
+
+        if collisions:
+            self.stats.score += self.settings.alien_points
+            self.sb.prep_score()
+
+        # ...
+
+    # ...
+```
+
+<br/>
+
+Cada vez que una bala alcance un alien, Pygame retorna un diccionario `collisions`. Comprobaremos si el diccionario existe, y si es así, sumaremos los puntos correspondientes y actualizaremos el marcador.
