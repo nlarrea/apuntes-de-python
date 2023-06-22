@@ -64,6 +64,7 @@
         * [Crear el Scoreboard](#crear-el-scoreboard)
         * [Actualizar el marcador a medida que se juega](#actualizar-el-marcador-a-medida-que-se-juega)
         * [Resetear las puntuaciones](#resetear-las-puntuaciones)
+        * [Puntuar todas las colisiones](#puntuar-todas-las-colisiones)
 
 
 <br/><hr/>
@@ -2869,3 +2870,42 @@ class AlienInvasion:
 <br/>
 
 Con esto, cada vez que se inicie una nueva partida, se reseteará la puntuación.
+
+
+<br/><br/>
+
+
+### Puntuar todas las colisiones
+
+Por ahora, solo puntuamos cuando una bala alcanza a un alien, pero si se alcanza a dos aliens en el mismo paso por el bucle, solo se cuenta una vez.
+
+Para arreglar esto, vamos a tener en cuenta todas las colisiones del diccionario:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _check_bullet_alien_collitions(self):
+        """ Respond to bullet-alien collisions. """
+        # remove any bullets and aliens that have collided
+        # ...
+
+        if collisions:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
+                
+            # self.sb...
+    
+        # ...
+
+    # ...
+```
+
+<br/>
+
+Creamos un bucle a través de todos los valores del diccionario `collisions`, donde cada valor es una lista de aliens que han sido alcanzados por la bala. Multiplicamos el número de aliens de la lista por la puntuación que se obtiene al alcanzar a un único alien.
+
