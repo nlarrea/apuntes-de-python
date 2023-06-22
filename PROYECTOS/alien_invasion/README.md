@@ -63,6 +63,7 @@
         * [Mostrar la puntuación](#mostrar-la-puntuación)
         * [Crear el Scoreboard](#crear-el-scoreboard)
         * [Actualizar el marcador a medida que se juega](#actualizar-el-marcador-a-medida-que-se-juega)
+        * [Resetear las puntuaciones](#resetear-las-puntuaciones)
 
 
 <br/><hr/>
@@ -2830,3 +2831,41 @@ class AlienInvasion:
 <br/>
 
 Cada vez que una bala alcance un alien, Pygame retorna un diccionario `collisions`. Comprobaremos si el diccionario existe, y si es así, sumaremos los puntos correspondientes y actualizaremos el marcador.
+
+
+<br/><br/>
+
+
+### Resetear las puntuaciones
+
+Cada vez que se inicia una nueva partida, se sigue viendo la puntiación de la partida anterior hasta que se elimina al primer alien. Para arreglar esto, realizamos el siguiente código:
+
+```python
+# alien_invasion.py
+
+# ...
+
+class AlienInvasion:
+    # ...
+
+    def _check_play_button(self, mouse_pos):
+        """ Start a new game when the player click Play. """
+        button_clicked = self.play_button.rect.collidedpoint(mouse_pos)
+
+        if button_clicked and not self.stats.game_active:
+            # reset the game settings
+            self.settings.initialize_dynamic_settings()
+            
+            # reset the game statistics
+            self.stats.reset_stats()
+            self.stats.game_active = True
+            self.sb.prep_score()
+
+            # ...
+
+    # ...
+```
+
+<br/>
+
+Con esto, cada vez que se inicie una nueva partida, se reseteará la puntuación.
