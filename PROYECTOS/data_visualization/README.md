@@ -95,3 +95,32 @@ Llamamos a `ax.plot(squares)` para trazar los valores de `squares` y usamos `plt
 
 
 ## Modificar la etiqueta y la línea
+
+El gráfico mostrado tras ejecutar el código anterior muestra que el valor de los datos va en aumento. Sin embargo, no se puede decir qué valores específicos corresponden a qué cuadrados.
+
+Vamos a modificar las etiquetas y la línea para que el gráfico sea más fácil de ver:
+
+```python
+# mpl_squares.py
+
+# ...
+ax.plot(squares, linewidth=3)       # (1)
+
+# set chart title and label axes
+ax.set_title("Square Numbers", fontsize=24)     # (2)
+ax.set_xlabel("Value", fontsize=14)             # (3)
+ax.set_ylabel("Square of Value", fontsize=14)
+
+# set size of tick labels
+ax.tick_params(axis="both", labelsize=14)       # (4)
+
+# plt.show()
+```
+
+<br/>
+
+* **(1):** se modifica el ancho (*grosor*) de la línea a 3 píxeles.
+* **(2):** se añade un título al gráfico.
+* **(3):** se añaden etiquetas a los ejes X e Y.
+* **(4):** se aumenta el tamaño de las etiquetas de los ejes X e Y.
+
