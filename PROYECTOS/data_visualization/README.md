@@ -5,6 +5,8 @@
 * [Instalar Matplotlib](#instalar-matplotlib)
 * [Trazar un sencillo gráfico de líneas](#trazar-un-sencillo-gráfico-de-líneas)
     * [Modificar la etiqueta y la línea](#modificar-la-etiqueta-y-la-línea)
+    * [Corregir el gráfico](#corregir-el-gráfico)
+* [Usar estilos integrados](#usar-estilos-integrados)
 
 
 <br/><hr/>
@@ -124,3 +126,46 @@ ax.tick_params(axis="both", labelsize=14)       # (4)
 * **(3):** se añaden etiquetas a los ejes X e Y.
 * **(4):** se aumenta el tamaño de las etiquetas de los ejes X e Y.
 
+
+<br/><hr/><br/>
+
+
+## Corregir el gráfico
+
+El gráfico que se muestra tras ejecutar el código anterior no es correcto, los datos siguen sin mostrarse bien del todo.
+
+> Muestra el valor de 4*4 como si fuera 25.
+
+Cuando das una secuencia de números a Matplotlib, asume que el primer dato corresponde al valor x de 0, pero nuestros primeros datos corresponden al valor x de 1.
+
+Para corregir esto, podemos pasar a `plot()` los valores de entrada y salida de los datos:
+
+```python
+# mpl_squares.py
+
+# ...
+
+input_values = [1, 2, 3, 4, 5]
+# squares = [1, 4, 9, 16, 25]
+
+# ...
+ax.plot(input_values, squares, linewidth=3)
+
+# ...
+```
+
+<br/>
+
+Ahora, como le hemos pasado los datos de entrada y de salida a la función `plot()`, Matplotlib no tiene que asumir cómo deben etiquetarse los datos, y el gráfico resultante es correcto.
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href='#index'>Volver arriba</a>
+</div>
+
+
+# Usar estilos integrados
