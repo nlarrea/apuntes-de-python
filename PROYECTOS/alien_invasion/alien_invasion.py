@@ -58,18 +58,18 @@ class AlienInvasion:
     def _check_events(self):
         """ Respond to keypresses and mouse events. """
         for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            if event.type == pygame.QUIT:
+                sys.exit()
 
-                elif event.type == pygame.KEYDOWN:
-                    self._check_keydown_events(event)
+            elif event.type == pygame.KEYDOWN:
+                self._check_keydown_events(event)
 
-                elif event.type == pygame.KEYUP:
-                    self._check_keyup_events(event)
-                
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    mouse_pos = pygame.mouse.get_pos()
-                    self._check_play_button(mouse_pos)
+            elif event.type == pygame.KEYUP:
+                self._check_keyup_events(event)
+            
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
 
     def _check_keydown_events(self, event):
