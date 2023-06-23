@@ -212,3 +212,56 @@ plt.style.use('seaborn-v0_8-darkgrid')
 
 
 # Trazar y estilizar puntos individuales con scatter
+
+En ocasiones, desearemos trazar puntos individuales en un gráfico. Para ello, usaremos el método `scatter()`, al que se le pasan los valores (x, y) del punto que se quiere trazar.
+
+He aquí un pequeño ejemplo:
+
+```python
+# scatter_squares.py
+
+import matplotlib.pyplot as plt
+
+plt.style.use('seaborn-v0_8-darkgrid')
+fig, ax = plt.subplots()
+
+ax.scatter(2, 4)
+
+plt.show()
+```
+
+<br/>
+
+Si ejecutamos el archivo, veremos cómo se dibuja un único punto en el gráfico, en el punto (2, 4).
+
+Vamos a estilar el gráfico para añadirle un título y etiquetas a los ejes:
+
+```python
+# scatter_squares.py
+
+# ...
+# fig, ax = plt.subplots()
+ax.scatter(2, 4, s=200)         # (1)
+
+# set chart title and label axes
+ax.set_title("Square Numbers", fontsize=24)
+ax.set_xlabel("Value", fontsize=14)
+ax.set_ylabel("Square of Value", fontsize=14)
+
+# set size of tick labels
+ax.tick_params(
+    axis="both",
+    which="major",
+    labelsize=14
+)
+
+# plt.show()
+```
+
+<br/>
+
+* **(1):** se añade el argumento `s` para establecer el tamaño (*size*) de los puntos.
+
+<br/>
+
+Si ejecutamos el archivo, veremos cómo se dibuja un único punto en el gráfico, en el punto (2, 4).
