@@ -7,6 +7,7 @@
     * [Modificar la etiqueta y la línea](#modificar-la-etiqueta-y-la-línea)
     * [Corregir el gráfico](#corregir-el-gráfico)
 * [Usar estilos integrados](#usar-estilos-integrados)
+* [Trazar y estilizar puntos individuales con scatter()](#trazar-y-estilizar-puntos-individuales-con-scatter)
 
 
 <br/><hr/>
@@ -169,3 +170,45 @@ Ahora, como le hemos pasado los datos de entrada y de salida a la función `plot
 
 
 # Usar estilos integrados
+
+Matplotlib trae varios estilos predefinidos que podemos usar para personalizar nuestros gráficos.
+
+Podemos ver qué estilos trae Matplotlib ejecutando el siguiente código desde la terminal (*dentro del directorio del proyecto*):
+
+```python
+# si aún no se está usando el entorno virtual
+pipenv shell
+
+# ejecutar el intérprete de Python
+python
+>>> import matplotlib.pyplot as plt
+>>> plt.style.available
+```
+
+> Para salir del intérprete de Python, ejecutamos `exit()`.
+
+<br/>
+
+Como resultado, obtendremos una lista de estilos disponibles. Para implementar alguno de estos estilos, añadiremos las siguientes líneas de código:
+
+```python
+# mpl_squares.py
+
+# ...
+
+plt.style.use('seaborn-v0_8-darkgrid')
+# fig, ax = plt.subplots()
+# ...
+```
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href='#index'>Volver arriba</a>
+</div>
+
+
+# Trazar y estilizar puntos individuales con scatter
