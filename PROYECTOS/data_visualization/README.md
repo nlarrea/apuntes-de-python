@@ -10,6 +10,7 @@
 * [Trazar y estilizar puntos con scatter()](#trazar-y-estilizar-puntos-con-scatter)
     * [Puntos individuales](#puntos-individuales)
     * [Series de puntos](#series-de-puntos)
+* [Calcular datos de automáticamente](#calcular-datos-de-automáticamente)
 
 
 <br/><hr/>
@@ -301,3 +302,40 @@ La lista `x_values` contiene los valores de los cuales queremos obtener sus cuad
 Si ejecutamos el archivo, veremos cómo se dibujan puntos en el gráfico, en los puntos (1, 1), (2, 4), (3, 9), (4, 16) y (5, 25).
 
 
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href='#index'>Volver arriba</a>
+</div>
+
+
+# Calcular datos de automáticamente
+
+En lugar de pasar a `scatter()` las listas de valores `x` e `y`, podemos calcular estos valores automáticamente desde los datos que queremos trazar. Para ello, podemos hacer uso de los bucles propios de Python:
+
+```python
+# scatter_squares.py
+
+# ...
+
+x_values = range(1, 101)
+y_values = [x**2 for x in x_values]
+
+# plt.style.use...
+# ...
+ax.scatter(x_values, y_values, s=10)
+
+# set chart title and label axes
+# ...
+
+# set the range for each axis
+ax.axis([0, 1100, 0, 1_100_000])    # (1)
+
+# plt.show...
+```
+
+<br/>
+
+* **(1):** Utilizamos el método `axis()` para especificar el rango de cada eje. Este método requiere cuatro valores: los valores mínimos y máximos para el eje x (*[0 - 1100]*) y los valores mínimos y máximos para el eje y (*[0 - 1.100.000]*).
