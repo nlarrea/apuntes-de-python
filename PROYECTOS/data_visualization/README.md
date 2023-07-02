@@ -402,3 +402,29 @@ ax.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues, s=10)
 
 # ...
 ```
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href='#index'>Volver arriba</a>
+</div>
+
+
+# Guardar gráficos automáticamente
+
+Para guardar un gráfico automáticamente, usaremos el método `savefig()` en lugar de `show()`:
+
+```python
+# scatter_squares.py
+
+# ...
+
+plt.savefig("plots/squares_plot.png", bbox_inches="tight")
+```
+
+<br/>
+
+El primer argumento es el directorio y el nombre del archivo de la imagen que queremos guardar. El segundo argumento recorta los espacios en blanco que rodean el gráfico.
