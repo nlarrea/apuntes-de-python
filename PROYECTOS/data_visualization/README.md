@@ -7,7 +7,9 @@
     * [Modificar la etiqueta y la línea](#modificar-la-etiqueta-y-la-línea)
     * [Corregir el gráfico](#corregir-el-gráfico)
 * [Usar estilos integrados](#usar-estilos-integrados)
-* [Trazar y estilizar puntos individuales con scatter()](#trazar-y-estilizar-puntos-individuales-con-scatter)
+* [Trazar y estilizar puntos con scatter()](#trazar-y-estilizar-puntos-con-scatter)
+    * [Puntos individuales](#puntos-individuales)
+    * [Series de puntos](#series-de-puntos)
 
 
 <br/><hr/>
@@ -211,7 +213,9 @@ plt.style.use('seaborn-v0_8-darkgrid')
 </div>
 
 
-# Trazar y estilizar puntos individuales con scatter
+# Trazar y estilizar puntos con scatter
+
+## Puntos individuales
 
 En ocasiones, desearemos trazar puntos individuales en un gráfico. Para ello, usaremos el método `scatter()`, al que se le pasan los valores (x, y) del punto que se quiere trazar.
 
@@ -265,3 +269,35 @@ ax.tick_params(
 <br/>
 
 Si ejecutamos el archivo, veremos cómo se dibuja un único punto en el gráfico, en el punto (2, 4).
+
+
+<br/><hr/><br/>
+
+
+## Series de puntos
+
+Si queremos trazar series de puntos, podemos pasar a `scatter()` listas separadas de los valores `x` e `y` que queremos trazar de esta manera:
+
+```python
+# scatter_squares.py
+
+# ...
+
+x_values = [1, 2, 3, 4, 5]
+y_values = [1, 4, 9, 16, 25]
+
+# plt.style.use...
+# ...
+ax.scatter(x_values, y_values, s=100)
+
+# set chart title and label axes
+# ...
+```
+
+<br/>
+
+La lista `x_values` contiene los valores de los cuales queremos obtener sus cuadrados, y la lista `y_values` contiene los cuadrados de esos valores.
+
+Si ejecutamos el archivo, veremos cómo se dibujan puntos en el gráfico, en los puntos (1, 1), (2, 4), (3, 9), (4, 16) y (5, 25).
+
+
