@@ -11,6 +11,9 @@
     * [Puntos individuales](#puntos-individuales)
     * [Series de puntos](#series-de-puntos)
 * [Calcular datos de automáticamente](#calcular-datos-de-automáticamente)
+* [Definir colores customizados](#definir-colores-customizados)
+    * [Usar Colormap](#usar-colormap)
+* [Guardar gráficos automáticamente](#guardar-gráficos-automáticamente)
 
 
 <br/><hr/>
@@ -320,7 +323,7 @@ En lugar de pasar a `scatter()` las listas de valores `x` e `y`, podemos calcula
 
 # ...
 
-x_values = range(1, 101)
+x_values = range(1, 1001)
 y_values = [x**2 for x in x_values]
 
 # plt.style.use...
@@ -339,3 +342,63 @@ ax.axis([0, 1100, 0, 1_100_000])    # (1)
 <br/>
 
 * **(1):** Utilizamos el método `axis()` para especificar el rango de cada eje. Este método requiere cuatro valores: los valores mínimos y máximos para el eje x (*[0 - 1100]*) y los valores mínimos y máximos para el eje y (*[0 - 1.100.000]*).
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href='#index'>Volver arriba</a>
+</div>
+
+
+# Definir colores customizados
+
+Para definir los colores de los puntos, basta con pasar el parámetro `c` a `scatter()` con el color que queramos usar:
+
+```python
+# scatter_squares.py
+
+# ...
+
+ax.scatter(x_values, y_values, c='red', s=10)
+
+# ...
+```
+
+<br/>
+
+O incluso, podemos pasarle una lista de valores para definir nuestro propio color en formato RGB:
+
+```python
+# scatter_squares.py
+
+# ...
+
+ax.scatter(x_values, y_values, c=(0, 0.8, 0), s=10)
+
+# ...
+```
+
+
+<br/><hr/><br/>
+
+
+## Usar Colormap
+
+Un colormap es una serie de colores en un gradiente que va de un color inicial a un color final. En los gráficos se usa esta herramienta para enfatizar un patrón en los datos.
+
+Matplotlib incluye una serie de colormaps integrados. Para usarlos, haremos lo siguiente:
+
+```python
+# scatter_squares.py
+
+# ...
+ax.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues, s=10)
+
+# set chart title and label axes
+# ...
+
+# ...
+```
