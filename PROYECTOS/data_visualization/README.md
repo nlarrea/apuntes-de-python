@@ -18,6 +18,7 @@
     * [Crear la clase RandomWalk](#crear-la-clase-randomwalk)
     * [Elegir direcciones](#elegir-direcciones)
     * [Dibujar el camino aleatorio](#dibujar-el-camino-aleatorio)
+    * [Generar varios caminos aleatorios](#generar-varios-caminos-aleatorios)
 
 
 <br/><hr/>
@@ -565,3 +566,36 @@ plt.show()
 Comenzamos creando una instancia de la clase `RandomWalk`, la cual hemos importado del archivo anterior. A continuación, llamamos al método `fill_walk()` para que calcule todos los puntos del camino aleatorio.
 
 Finalmente, creamos un gráfico con los puntos del camino aleatorio. Veremos que si ejecutamos dos veces el nuevo código, se generan dos caminos aleatorios diferentes.
+
+
+<br/><hr/><br/>
+
+
+## Generar varios caminos aleatorios
+
+Como ya hemos dicho, cada camino aleatorio es diferente. En este apartado vamos a generar varios caminos aleatorios en un mismo código agrupando las siguientes líneas en un bucle:
+
+```python
+# rw_visual.py
+
+# ...
+
+# keep making new walks, as long as the program is active
+while True:
+    rw = RandomWalk()
+    rw.fill_walk()
+
+    # plot the points in the walk
+    plt.style.use("classic")
+    fig, ax = plt.subplots()
+    ax.scatter(rw.x_values, rw.y_values, s=15)
+    plt.show()
+
+    keep_running = input("Make another walk? (y/n): ")
+    if keep_running.lower() == 'n':
+        break
+```
+
+<br/>
+
+Este código genera un camino aleatorio, lo muestra haciendo uso de `Matplotlib` y, **cuando se cierra el gráfico generado**, pregunta al usuario si quiere generar otro camino aleatorio.
