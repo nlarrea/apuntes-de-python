@@ -24,6 +24,7 @@
         * [Dibujar los puntos de inicio y final](#dibujar-los-puntos-de-inicio-y-final)
         * [Eliminar los ejes](#eliminar-los-ejes)
     * [Incrementar la cantidad de puntos](#incrementar-la-cantidad-de-puntos)
+    * [Alterar el tamaño para llenar la pantalla](#alterar-el-tamaño-para-llenar-la-pantalla)
 
 
 <br/><hr/>
@@ -735,3 +736,40 @@ Si ejecutamos el código, veremos cómo se ha incrementado la cantidad de puntos
 
 
 <br/><hr/><br/>
+
+
+## Alterar el tamaño para llenar la pantalla
+
+Es mucho más fácil comunicar a través de un gráfico si éste se ajusta correctamente. Para hacer que el gráfico se ajuste a la pantalla, vamos a modificar la salida de Matplotlib de esta manera:
+
+```python
+# rw_visual.py
+
+# ...
+
+while True:
+    # ...
+
+    fig, ax = plt.subplots(figsize=(15, 9))
+
+    # ...
+```
+
+<br/>
+
+El parámetro `figsize` espera una tupla que indique las dimensiones de la figura en pulgadas.
+
+También es posible pasarle el parámetro `dpi` si conocemos la resolución de la pantalla en la que se va a mostrar el gráfico. De esta manera, Matplotlib ajustará el tamaño de la figura en función de la resolución de la pantalla.
+
+```python
+# rw_visual.py
+
+# ...
+
+while True:
+    # ...
+
+    fig, ax = plt.subplots(figsize=(10, 6), dpi=128)
+
+    # ...
+```
