@@ -14,6 +14,9 @@
 * [Definir colores customizados](#definir-colores-customizados)
     * [Usar Colormap](#usar-colormap)
 * [Guardar gráficos automáticamente](#guardar-gráficos-automáticamente)
+* [Caminos aleatorios](#caminos-aleatorios)
+    * [Crear la clase RandomWalk](#crear-la-clase-randomwalk)
+    * [Elegir direcciones](#elegir-direcciones)
 
 
 <br/><hr/>
@@ -428,3 +431,106 @@ plt.savefig("plots/squares_plot.png", bbox_inches="tight")
 <br/>
 
 El primer argumento es el directorio y el nombre del archivo de la imagen que queremos guardar. El segundo argumento recorta los espacios en blanco que rodean el gráfico.
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href='#index'>Volver arriba</a>
+</div>
+
+
+# Caminos aleatorios
+
+Un camino aleatorio es una ruta que no tiene una dirección clara, sino que se determina al azar en cada paso. Los científicos sociales y los economistas han usado caminos aleatorios para intentar predecir los resultados de elecciones, acciones y otros fenómenos complejos.
+
+Vamos a crear un programa que genere un camino aleatorio y lo represente en un gráfico.
+
+
+<br/><hr/><br/>
+
+
+## Crear la clase RandomWalk
+
+Vamos a crear el archivo `random_walk.py` y todos los archivos necesarios para esta sección dentro del directorio `random_walk`.
+
+Esta clase sólo necesitará dos métodos inicialmente: `__init__()` y `fill_walk()`, el cual se encargará de calcular los puntos del camino aleatorio.
+
+Comenzamos creando el archivo `random_walk.py` y añadiendo el siguiente código:
+
+```python
+from random import choice
+
+class RandomWalk:
+    """ A class to generate random walks. """
+
+    def __init__(self, num_points=5000):
+        """ Initialize attributes of a walk. """
+        self.num_points = num_points
+
+        # all walks start at (0, 0)
+        self.x_values = [0]
+        self.y_values = [0]
+```
+
+<br/>
+
+En primer lugar, importamos la función `choice()` del módulo `random`. Esta función elige un elemento aleatorio de una lista. Dicha lista será la que contenga los posibles valores de los puntos del camino aleatorio.
+
+Como cada camino comienza en el punto (0, 0), inicializamos los atributos `x_values` e `y_values` con una lista que contenga el valor 0.
+
+
+<br/><hr/><br/>
+
+
+## Elegir direcciones
+
+Vamos a crear el método `fill_walk()` para que calcule los puntos del camino aleatorio:
+
+```python
+# random_walk.py
+
+# ...
+
+class RandomWalk:
+    # ...
+
+    def fill_walk(self):
+        """ Calculate all the points in the walk. """
+
+        # keep taking steps untill the walk reaches the desired length
+        while len(self.x_values) < self.num_points:
+            # (1) decide which direction to go and how far to go in that direction
+            x_direction = choice([1, -1])
+            x_distance = choice([0, 1, 2, 3, 4])
+            x_step = x_direction * x_distance
+            
+            y_direction = choice([1, -1])
+            y_distance = choice([0, 1, 2, 3, 4])
+            y_step = y_direction * y_distance
+
+            # (2) reject moves that go nowhere
+            if x_step == 0 and y_step == 0:
+                continue
+
+            # (3) calculate the new position
+            x = self.x_values[-1] + x_step
+            y = self.y_values[-1] + y_step
+
+            # (4)
+            self.x_values.append(x)
+            self.y_values.append(y)
+```
+
+<br/>
+
+En primer lugar, creamos un bucle `while` que se ejecutará mientras no se hayan generado todos los puntos del camino aleatorio.
+
+* **(1):** se utiliza la función `choice()` para elegir una dirección y una distancia para cada eje. Finalmente, el paso se calcula multiplicando la dirección por la distancia.
+* **(2):** se rechazan los movimientos que no van a ninguna parte (*que no se mueven*).
+* **(3):** se calcula la posición del siguiente punto del camino aleatorio basándose en el último punto de la lista.
+* **(4):** se añaden los valores de `x` e `y` a las listas `x_values` e `y_values`.
+
+<br/>
