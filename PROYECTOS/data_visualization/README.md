@@ -17,6 +17,7 @@
 * [Caminos aleatorios](#caminos-aleatorios)
     * [Crear la clase RandomWalk](#crear-la-clase-randomwalk)
     * [Elegir direcciones](#elegir-direcciones)
+    * [Dibujar el camino aleatorio](#dibujar-el-camino-aleatorio)
 
 
 <br/><hr/>
@@ -533,4 +534,34 @@ En primer lugar, creamos un bucle `while` que se ejecutará mientras no se hayan
 * **(3):** se calcula la posición del siguiente punto del camino aleatorio basándose en el último punto de la lista.
 * **(4):** se añaden los valores de `x` e `y` a las listas `x_values` e `y_values`.
 
+
+<br/><hr/><br/>
+
+
+## Dibujar el camino aleatorio
+
+Para dibujar el camino aleatorio, vamos a crear un nuevo archivo en el mismo directorio que el anterior, llamado `rw_visual.py`:
+
+```python
+# rw_visual.py
+
+import matplotlib.pyplot as plt
+
+from random_walk import RandomWalk
+
+# make a random walk
+rw = RandomWalk()
+rw.fill_walk()
+
+# plot the points in the walk
+plt.style.use("classic")
+fig, ax = plt.subplots()
+ax.scatter(rw.x_values, rw.y_values, s=15)
+plt.show()
+```
+
 <br/>
+
+Comenzamos creando una instancia de la clase `RandomWalk`, la cual hemos importado del archivo anterior. A continuación, llamamos al método `fill_walk()` para que calcule todos los puntos del camino aleatorio.
+
+Finalmente, creamos un gráfico con los puntos del camino aleatorio. Veremos que si ejecutamos dos veces el nuevo código, se generan dos caminos aleatorios diferentes.
