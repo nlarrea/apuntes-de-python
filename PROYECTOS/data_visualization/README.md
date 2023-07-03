@@ -20,6 +20,8 @@
     * [Dibujar el camino aleatorio](#dibujar-el-camino-aleatorio)
     * [Generar varios caminos aleatorios](#generar-varios-caminos-aleatorios)
     * [Estilar el camino](#estilar-el-camino)
+        * [Colorear los puntos](#colorear-los-puntos)
+        * [Dibujar los puntos de inicio y final](#dibujar-los-puntos-de-inicio-y-final)
 
 
 <br/><hr/>
@@ -644,3 +646,28 @@ Si ejecutamos el código, veremos cómo los puntos se han coloreado en un gradie
 <br/><br/>
 
 
+### Dibujar los puntos de inicio y final
+
+Vamos a enfatizar los puntos de inicio y final para distinguir correctamente cuáles son dichos puntos. Para ello, añadiremos las siguientes líneas de código:
+
+```python
+# rw_visual.py
+
+# ...
+
+while True:
+    # ...
+    # ax.scatter(...)
+
+    # emphasize the first and last points
+    ax.scatter(0, 0, c="green", edgecolors="none", s=100)
+    ax.scatter(rw.x_values[-1], rw.y_values[-1], c="red", edgecolors="none", s=100)
+
+    # plt.show...
+
+    # ...
+```
+
+<br/>
+
+Si ejecutamos el código, veremos cómo los puntos de inicio y final se han coloreado en verde y rojo, respectivamente.
