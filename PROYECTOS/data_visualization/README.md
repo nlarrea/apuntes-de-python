@@ -23,6 +23,7 @@
         * [Colorear los puntos](#colorear-los-puntos)
         * [Dibujar los puntos de inicio y final](#dibujar-los-puntos-de-inicio-y-final)
         * [Eliminar los ejes](#eliminar-los-ejes)
+    * [Incrementar la cantidad de puntos](#incrementar-la-cantidad-de-puntos)
 
 
 <br/><hr/>
@@ -702,3 +703,35 @@ while True:
 <br/>
 
 Si ejecutamos el código, veremos cómo los ejes se han eliminado del gráfico.
+
+
+<br/><hr/><br/>
+
+
+## Incrementar la cantidad de puntos
+
+Vamos a incrementar la cantidad de puntos para tener más datos con los que trabajar. Para ello, solo debemos realizar las siguientes modificaciones:
+
+```python
+# rw_visual.py
+
+# ...
+
+while True:
+    rw = RandomWalk(50_000)
+    # ...
+
+    ax.scatter(
+        # ...
+        s=1
+    )
+
+    # ...
+```
+
+<br/>
+
+Si ejecutamos el código, veremos cómo se ha incrementado la cantidad de puntos y cómo se ha reducido su tamaño para que el gráfico se vea bien.
+
+
+<br/><hr/><br/>
