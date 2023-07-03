@@ -22,6 +22,7 @@
     * [Estilar el camino](#estilar-el-camino)
         * [Colorear los puntos](#colorear-los-puntos)
         * [Dibujar los puntos de inicio y final](#dibujar-los-puntos-de-inicio-y-final)
+        * [Eliminar los ejes](#eliminar-los-ejes)
 
 
 <br/><hr/>
@@ -671,3 +672,33 @@ while True:
 <br/>
 
 Si ejecutamos el código, veremos cómo los puntos de inicio y final se han coloreado en verde y rojo, respectivamente.
+
+
+<br/><br/>
+
+
+### Eliminar los ejes
+
+Vamos a eliminar los ejes para que el gráfico sea más limpio. Para ello, añadiremos las siguientes líneas de código:
+
+```python
+# rw_visual.py
+
+# ...
+
+while True:
+    # ...
+
+    # emphasize the first and last points
+    # ...
+
+    # remove the axes
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+
+    # ...
+```
+
+<br/>
+
+Si ejecutamos el código, veremos cómo los ejes se han eliminado del gráfico.
