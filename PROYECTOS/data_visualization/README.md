@@ -19,6 +19,7 @@
     * [Elegir direcciones](#elegir-direcciones)
     * [Dibujar el camino aleatorio](#dibujar-el-camino-aleatorio)
     * [Generar varios caminos aleatorios](#generar-varios-caminos-aleatorios)
+    * [Estilar el camino](#estilar-el-camino)
 
 
 <br/><hr/>
@@ -599,3 +600,47 @@ while True:
 <br/>
 
 Este código genera un camino aleatorio, lo muestra haciendo uso de `Matplotlib` y, **cuando se cierra el gráfico generado**, pregunta al usuario si quiere generar otro camino aleatorio.
+
+
+<br/><hr/><br/>
+
+
+## Estilar el camino
+
+En esta sección vamos a customizar los caminos aleatorios. Queremos enfatizar los puntos de tal forma que sea fácil identificar el punto de inicio y el punto final del camino. Así mismo, queremos que se aprecien menos las etiquetas, puesto que en este caso no son tan importantes.
+
+
+<br/><br/>
+
+
+### Colorear los puntos
+
+Vamos a usar un `colormap` para colorear los puntos, y eliminaremos el contorno de los mismos. Para ello, pasaremos al argumento `c` una lista con los valores de las posiciones de los puntos. Como éstos son dibujados en orden, la lista solo debe contener los números del 0 a la longitud de la lista de puntos menos 1:
+
+```python
+# rw_visual.py
+
+# ...
+
+while True:
+    # ...
+    point_numbers = range(rw.num_points)
+    ax.scatter(
+        rw.x_values,
+        rw.y_values,
+        c=point_numbers,
+        cmap=plt.cm.Blues,
+        edgecolors="none",
+        s=15
+    )
+    # ...
+```
+
+<br/>
+
+Si ejecutamos el código, veremos cómo los puntos se han coloreado en un gradiente de azules, y cómo se ha eliminado el contorno de los mismos.
+
+
+<br/><br/>
+
+
