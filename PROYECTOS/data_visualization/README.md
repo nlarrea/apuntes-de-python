@@ -30,6 +30,7 @@
     * [Crear la clase Die](#crear-la-clase-die)
     * [Rodar el dado](#rodar-el-dado)
     * [Analizar los resultados](#analizar-los-resultados)
+    * [Crear un histograma](#crear-un-histograma)
 
 
 <br/><hr/>
@@ -914,3 +915,52 @@ Si ejecutamos el archivo, obtendremos valores diferentes cada vez. En mi caso:
 <br/>
 
 Podemos observar que cada uno de los valores se repite una cantidad diferente de veces (*puesto que son valores aleatorios*), sin embargo, la diferencia entre la cantidad de veces que se repite cada valor es insignificante.
+
+
+<br/><hr/><br/>
+
+
+## Crear un histograma
+
+Con la lista de frecuencias que hemos hecho, podemos crear un histograma de los resultados. Un histograma es un gráfico de barras que muestra cuántas veces se repite cada resultado.
+
+Vamos a añadir las siguientes líneas de código al archivo `die_visual.py`:
+
+```python
+# die_visual.py
+
+from plotly.graph_objs import Bar, Layout
+from plotly import offline
+
+# ...
+
+# visualize the results
+x_values = list(range(1, die.num_sides+1))          # (1)
+data = [Bar(x=x_values, y=frequencies)]             # (2)
+
+x_axis_config = {"title": "Result"}
+y_axis_config = {"title": "Frequency of Result"}
+
+my_layout = Layout(                                 # (3)
+    title="Results of rolling one D6 1000 times",
+    xaxis=x_axis_config,
+    yaxis=y_axis_config
+)
+
+offline.plot({"data": data, "layout": my_layout}, filename="d6.html")
+```
+
+<br/>
+
+Para crear un histograma necesitamos una barra por cada una de las posibles opciones. Por ello:
+
+* **(1):** Guardamos los posibles valores en la variable `x_values` haciendo uso de la función `range()`.
+* **(2):** La clase `Bar` representa un set de datos que va a ser formateado como una barra. Cada objeto espera una lista de valores `x` e `y`. Se debe agrupar dentro de una lista porque pueden haber varios sets de datos.
+* **(3):** La clase `Layout` representa lo que se muestra en el gráfico. En este caso, se le pasa el título del gráfico y los títulos de los ejes X e Y.
+
+<br/>
+
+Finalmente, para generar el gráfico, usamos la función `offline.plot()`. Esta función necesita un diccionario con los datos y el layout. Además, le indicamos dónde almacenar el gráfico.
+
+Si ejecutamos el código, veremos que se genera un gráfico interactivo.
+
