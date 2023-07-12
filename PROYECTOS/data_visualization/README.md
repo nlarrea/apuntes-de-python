@@ -32,6 +32,7 @@
         * [Analizar los resultados](#analizar-los-resultados)
         * [Crear un histograma](#crear-un-histograma)
     * [Lanzar dos dados](#lanzar-dos-dados)
+    * [Lanzar dados de diferentes caras](#lanzar-dados-de-diferentes-caras)
 
 
 <br/><hr/>
@@ -1019,3 +1020,43 @@ offline.plot({"data": data, "layout": my_layout}, filename="./plots/dice/d6_d6.h
 <br/>
 
 Este gráfico muestra los resultados aproximados de lanzar dos dados. Si ejecutamos el gráfico, veremos que los resultados generan una especie de campana de Gauss, lo que significa que los valores menos probables son los que se encuentran en los extremos (*sacar 2 o 12*), y los valores más probables son los que se encuentran en el centro (*sacar un 7*).
+
+
+<br/><hr/><br/>
+
+
+## Lanzar dados de diferentes caras
+
+Vamos a modificar el archivo `dice_visual.py` para que lance dos dados de diferentes caras:
+
+```python
+# dice_visual.py
+
+# ...
+
+# create a D6 and a D10
+die_1 = Die()
+die_2 = Die(10)
+
+# make some rolls and store results in a list
+# ...
+
+for roll_num in range(50_000):
+    # ...
+
+# ...
+
+my_layout = Layout(
+    title="Results of rolling a D6 and a D10 50.000 times",
+    # ...
+)
+
+offline.plot({"data": data, "layout": my_layout}, filename="./plots/dice/d6_d10.html")
+```
+
+<br/>
+
+Si ejecutamos el código, veremos que el valor mínimo se mantine en 2, sin embargo, el máximo aumenta a 16 (*6 + 10 caras*).
+
+Los valores más probables ahora son 7, 8, 9, 10 y 11, y los menos probables son 2 y 16.
+
