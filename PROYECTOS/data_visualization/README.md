@@ -28,9 +28,10 @@
 * [Lanzar dados con Plotly](#lanzar-dados-con-plotly)
     * [Instalar Plotly](#instalar-plotly)
     * [Crear la clase Die](#crear-la-clase-die)
-    * [Rodar el dado](#rodar-el-dado)
-    * [Analizar los resultados](#analizar-los-resultados)
-    * [Crear un histograma](#crear-un-histograma)
+    * [Lanzar un dado](#lanzar-un-dado)
+        * [Analizar los resultados](#analizar-los-resultados)
+        * [Crear un histograma](#crear-un-histograma)
+    * [Lanzar dos dados](#lanzar-dos-dados)
 
 
 <br/><hr/>
@@ -848,7 +849,7 @@ Además, creamos el método `roll()` que devuelve un número aleatorio entre 1 y
 <br/><hr/><br/>
 
 
-## Rodar el dado
+## Lanzar un dado
 
 Vamos a crear el archivo `die_visual.py` y añadir el siguiente código:
 
@@ -877,10 +878,10 @@ Hemos importado y creado una instancia del dado cuya clase hemos creado anterior
 Vemos que los resultados de los lanzamientos del dado son números aleatorios entre 1 y 6. Esto significa que el dado se está comportando como se espera.
 
 
-<br/><hr/><br/>
+<br/><br/>
 
 
-## Analizar los resultados
+### Analizar los resultados
 
 Vamos a analizar los datos contando cuántas veces aparece cada uno de los valores posibles al lanzar el dado. Para ello, vamos a modificar el archivo `die_visual.py` de la siguiente manera:
 
@@ -917,10 +918,10 @@ Si ejecutamos el archivo, obtendremos valores diferentes cada vez. En mi caso:
 Podemos observar que cada uno de los valores se repite una cantidad diferente de veces (*puesto que son valores aleatorios*), sin embargo, la diferencia entre la cantidad de veces que se repite cada valor es insignificante.
 
 
-<br/><hr/><br/>
+<br/><br/>
 
 
-## Crear un histograma
+### Crear un histograma
 
 Con la lista de frecuencias que hemos hecho, podemos crear un histograma de los resultados. Un histograma es un gráfico de barras que muestra cuántas veces se repite cada resultado.
 
@@ -964,3 +965,57 @@ Finalmente, para generar el gráfico, usamos la función `offline.plot()`. Esta 
 
 Si ejecutamos el código, veremos que se genera un gráfico interactivo.
 
+
+<br/><hr/><br/>
+
+
+## Lanzar dos dados
+
+Vamos a crear el archivo `dice_visual.py`, a añadir el mismo código que en el apartado anterior (*el utilizado para lanzar un único dado*), y a modificar el código para que quede de esta forma:
+
+```python
+# dice_visual.py
+
+from plotly.graph_objs import Bar, Layout
+from plotly import offline
+
+from die import Die
+
+# create two D6 dice
+die_1 = Die()
+die_2 = Die()
+
+# make some rolls and store results in a list
+results = []
+
+for roll_num in range(1000):
+    result = die_1.roll() + die_2.roll()
+    results.append(result)
+
+# analyze the results
+frequencies = []
+max_result = die_1.num_sides + die_2.num_sides
+
+for value in range(2, max_result + 1):
+    frequency = results.count(value)
+    frequencies.append(frequency)
+
+# visualize the results
+x_values = list(range(2, max_result + 1))
+data = [Bar(x=x_values, y=frequencies)]
+
+x_axis_config = {"title": "Result", "dtick": 1}
+y_axis_config = {"title": "Frequency of results"}
+
+my_layout = Layout(
+    title="Results of rolling two D6 dice 1000 times",
+    xaxis=x_axis_config,
+    yaxis=y_axis_config
+)
+
+offline.plot({"data": data, "layout": my_layout}, filename="./plots/dice/d6_d6.html")
+```
+
+<br/>
+
+Este gráfico muestra los resultados aproximados de lanzar dos dados. Si ejecutamos el gráfico, veremos que los resultados generan una especie de campana de Gauss, lo que significa que los valores menos probables son los que se encuentran en los extremos (*sacar 2 o 12*), y los valores más probables son los que se encuentran en el centro (*sacar un 7*).
