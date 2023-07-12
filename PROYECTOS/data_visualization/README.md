@@ -26,6 +26,10 @@
     * [Incrementar la cantidad de puntos](#incrementar-la-cantidad-de-puntos)
     * [Alterar el tamaño para llenar la pantalla](#alterar-el-tamaño-para-llenar-la-pantalla)
 * [Lanzar dados con Plotly](#lanzar-dados-con-plotly)
+    * [Instalar Plotly](#instalar-plotly)
+    * [Crear la clase Die](#crear-la-clase-die)
+    * [Rodar el dado](#rodar-el-dado)
+    * [Analizar los resultados](#analizar-los-resultados)
 
 
 <br/><hr/>
@@ -877,3 +881,36 @@ Vemos que los resultados de los lanzamientos del dado son números aleatorios en
 
 ## Analizar los resultados
 
+Vamos a analizar los datos contando cuántas veces aparece cada uno de los valores posibles al lanzar el dado. Para ello, vamos a modificar el archivo `die_visual.py` de la siguiente manera:
+
+```python
+# die_visual.py
+
+# ...
+
+for roll_num in range(1000):
+    # ...
+
+# analyze the results
+frequencies = []
+
+for value in range(1, die.num_sides+1):
+    frequency = results.count(value)
+    frequencies.append(frequency)
+
+print(frequencies)
+```
+
+<br/>
+
+Hemos incrementado el número de lanzamientos del dado a 1000. A continuación, hemos creado una lista vacía para almacenar las frecuencias de cada valor posible.
+
+Si ejecutamos el archivo, obtendremos valores diferentes cada vez. En mi caso:
+
+```bash
+[173, 169, 174, 161, 165, 158]
+```
+
+<br/>
+
+Podemos observar que cada uno de los valores se repite una cantidad diferente de veces (*puesto que son valores aleatorios*), sin embargo, la diferencia entre la cantidad de veces que se repite cada valor es insignificante.
