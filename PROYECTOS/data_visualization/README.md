@@ -25,6 +25,7 @@
         * [Eliminar los ejes](#eliminar-los-ejes)
     * [Incrementar la cantidad de puntos](#incrementar-la-cantidad-de-puntos)
     * [Alterar el tamaño para llenar la pantalla](#alterar-el-tamaño-para-llenar-la-pantalla)
+* [Lanzar dados con Plotly](#lanzar-dados-con-plotly)
 
 
 <br/><hr/>
@@ -773,3 +774,67 @@ while True:
 
     # ...
 ```
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href='#index'>Volver arriba</a>
+</div>
+
+
+# Lanzar dados con Plotly
+
+En esta sección, vamos a usar la librería `Plotly` para crear visualizaciones interactivas. Esta es una librería muy útil cuando se pretende crear visualizaciones que van a ser mostradas en buscadores web, porque las visualizaciones se van a ajustar automáticamente a la pantalla.
+
+Para trabajar con esta librería, realizaremos lanzamientos de un dado. Cuando se lanza un dado, cada cara tiene la misma probabilidad de aparecer, sin embargo, al lanzar dos dados, las probabilidades de que ciertos números aparezcan son mayores que las de otros. Vamos a tratar de determinar qué números son más probables que otros al lanzar dos dados.
+
+
+<br/><hr/><br/>
+
+
+## Instalar Plotly
+
+Para instalar esta librería, seguiremos el mismo procedimiento visto en secciones anteriores con otras dependencias:
+
+```bash
+# desde el directorio donde crearemos el proyecto
+pipenv install plotly
+```
+
+
+<br/><hr/><br/>
+
+
+## Crear la clase Die
+
+Vamos a crear el directorio `rolling_dice` y vamos a almacenar todos los archivos de esta sección en él.
+
+Comenzaremos creando el archivo `die.py` y añadiendo el siguiente código:
+
+```python
+# die.py
+
+from random import randint
+
+class Die:
+    """ A class representing a single dice. """
+
+    def __init__(self, num_sides=6):
+        self.num_sides = num_sides
+
+    
+    def roll(self):
+        """ Return a random value between 1 and number of sides. """
+        return randint(1, self.num_sides)
+```
+
+<br/>
+
+En primer lugar, importamos la función `randint()` del módulo `random`. Esta función devuelve un número entero aleatorio entre los dos valores que se le pasan como argumentos.
+
+Después, creamos el constructor de la clase `Die` y le pasamos el número de caras que tendrá el dado. Por defecto, el dado tendrá 6 caras.
+
+Además, creamos el método `roll()` que devuelve un número aleatorio entre 1 y el número de caras del dado gracias a la función `randint()`.
