@@ -838,3 +838,42 @@ En primer lugar, importamos la función `randint()` del módulo `random`. Esta f
 Después, creamos el constructor de la clase `Die` y le pasamos el número de caras que tendrá el dado. Por defecto, el dado tendrá 6 caras.
 
 Además, creamos el método `roll()` que devuelve un número aleatorio entre 1 y el número de caras del dado gracias a la función `randint()`.
+
+
+<br/><hr/><br/>
+
+
+## Rodar el dado
+
+Vamos a crear el archivo `die_visual.py` y añadir el siguiente código:
+
+```python
+# die_visual.py
+
+from die import Die
+
+# create a D6
+die = Die()
+
+# make some solls and store results in a list
+results = []
+
+for roll_num in range(100):
+    result = die.roll()
+    results.append(result)
+
+print(results)
+```
+
+<br/>
+
+Hemos importado y creado una instancia del dado cuya clase hemos creado anteriormente. A continuación, hemos creado una lista vacía para almacenar los resultados de los lanzamientos del dado.
+
+Vemos que los resultados de los lanzamientos del dado son números aleatorios entre 1 y 6. Esto significa que el dado se está comportando como se espera.
+
+
+<br/><hr/><br/>
+
+
+## Analizar los resultados
+
