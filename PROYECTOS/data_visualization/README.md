@@ -33,6 +33,8 @@
         * [Crear un histograma](#crear-un-histograma)
     * [Lanzar dos dados](#lanzar-dos-dados)
     * [Lanzar dados de diferentes caras](#lanzar-dados-de-diferentes-caras)
+* [Descargar datos](#descargar-datos)
+    * [El formato CSV](#el-formato-csv)
 
 
 <br/><hr/>
@@ -1060,3 +1062,40 @@ Si ejecutamos el código, veremos que el valor mínimo se mantine en 2, sin emba
 
 Los valores más probables ahora son 7, 8, 9, 10 y 11, y los menos probables son 2 y 16.
 
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href='#index'>Volver arriba</a>
+</div>
+
+
+# Descargar datos
+
+En este apartado, vamos a ver cómo descargar datos de la web y crear visualizaciones con ellos.
+
+Se puede encontrar una cantidad enorme de datos en la web. Estos datos pueden encontrarse en diversos formatos, pero los que vamos a trabajar en esta sección son los archivos CSV (*comma separated values*) y JSON. Vamos a usar Matplotlib para crear visualizaciones con estos datos.
+
+
+<br/><hr/><br/>
+
+
+## El formato CSV
+
+Una forma muy sencilla de almacenar información es guardarla en un archivo separando los datos con comas. He aquí un ejemplo:
+
+```csv
+"USW00025333", "SITKA AIRPORT", "AK US", "2014-01-01", "0.45",, "48", "38"
+```
+
+<br/>
+
+> Esa línea indica que el 1 de enero de 2014, en el aeropuerto de Sitka, Alaska, se registró una precipitación de 0.45 pulgadas, la temperatura máxima fue de 48 grados y la temperatura mínima fue de 38 grados.
+
+<br/>
+
+Vamos a comenzar con los datos proporcionados sobre el aeropuerto de Sitka, Alaska. Estos datos se pueden descargar en [la página de GitHub del libro](https://github.com/ehmatthes/pcc/blob/master/chapter_16/sitka_weather_07-2014.csv).
+
+Crearemos un directorio llamado `download_data_section` y dentro de este otra carpeta llamada `data`. El archivo CSV que contiene los datos (`sitka_weather_07-2014.csv`) lo guardaremos dentro de esta carpeta `data`.
