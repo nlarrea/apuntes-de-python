@@ -36,6 +36,8 @@
 * [Descargar datos](#descargar-datos)
     * [El formato CSV](#el-formato-csv)
     * [Analizar los encabezados de archivos CSV](#analizar-encabezados-de-archivos-csv)
+    * [Analizar los encabezados y sus posiciones](#analizar-los-encabezados-y-sus-posiciones)
+    * [Extraer y leer datos](#extraer-y-leer-datos)
 
 
 <br/><hr/>
@@ -1135,3 +1137,59 @@ Si ejecutamos el archivo desde la terminal, obtendremos la siguiente salida:
 ```bash
 ['AKDT', 'Max TemperatureF', 'Mean TemperatureF', 'Min TemperatureF', 'Max Dew PointF', 'MeanDew PointF', 'Min DewpointF', 'Max Humidity', ' Mean Humidity', ' Min Humidity', ' Max Sea Level PressureIn', ' Mean Sea Level PressureIn', ' Min Sea Level PressureIn', ' Max VisibilityMiles', ' Mean VisibilityMiles', ' Min VisibilityMiles', ' Max Wind SpeedMPH', ' Mean Wind SpeedMPH', ' Max Gust SpeedMPH', 'PrecipitationIn', ' CloudCover', ' Events', ' WindDirDegrees']
 ```
+
+
+<br/><hr/><br/>
+
+
+## Analizar los encabezados y sus posiciones
+
+Para ver mejor los datos del archivo, imprimiremos cada encabezado y su posición:
+
+```python
+# sitka_highs.py
+
+# ...
+
+with open(filename) as f:
+    # ...
+    
+    for index, column_header in enumerate(header_row):
+        print(index, column_header)
+```
+
+<br/>
+
+Si ejecutamos el archivo, obtendremos la siguiente salida:
+
+```bash
+0 AKDT
+1 Max TemperatureF
+2 Mean TemperatureF
+3 Min TemperatureF
+4 Max Dew PointF
+5 MeanDew PointF
+6 Min DewpointF
+7 Max Humidity
+8  Mean Humidity
+9  Min Humidity
+10  Max Sea Level PressureIn
+11  Mean Sea Level PressureIn
+12  Min Sea Level PressureIn
+13  Max VisibilityMiles
+14  Mean VisibilityMiles
+15  Min VisibilityMiles
+16  Max Wind SpeedMPH
+17  Mean Wind SpeedMPH
+18  Max Gust SpeedMPH
+19 PrecipitationIn
+20  CloudCover
+21  Events
+22  WindDirDegrees
+```
+
+
+<br/><hr/><br/>
+
+
+## Extraer y leer datos
