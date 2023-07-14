@@ -35,6 +35,7 @@
     * [Lanzar dados de diferentes caras](#lanzar-dados-de-diferentes-caras)
 * [Descargar datos](#descargar-datos)
     * [El formato CSV](#el-formato-csv)
+    * [Analizar los encabezados de archivos CSV](#analizar-encabezados-de-archivos-csv)
 
 
 <br/><hr/>
@@ -1099,3 +1100,38 @@ Una forma muy sencilla de almacenar información es guardarla en un archivo sepa
 Vamos a comenzar con los datos proporcionados sobre el aeropuerto de Sitka, Alaska. Estos datos se pueden descargar en [la página de GitHub del libro](https://github.com/ehmatthes/pcc/blob/master/chapter_16/sitka_weather_07-2014.csv).
 
 Crearemos un directorio llamado `download_data_section` y dentro de este otra carpeta llamada `data`. El archivo CSV que contiene los datos (`sitka_weather_07-2014.csv`) lo guardaremos dentro de esta carpeta `data`.
+
+
+<br/><hr/><br/>
+
+
+## Analizar los encabezados de archivos CSV
+
+En python se puede utilizar un módulo estandar (`csv`) para trabajar con este tipo de archivos. Vamos a comenzar analizando la primera línea del archivo, que contiene una serie de encabezados que describen los datos que contiene el archivo, para ello, crearemos el archivo `sitka_highs.py` y añadiremos el siguiente código:
+
+```python
+# sitka_highs.py
+
+import csv
+
+filename = "download_data_section/data/sitka_weather_07-2014.csv"
+
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+    print(header_row)
+```
+
+<br/>
+
+En primer lugar, importamos el módulo `csv` e indicamos el directorio y el nombre del archivo que queremos analizar.
+
+Después, creamos un *reader* del archivo. El módulo CSV contiene un método `next()` que devuelve la siguiente línea del archivo cuando se le pasa un objeto *reader*. En este caso, la primera línea del archivo contiene los encabezados, por lo que la guardamos en la variable `header_row`.
+
+El objeto `reader` procesa la primera línea de valores separados por comas, y guarda cada uno como un elemento en una lista.
+
+Si ejecutamos el archivo desde la terminal, obtendremos la siguiente salida:
+
+```bash
+['AKDT', 'Max TemperatureF', 'Mean TemperatureF', 'Min TemperatureF', 'Max Dew PointF', 'MeanDew PointF', 'Min DewpointF', 'Max Humidity', ' Mean Humidity', ' Min Humidity', ' Max Sea Level PressureIn', ' Mean Sea Level PressureIn', ' Min Sea Level PressureIn', ' Max VisibilityMiles', ' Mean VisibilityMiles', ' Min VisibilityMiles', ' Max Wind SpeedMPH', ' Mean Wind SpeedMPH', ' Max Gust SpeedMPH', 'PrecipitationIn', ' CloudCover', ' Events', ' WindDirDegrees']
+```
