@@ -39,6 +39,8 @@
     * [Analizar los encabezados y sus posiciones](#analizar-los-encabezados-y-sus-posiciones)
     * [Extraer y leer datos](#extraer-y-leer-datos)
     * [Trazar datos en un gráfico de temperatura](#trazar-datos-en-un-gráfico-de-temperatura)
+    * [El módulo datetime](#el-módulo-datetime)
+      * [Dibujar fechas](#dibujar-fechas)
 
 
 <br/><hr/>
@@ -1210,7 +1212,7 @@ with open(filename) as f:
     # Get high temperatures from this file
     highs = []
     for row in reader:
-        high = int(row[5])
+        high = int(row[1])
         highs.append(high)
 
 print(highs)
@@ -1220,12 +1222,12 @@ print(highs)
 
 Hemos creado una lista vacía y realizado un bucle que recorre cada una de las filas del archivo. El objeto `reader` continúa desde donde se queda en el archivo CSV y devuelve automáticamente cada línea después de su posición actual. Como ya hemos leído los encabezados, el bucle comenzará desde la segunda línea, que es donde comienzan los datos como tal.
 
-En cada vuelta del bucle obtenemos los datos correspondientes al índice `5`, es decir, al encabezado `TMAX`, y guardaremos los datos en `highs`.
+En cada vuelta del bucle obtenemos los datos correspondientes al índice `1`, es decir, al encabezado `Max TemperatureF`, y guardaremos los datos en `highs`.
 
 Este es el resultado obtenido que se almacena en la lista `highs`:
 
 ```
-[51, 52, 53, 51, 50, 50, 53, 53, 54, 52, 54, 56, 56, 56, 51, 49, 50, 52, 53, 52, 51, 54, 52, 52, 53, 55, 54, 54, 52, 53, 52]
+[64, 71, 64, 59, 69, 62, 61, 55, 57, 61, 57, 59, 57, 61, 64, 61, 59, 63, 60, 57, 69, 63, 62, 59, 57, 57, 61, 59, 61, 61, 66]
 ```
 
 <br/>
@@ -1266,3 +1268,80 @@ plt.show()
 Vamos a dibujar las temperaturas altas en rojo y las bajas en azul, así que a la hora de crear el gráfico, indicamos que queremos que sea `c='red'`. Después, creamos un título y unas etiquetas para los datos del gráfico, aunque no hemos colocado las etiquetas a los ejes como tal porque más adelante indicaremos las fechas.
 
 Si ejecutamos el código, veremos cómo se muestra un gráfico simple de color rojo indicando las temperaturas obtenidas del archivo.
+
+<br/><hr/><br/>
+
+## El módulo datetime
+
+Como hemos mencionado antes, vamos a añadir fechas a nuestro gráfico para que sea más útil. La primera fecha del archivo está en la segunda fila del mismo.
+
+Las fechas van a ser leídas como **strings**, así que necesitamos convertirlas a objetos de tipo fecha. Podemos crear un objeto que represente la fecha `July 1, 2018` a partir del string `"2018-07-01"` haciendo uso del método `strptime()` del módulo `datetime`:
+
+```
+>>> from datetime import datetime
+>>> first_date = datetime.strptime('2018-07-01', '%Y-%m-%d')
+>>> print(first_date)
+2018-07-01 00:00:00
+```
+
+<br/>
+
+Esos son los pasos a seguir:
+
+1.  Importar la clase `datetime` del módulo `datetime`.
+2.  Llamar al método `strptime()` utilizando un string que contenga la fecha deseada. (*El segundo argumento le dice a Python cuál es el formato del string.*)
+
+<br/>
+
+Para conocer los tipos de datos o formatos disponibles, se puede consultar esta tabla:
+
+| Argumento | Significado (Ejemplo)                    |
+| :-------: | :--------------------------------------- |
+|   `%A`    | Nombre de la semana (*Monday*)           |
+|   `%B`    | Nombre del mes (*January*)               |
+|   `%m`    | Mes, como número (*del 01 al 12*)        |
+|   `%d`    | Día del mes, como número (*del 01 al 31*) |
+|   `%Y`    | Año, utilizando 4 dígitos (*2023*)       |
+|   `%y`    | Año, utilizando 2 dígitos (*23*)         |
+|   `%H`    | Hora, en formato 24 horas (*00 a 23*)    |
+|   `%I`    | Hora, en formato 12 horas (*00 a 12*)    |
+|   `%p`    | `AM` ó `PM`                              |
+|   `%M`    | Minutos (*00 a 59*)                      |
+|   `%S`    | Segundos (*00 a 59*)                     |
+
+<br/><br/>
+
+### Dibujar fechas
+
+Ahora que sabemos esto, podemos importar el módulo a nuestro proyecto, extraer las fechas de nuestros datos y dibujarlas:
+
+```python
+# sitka_highs.py
+
+# ...
+from datetime import datetime
+
+# ...
+
+with open(filename) as f:
+    # ...
+    
+    # Get dates and high temperatures from this file
+    dates, highs = [], []
+    for row in reader:
+        current_date = datetime.strptime(row[2], '%Y-%m-%d')
+        high = int(row[5])
+        
+        dates.append(current_date)
+        highs.append(high)
+
+# Plot the high temperatures
+# ...
+ax.plot(dates, highs, c='red')
+
+# Format plot
+# plt.xlabel...
+fig.autofmt_xdate()
+# ...
+```
+
