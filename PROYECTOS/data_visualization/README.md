@@ -41,6 +41,7 @@
     * [Trazar datos en un gráfico de temperatura](#trazar-datos-en-un-gráfico-de-temperatura)
     * [El módulo datetime](#el-módulo-datetime)
       * [Dibujar fechas](#dibujar-fechas)
+      * [Dibujar espacios de tiempo más largos](#dibujar-espacios-de-tiempo-más-largos)
 
 
 <br/><hr/>
@@ -1104,7 +1105,7 @@ Una forma muy sencilla de almacenar información es guardarla en un archivo sepa
 
 Vamos a comenzar con los datos proporcionados sobre el aeropuerto de Sitka, Alaska. Estos datos se pueden descargar en [la página de GitHub del libro](https://github.com/ehmatthes/pcc/blob/master/chapter_16/sitka_weather_07-2014.csv).
 
-Crearemos un directorio llamado `download_data_section` y dentro de este otra carpeta llamada `data`. El archivo CSV que contiene los datos (`sitka_weather_07-2014.csv`) lo guardaremos dentro de esta carpeta `data`.
+Crearemos un directorio llamado `download_data_section` y dentro de este otra carpeta llamada `data`. El archivo CSV que contiene los datos ([`sitka_weather_07-2018_simple.csv`](https://github.com/ehmatthes/pcc_2e/blob/master/chapter_16/the_csv_file_format/data/sitka_weather_07-2018_simple.csv)) lo guardaremos dentro de esta carpeta `data`.
 
 
 <br/><hr/><br/>
@@ -1119,7 +1120,7 @@ En python se puede utilizar un módulo estandar (`csv`) para trabajar con este t
 
 import csv
 
-filename = "download_data_section/data/sitka_weather_07-2014.csv"
+filename = "download_data_section/data/sitka_weather_07-2018_simple.csv"
 
 with open(filename) as f:
     reader = csv.reader(f)
@@ -1137,8 +1138,8 @@ El objeto `reader` procesa la primera línea de valores separados por comas, y g
 
 Si ejecutamos el archivo desde la terminal, obtendremos la siguiente salida:
 
-```bash
-['AKDT', 'Max TemperatureF', 'Mean TemperatureF', 'Min TemperatureF', 'Max Dew PointF', 'MeanDew PointF', 'Min DewpointF', 'Max Humidity', ' Mean Humidity', ' Min Humidity', ' Max Sea Level PressureIn', ' Mean Sea Level PressureIn', ' Min Sea Level PressureIn', ' Max VisibilityMiles', ' Mean VisibilityMiles', ' Min VisibilityMiles', ' Max Wind SpeedMPH', ' Mean Wind SpeedMPH', ' Max Gust SpeedMPH', 'PrecipitationIn', ' CloudCover', ' Events', ' WindDirDegrees']
+```
+['STATION', 'NAME', 'DATE', 'PRCP', 'TAVG', 'TMAX', 'TMIN']
 ```
 
 
@@ -1166,29 +1167,13 @@ with open(filename) as f:
 Si ejecutamos el archivo, obtendremos la siguiente salida:
 
 ```
-0 AKDT
-1 Max TemperatureF
-2 Mean TemperatureF
-3 Min TemperatureF
-4 Max Dew PointF
-5 MeanDew PointF
-6 Min DewpointF
-7 Max Humidity
-8  Mean Humidity
-9  Min Humidity
-10  Max Sea Level PressureIn
-11  Mean Sea Level PressureIn
-12  Min Sea Level PressureIn
-13  Max VisibilityMiles
-14  Mean VisibilityMiles
-15  Min VisibilityMiles
-16  Max Wind SpeedMPH
-17  Mean Wind SpeedMPH
-18  Max Gust SpeedMPH
-19 PrecipitationIn
-20  CloudCover
-21  Events
-22  WindDirDegrees
+0 STATION
+1 NAME
+2 DATE
+3 PRCP
+4 TAVG
+5 TMAX
+6 TMIN
 ```
 
 
@@ -1212,7 +1197,7 @@ with open(filename) as f:
     # Get high temperatures from this file
     highs = []
     for row in reader:
-        high = int(row[1])
+        high = int(row[5])
         highs.append(high)
 
 print(highs)
@@ -1222,12 +1207,12 @@ print(highs)
 
 Hemos creado una lista vacía y realizado un bucle que recorre cada una de las filas del archivo. El objeto `reader` continúa desde donde se queda en el archivo CSV y devuelve automáticamente cada línea después de su posición actual. Como ya hemos leído los encabezados, el bucle comenzará desde la segunda línea, que es donde comienzan los datos como tal.
 
-En cada vuelta del bucle obtenemos los datos correspondientes al índice `1`, es decir, al encabezado `Max TemperatureF`, y guardaremos los datos en `highs`.
+En cada vuelta del bucle obtenemos los datos correspondientes al índice `5`, es decir, al encabezado `TMAX`, y guardaremos los datos en `highs`.
 
 Este es el resultado obtenido que se almacena en la lista `highs`:
 
 ```
-[64, 71, 64, 59, 69, 62, 61, 55, 57, 61, 57, 59, 57, 61, 64, 61, 59, 63, 60, 57, 69, 63, 62, 59, 57, 57, 61, 59, 61, 61, 66]
+[62, 58, 70, 70, 67, 59, 58, 62, 66, 59, 56, 63, 65, 58, 56, 59, 64, 60, 60, 61, 65, 65, 63, 59, 64, 65, 68, 66, 64, 67, 65]
 ```
 
 <br/>
@@ -1345,3 +1330,26 @@ fig.autofmt_xdate()
 # ...
 ```
 
+<br/><br/>
+
+### Dibujar espacios de tiempo más largos
+
+Vamos a añadir más información para completar nuestro gráfico. Para ello, vamos a descargar el archivo [`sitka_weather_2018_simple.csv`](https://github.com/ehmatthes/pcc_2e/blob/master/chapter_16/the_csv_file_format/data/sitka_weather_2018_simple.csv), el cual contiene los datos meteorológicos de todo un año.
+
+Ahora podemos generar un gráfico para el tiempo de todo el año:
+
+```python
+# sitka_highs.py
+
+# ...
+
+filename = "download_data_section/data/sitka_weather_2018_simple.csv"
+
+# ...
+plt.title("Daily high temperatures - 2018", fontsize=24)
+# ...
+```
+
+<br/>
+
+Con estos dos pequeños cambios, estaríamos mostrando los datos relacionados a las temperaturas de todo un año en lugar de las de un mes.
