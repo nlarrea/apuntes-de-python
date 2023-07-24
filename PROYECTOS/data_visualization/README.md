@@ -1234,3 +1234,35 @@ Con esto, hemos obtenido la temperatura máxima de cada fecha y hemos guardado l
 
 <br/><hr/><br/>
 
+## Trazar datos en un gráfico de temperatura
+
+Para visualizar los datos de temperatura que tenemos, primero crearemos un gráfico simple utilizando `Matplotlib`:
+
+```python
+# sitka_highs.py
+
+# ...
+import matplotlib.pyplot as plt
+
+# Read file and save data in 'highs' list
+# ...
+
+# Plot the high temperature
+plt.style.use('seaborn')
+fig, ax = plt.subplots()
+ax.plot(highs, c='red')
+
+# Format plot
+plt.title("Daily high temperatures, July 2018", fonsize=24)
+plt.xlabel("", fontsize=16)
+plt.ylabel("Temperature (F)", fontsize=16)
+plt.tick_params(axis="both", which="major", labelsize=16)
+
+plt.show()
+```
+
+<br/>
+
+Vamos a dibujar las temperaturas altas en rojo y las bajas en azul, así que a la hora de crear el gráfico, indicamos que queremos que sea `c='red'`. Después, creamos un título y unas etiquetas para los datos del gráfico, aunque no hemos colocado las etiquetas a los ejes como tal porque más adelante indicaremos las fechas.
+
+Si ejecutamos el código, veremos cómo se muestra un gráfico simple de color rojo indicando las temperaturas obtenidas del archivo.
