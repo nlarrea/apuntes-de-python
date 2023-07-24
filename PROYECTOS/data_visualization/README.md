@@ -38,6 +38,7 @@
     * [Analizar los encabezados de archivos CSV](#analizar-encabezados-de-archivos-csv)
     * [Analizar los encabezados y sus posiciones](#analizar-los-encabezados-y-sus-posiciones)
     * [Extraer y leer datos](#extraer-y-leer-datos)
+    * [Trazar datos en un gráfico de temperatura](#trazar-datos-en-un-gráfico-de-temperatura)
 
 
 <br/><hr/>
@@ -1162,7 +1163,7 @@ with open(filename) as f:
 
 Si ejecutamos el archivo, obtendremos la siguiente salida:
 
-```bash
+```
 0 AKDT
 1 Max TemperatureF
 2 Mean TemperatureF
@@ -1191,5 +1192,45 @@ Si ejecutamos el archivo, obtendremos la siguiente salida:
 
 <br/><hr/><br/>
 
-
 ## Extraer y leer datos
+
+Ahora que sabemos qué columnas de datos necesitamos, vamos a leer esos datos.
+
+Para empezar, leeremos la temperatura alta de cada uno de los dóas:
+
+```python
+# sitka_highs.py
+
+# ...
+
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+    
+    # Get high temperatures from this file
+    highs = []
+    for row in reader:
+        high = int(row[5])
+        highs.append(high)
+
+print(highs)
+```
+
+<br/>
+
+Hemos creado una lista vacía y realizado un bucle que recorre cada una de las filas del archivo. El objeto `reader` continúa desde donde se queda en el archivo CSV y devuelve automáticamente cada línea después de su posición actual. Como ya hemos leído los encabezados, el bucle comenzará desde la segunda línea, que es donde comienzan los datos como tal.
+
+En cada vuelta del bucle obtenemos los datos correspondientes al índice `5`, es decir, al encabezado `TMAX`, y guardaremos los datos en `highs`.
+
+Este es el resultado obtenido que se almacena en la lista `highs`:
+
+```
+[51, 52, 53, 51, 50, 50, 53, 53, 54, 52, 54, 56, 56, 56, 51, 49, 50, 52, 53, 52, 51, 54, 52, 52, 53, 55, 54, 54, 52, 53, 52]
+```
+
+<br/>
+
+Con esto, hemos obtenido la temperatura máxima de cada fecha y hemos guardado los valores en una lista. Con esto, ahora podemos crear una visualización de los datos.
+
+<br/><hr/><br/>
+
