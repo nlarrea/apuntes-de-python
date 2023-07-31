@@ -43,6 +43,7 @@
       * [Dibujar fechas](#dibujar-fechas)
       * [Dibujar espacios de tiempo más largos](#dibujar-espacios-de-tiempo-más-largos)
     * [Trazar una segunda serie de datos](#trazar-una-segunda-serie-de-datos)
+    * [Sombrear un área en el gráfico](#sombrear-un-área-en-el-gráfico)
 
 
 <br/><hr/>
@@ -1402,3 +1403,35 @@ plt.tick_params(axis='both', which='major', labelsize=16)
 plt.show()
 ```
 
+<br/><hr/><br/>
+
+## Sombrear un área en el gráfico
+
+Habiendo añadido dos series de datos al gráfico, ahora podemos examinar los rangos de temperaturas de cada día. Vamos a añadir un toque final al gráfico añadiéndole un sombreado entre los datos superiores e inferiores.
+
+Para conseguirlo, vamos a utilizar el método `fill_between()`, el cual toma una serie de los valores `x` y dos series de valores `y` y rellena el espacio entre ambos:
+
+```python
+# sitka_highs_lows.py
+
+# ...
+
+# Plot the high temperatures
+# ...
+ax.plot(dates, highs, c='red', alpha=0.5)
+ax.plot(dates, lows, c='blue', alpha=0.5)
+plt.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
+
+# ...
+```
+
+<br/>
+
+>   `alpha` sirve para controlar la transparencia.
+>
+>   * Un valor `alpha` de `0` significa **completamente transparente**.
+>   * Un valor `alpha` de `1` (*default*) significa **completamente opaco**.
+
+<br/>
+
+Este código hace que se vea con mayor claridad la diferencia entre temperaturas mínimas y máximas a lo largo de los días del año.
