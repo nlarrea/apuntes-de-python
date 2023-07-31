@@ -45,7 +45,8 @@
     * [Trazar una segunda serie de datos](#trazar-una-segunda-serie-de-datos)
     * [Sombrear un área en el gráfico](#sombrear-un-área-en-el-gráfico)
     * [Comprobar errores](#comprobar-errores)
-
+* [Mapear conjuntos de datos globales - JSON](#mapear-conjuntos-de-datos-globales---json)
+    * [Descargar datos de los terremotos](#descargar-datos-de-los-terremotos)
 
 <br/><hr/>
 <hr/><br/>
@@ -1061,7 +1062,7 @@ Los valores más probables ahora son 7, 8, 9, 10 y 11, y los menos probables son
 <div align='right'><a href='#index'>Volver arriba</a></div>
 
 
-# Descargar datos
+# Descargar datos - CSV
 
 En este apartado, vamos a ver cómo descargar datos de la web y crear visualizaciones con ellos.
 
@@ -1546,3 +1547,105 @@ Missing data for 2018-02-18 00:00:00
 <br/>
 
 A parte de esto, vemos que se muestra el gráfico con los datos de las temperaturas mínimas y máximas. *¿Por qué?* Porque hemos hecho que cada vez que se produzca un error, el programa sea capáz de seguir funcionando simplemente mostrando un mensaje indicando cuál es el dato que falta.
+
+<br/><hr/><hr/><br/>
+
+<div align='right'><a href='#index'>Volver arriba</a></div>
+
+# Mapear conjuntos de datos globales - JSON
+
+En esta sección vamos a ver cómo descargar datos que representen todos los terremostos que han ocurrido en el mundo a lo largo de un mes concreto. Con esto, conseguiremos un mapa que muestre la localización exacta del terremoto y cuán grave ha sido.
+
+Esta información estará contenida en el formato `.json`, por lo que haremos uso de la librería `json`. Además, utilizando la herramienta de creación de mapas de Plotly, podremos crear imágenes que muestren perfectamente la distribución de dichos terremotos.
+
+<br/><hr/><br/>
+
+## Descargar datos de los terremotos
+
+Vamos a descargar el archivo [`eq_1_day_m1.json`](https://github.com/ehmatthes/pcc_2e/blob/master/chapter_16/mapping_global_data_sets/data/eq_data_1_day_m1.json) al archivo en el que estamos almacenando todos nuestras descargas de datos (la carpeta `data`).
+
+Sabemos que los terremotos están categorizados según su magnitud en la escala Richter. Este archivo incluye datos de los terremotos de magnitud M1 o superiores.
+
+<br/><hr/><br/>
+
+## Examinar datos JSON
+
+Al abrir el archivo descargado, veremos que el contenido del mismo es muy denso y difícil de leer.
+
+Este formato es más apropiado para máquinas que para personas, sin embargo, podemos ver que contiene varios diccionarios.
+
+Gracias al módulo `json` podremos trabajar y formatear los datos del archivo `.json` para que los datos que contiene sean mucho mas legibles. Vamos a comenzar añadiendo las siguientes líneas al archivo `eq_explore_data.py`:
+
+```python
+import json
+
+# Explore the structure of the data
+filename = "download_data_section/data/eq_data_1_day_m1.json"
+
+with open(filename) as f:
+    all_eq_data = json.load(f)
+
+readable_file = "download_data_section/data/generated/readable_eq_data.json"
+with open(readable_file, "w") as f:
+    json.dump(all_eq_data, f, indent=4)
+```
+
+<br/>
+
+En primer lugar, importamos el módulo `json` para cargar los datos correctamente y, después, los almacenamos en la variable `all_eq_data`. La función `json.load()` convierte los datos del archivo en un formato que Python entiende: **un diccionario**.
+
+Después, creamos un nuevo archivo en el que guardamos el mismo contenido pero en un formato mucho más legible. La función `json.dump()` toma un objeto JSON y un archivo, y almacena el contenido del objeto JSON en dicho archivo.
+
+Si ejecutamos el código y abrimos el nuevo archivo generado (`readable_eq_data.json`), veremos que ahora es mucho más fácil leer la información.
+
+**La primera parte del nuevo archivo** muestra una sección bajo el nombre de `metadata`, que nos indica cuándo se han generado esos datos, nos muestra un título y la cantidad de terremotos que han sido registrados en las últimas 24h (158 terremotos). La información de los mismos se encuentra bajo una lista `features`. La estructura está formada de tal forma que cada ítem de la lista corresponde a un terremoto.
+
+He aquí la información obtenida del primer terremoto del archivo:
+
+```
+{
+    "type": "Feature",
+    "properties": {
+        "mag": 0.96,
+        "place": "8km NE of Aguanga, CA",
+        "time": 1550360775470,
+        "updated": 1550360993593,
+        "tz": -480,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci37532978",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ci37532978.geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "automatic",
+        "tsunami": 0,
+        "sig": 14,
+        "net": "ci",
+        "code": "37532978",
+        "ids": ",ci37532978,",
+        "sources": ",ci,",
+        "types": ",geoserve,nearby-cities,origin,phase-data,",
+        "nst": 32,
+        "dmin": 0.02648,
+        "rms": 0.15,
+        "gap": 37,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 1.0 - 8km NE of Aguanga, CA"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [
+            -116.7941667,
+            33.4863333,
+            3.22
+        ]
+    },
+    "id": "ci37532978"
+},
+```
+
+<br/>
+
+*   **`properties`:** muestra mucha información sobre el terremoto. Estamos interesados sobre todo en la magnitud del mismo, lo cual se muestra en la propiedad `mag`. También nos interesa el `title`, que ofrece una pequeña descripción de la ubicación del mismo.
+*   **`geometry`:** esta sección nos ayuda a conocer dónde ha tendo lugar el terremoto. Necesitaremos esta información para mapear el evento.
