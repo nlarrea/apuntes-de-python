@@ -49,6 +49,8 @@
     * [Descargar datos de los terremotos](#descargar-datos-de-los-terremotos)
     * [Examinar datos JSON](#examinar-datos-json)
     * [Crear una lista de todos los terremotos](#crear-una-lista-de-todos-los-terremotos)
+    * [Extraer las magnitudes](#extraer-las-magnitudes)
+    * [Extraer ubicaciones](#extraer-ubicaciones)
 
 <br/><hr/>
 <hr/><br/>
@@ -1681,3 +1683,66 @@ print(len(all_eq_dicts))
 <br/>
 
 Con esas dos líneas, obtenemos los datos asociados a la clave `features` del archivo, el cual recordemos que se trata de una lista con los terremotos. Si imprimimos la longitud de esta lista nueva, veremos que la salida muestra el valor `158`, que es la misma cantidad que hemos visto anteriormente en el `metadata` del archivo.
+
+<br/><hr/><br/>
+
+## Extraer las magnitudes
+
+Ya tenemos la lista que contiene toda la información acerca de los terremotos, por lo que podemos extraer la magnitud de cada uno de ellos. Para ello, añadiremos las siguientes líneas al archivo `eq_explore_data.py`:
+
+```python
+# eq_explore_data.py
+
+# ...
+
+mags = []
+for eq_dict in all_eq_dicts:
+    mag = eq_dict["properties"]["mag"]
+    mags.append(mag)
+
+print(mags[:10])
+```
+
+<br/>
+
+Con este código extraemos todas las magnitudes y las almacenamos en la variable `mags`. A continuación, imprimimos las 10 primeras magnitudes para ver cómo se muestran:
+
+```
+[0.96, 1.2, 4.3, 3.6, 2.1, 4, 1.06, 2.3, 4.9, 1.8]
+```
+
+<br/><hr/><br/>
+
+## Extraer ubicaciones
+
+Para extraer las ubicaciones, vamos a aprovechar el bucle anterior y vamos a modificarlo de la siguiente manera:
+
+```python
+# eq_explore_data.py
+
+# ...
+
+mags, lons, lats = [], [], []
+for eq_dict in all_eq_dicts:
+    mag = eq_dict["properties"]["mag"]
+    lon = eq_dict["geometry"]["coordinates"][0]
+    lat = eq_dict["geometry"]["coordinates"][1]
+    
+    mags.append(mag)
+    lons.append(lon)
+    lats.append(lat)
+
+print(mags[:10])
+print(lons[:5])
+print(lats[:5])
+```
+
+<br/>
+
+Tras ejecutar el nuevo código, obtenemos la siguiente salida:
+
+```
+[0.96, 1.2, 4.3, 3.6, 2.1, 4, 1.06, 2.3, 4.9, 1.8]
+[-116.7941667, -148.9865, -74.2343, -161.6801, -118.5316667]
+[33.4863333, 64.6673, -12.1025, 54.2232, 35.3098333]
+```
