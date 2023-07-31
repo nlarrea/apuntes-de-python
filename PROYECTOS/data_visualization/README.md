@@ -51,6 +51,7 @@
     * [Crear una lista de todos los terremotos](#crear-una-lista-de-todos-los-terremotos)
     * [Extraer las magnitudes](#extraer-las-magnitudes)
     * [Extraer ubicaciones](#extraer-ubicaciones)
+    * [Crear un mapa mundial](#crear-un-mapa-mundial)
 
 <br/><hr/>
 <hr/><br/>
@@ -1746,3 +1747,36 @@ Tras ejecutar el nuevo código, obtenemos la siguiente salida:
 [-116.7941667, -148.9865, -74.2343, -161.6801, -118.5316667]
 [33.4863333, 64.6673, -12.1025, 54.2232, 35.3098333]
 ```
+
+<br/><hr/><br/>
+
+## Crear un mapa mundial
+
+Con la información que hemos extraído, podemos crear un simple mapa mundial con los datos. Para ello, vamos a importar ciertos módulos y a modificar el código de la siguiente manera:
+
+```python
+# eq_explore_data.py
+
+# ...
+from plotly.graph_objs import Scattergeo, Layout
+from plotly import offline
+
+# ...
+for eq_dict in all_eq_dicts:
+    # ...
+
+# Map the earthquakes
+data = [Scattergeo(lon=lons, lat=lats)]
+my_layout = Layout(title="Global Earthquakes")
+
+fig = {"data": data, "layout": my_layout}
+offline.plot(fig, filename="download_data_section/data/generated/global_earthquakes.html")
+```
+
+<br/>
+
+Hemos importado los módulos necesarios para crear el mapa y hemos creado una lista que contiene un objeto `Scattergeo` que contiene las coordenadas de los terremotos.
+
+Después, creamos un objeto `Layout` que contiene el título del mapa y, por último, creamos un diccionario que contiene los datos y el diseño del mapa. Este diccionario se pasa a la función `offline.plot()` para que cree el mapa.
+
+Con todo esto, hemos creado un mapa muy simple que puede ser mejorado aplicando nuevos estilos que veremos en apartados posteriores.
