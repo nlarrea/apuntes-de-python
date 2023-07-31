@@ -47,6 +47,8 @@
     * [Comprobar errores](#comprobar-errores)
 * [Mapear conjuntos de datos globales - JSON](#mapear-conjuntos-de-datos-globales---json)
     * [Descargar datos de los terremotos](#descargar-datos-de-los-terremotos)
+    * [Examinar datos JSON](#examinar-datos-json)
+    * [Crear una lista de todos los terremotos](#crear-una-lista-de-todos-los-terremotos)
 
 <br/><hr/>
 <hr/><br/>
@@ -1426,6 +1428,8 @@ A estas alturas, podemos ejecutar el código del archivo `sitka_highs_lows.py` s
 En esta ocasión vamos a trabajar con un nuevo archivo de datos llamado [`death_valley_2018_simple.csv`](https://github.com/ehmatthes/pcc_2e/blob/master/chapter_16/the_csv_file_format/data/death_valley_2018_simple.csv). En primer lugar, vamos a añadir las siguientes líneas a un nuevo archivo llamado `death_valley_highs_lows.py` para ver qué encabezados tiene este nuevo archivo desde el cual vamos a importar los datos:
 
 ```python
+# death_valley_highs_lows.py
+
 import csv
 
 filename = "./data/dead_valley_2018_simple.csv"
@@ -1459,6 +1463,8 @@ El valor de las fechas (`date`) se sigue encontrando en el índice 2, sin embarg
 Se ha eliminado del archivo uno de los datos de la temperatura para ver qué ocurre si falta uno de estos datos. Vamos a añadir las siguientes líneas al código:
 
 ```python
+# death_valley_highs_lows.py
+
 import csv
 from datetime import datetime
 import matplotlib.pyplot as plt
@@ -1516,6 +1522,8 @@ Como se puede observar, el hecho de que falten datos de temperaturas en el archi
 Una posible solución a este error es realizar lo siguiente:
 
 ```python
+# death_valley_highs_lows.py
+
 # ...
 with open(filename) as f:
     # ...
@@ -1577,6 +1585,8 @@ Este formato es más apropiado para máquinas que para personas, sin embargo, po
 Gracias al módulo `json` podremos trabajar y formatear los datos del archivo `.json` para que los datos que contiene sean mucho mas legibles. Vamos a comenzar añadiendo las siguientes líneas al archivo `eq_explore_data.py`:
 
 ```python
+# eq_expolore_data.py
+
 import json
 
 # Explore the structure of the data
@@ -1649,3 +1659,25 @@ He aquí la información obtenida del primer terremoto del archivo:
 
 *   **`properties`:** muestra mucha información sobre el terremoto. Estamos interesados sobre todo en la magnitud del mismo, lo cual se muestra en la propiedad `mag`. También nos interesa el `title`, que ofrece una pequeña descripción de la ubicación del mismo.
 *   **`geometry`:** esta sección nos ayuda a conocer dónde ha tendo lugar el terremoto. Necesitaremos esta información para mapear el evento.
+
+<br/><hr/><br/>
+
+## Crear una lista de todos los terremotos
+
+Antes de nada, vamos a crear una lista que contenga toda la información acerca de los terremotos. Para ello, modificaremos el archivo `eq_explore_data.py` de la siguiente manera:
+
+```python
+# eq_explore_data.py
+
+# ...
+
+with open(filename) as f:
+    # ...
+
+all_eq_dicts = all_eq_data["features"]
+print(len(all_eq_dicts))
+```
+
+<br/>
+
+Con esas dos líneas, obtenemos los datos asociados a la clave `features` del archivo, el cual recordemos que se trata de una lista con los terremotos. Si imprimimos la longitud de esta lista nueva, veremos que la salida muestra el valor `158`, que es la misma cantidad que hemos visto anteriormente en el `metadata` del archivo.
