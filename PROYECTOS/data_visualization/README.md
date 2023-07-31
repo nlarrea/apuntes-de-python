@@ -44,6 +44,7 @@
       * [Dibujar espacios de tiempo más largos](#dibujar-espacios-de-tiempo-más-largos)
     * [Trazar una segunda serie de datos](#trazar-una-segunda-serie-de-datos)
     * [Sombrear un área en el gráfico](#sombrear-un-área-en-el-gráfico)
+    * [Comprobar errores](#comprobar-errores)
 
 
 <br/><hr/>
@@ -61,10 +62,7 @@ También usaremos un paquete llamado `Plotly`, que crea visualizaciones que func
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
-
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 # Instalar Matplotlib
 
@@ -95,9 +93,7 @@ Para ver los tipos de visualizaciones que se pueden realizar con `Matplotlib`, p
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 
 # Trazar un sencillo gráfico de líneas
@@ -200,9 +196,7 @@ Ahora, como le hemos pasado los datos de entrada y de salida a la función `plot
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 
 # Usar estilos integrados
@@ -242,9 +236,7 @@ plt.style.use('seaborn-v0_8-darkgrid')
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 
 # Trazar y estilizar puntos con scatter
@@ -339,9 +331,7 @@ Si ejecutamos el archivo, veremos cómo se dibujan puntos en el gráfico, en los
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 
 # Calcular datos de automáticamente
@@ -378,9 +368,7 @@ ax.axis([0, 1100, 0, 1_100_000])    # (1)
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 
 # Definir colores customizados
@@ -438,9 +426,7 @@ ax.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues, s=10)
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 
 # Guardar gráficos automáticamente
@@ -464,9 +450,7 @@ El primer argumento es el directorio y el nombre del archivo de la imagen que qu
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 
 # Caminos aleatorios
@@ -798,9 +782,7 @@ while True:
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 
 # Lanzar dados con Plotly
@@ -1076,9 +1058,7 @@ Los valores más probables ahora son 7, 8, 9, 10 y 11, y los menos probables son
 <hr/><br/>
 
 
-<div align='right'>
-    <a href='#index'>Volver arriba</a>
-</div>
+<div align='right'><a href='#index'>Volver arriba</a></div>
 
 
 # Descargar datos
@@ -1435,3 +1415,134 @@ plt.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
 <br/>
 
 Este código hace que se vea con mayor claridad la diferencia entre temperaturas mínimas y máximas a lo largo de los días del año.
+
+<br/><hr/><br/>
+
+## Comprobar errores
+
+A estas alturas, podemos ejecutar el código del archivo `sitka_highs_lows.py` sin ningún tipo de problema. Sin embargo, en algunos lugares, la forma de recoger la información y, por tanto, de almacenarla, no es la misma.
+
+En esta ocasión vamos a trabajar con un nuevo archivo de datos llamado [`death_valley_2018_simple.csv`](https://github.com/ehmatthes/pcc_2e/blob/master/chapter_16/the_csv_file_format/data/death_valley_2018_simple.csv). En primer lugar, vamos a añadir las siguientes líneas a un nuevo archivo llamado `death_valley_highs_lows.py` para ver qué encabezados tiene este nuevo archivo desde el cual vamos a importar los datos:
+
+```python
+import csv
+
+filename = "./data/dead_valley_2018_simple.csv"
+
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+
+    for index, column_header in enumerate(header_row):
+        print(index, column_header)
+```
+
+<br/>
+
+He aquí el *output* de este nuevo código:
+
+```
+0 STATION
+1 NAME
+2 DATE
+3 PRCP
+4 TMAX
+5 TMIN
+6 TOBS
+```
+
+<br/>
+
+El valor de las fechas (`date`) se sigue encontrando en el índice 2, sin embargo, las temperaturas mínima y máxima se han pasado a los índices 4 y 5 respectivamente. Por ello, deberemos modificar los índices de estos valores en nuestro código.
+
+Se ha eliminado del archivo uno de los datos de la temperatura para ver qué ocurre si falta uno de estos datos. Vamos a añadir las siguientes líneas al código:
+
+```python
+import csv
+from datetime import datetime
+import matplotlib.pyplot as plt
+
+filename = "download_data_section/data/death_valley_2018_simple.csv"
+
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+
+    # Get dates, high and low temperatures from this file
+    dates, highs, lows = [], [], []
+    for row in reader:
+        current_date = datetime.strptime(row[2], "%Y-%m-%d")
+        high = int(row[4])
+        low = int(row[5])
+
+        dates.append(current_date)
+        highs.append(high)
+        lows.append(low)
+
+# Plot the high temperatures
+plt.style.use('seaborn')
+fig, ax = plt.subplots()
+ax.plot(dates, highs, c='red', alpha=0.5)
+ax.plot(dates, lows, c='blue', alpha=0.5)
+plt.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
+
+# Format plot
+title = "Daily high and low temperatures - 2018\nDeath Valley, CA"
+plt.title(title, fontsize=20)
+plt.xlabel("", fontsize=16)
+fig.autofmt_xdate()
+plt.ylabel("Temperature (F)", fontsize=16)
+plt.tick_params(axis='both', which='major', labelsize=16)   
+
+plt.show()
+```
+
+<br/>
+
+Si ejecutamos el código, obtenemos lo siguiente:
+
+```
+Traceback (most recent call last):
+  File "C:\Users\larre\Documents\NAIA\OpenBootcamp\4-Python\open-python\PROYECTOS\data_visualization\download_data_section\death_valley_highs_lows.py", line 15, in <module>
+    high = int(row[4])
+ValueError: invalid literal for int() with base 10: ''
+```
+
+<br/>
+
+Como se puede observar, el hecho de que falten datos de temperaturas en el archivo provoca errores del tipo `ValueError` por intentar convertir una cadena vacía en un número con la función `int()`.
+
+Una posible solución a este error es realizar lo siguiente:
+
+```python
+# ...
+with open(filename) as f:
+    # ...
+    for row in reader:
+        current_date = datetime.strptime(row[2], "%Y-%m-%d")
+        try:
+            high = int(row[4])
+            low = int(row[5])
+        except ValueError:
+            print(f"Missing data for {current_date}")
+        else:
+            dates.append(current_date)
+            highs.append(high)
+            lows.append(low)
+
+# ...
+```
+
+<br/>
+
+Con este código, cada vez que examinamos una línea, tratamos de obtener las temperaturas mínimas y máximas. En aquellos casos en los que falte algún dato, Python alzará un `ValueError`, el cual manejaremos a través de mostrar un mensaje por pantalla mostrando la información del dato que falta.
+
+Al ejecutar el código, obtenemos el siguiente mensaje por consola:
+
+```
+Missing data for 2018-02-18 00:00:00
+```
+
+<br/>
+
+A parte de esto, vemos que se muestra el gráfico con los datos de las temperaturas mínimas y máximas. *¿Por qué?* Porque hemos hecho que cada vez que se produzca un error, el programa sea capáz de seguir funcionando simplemente mostrando un mensaje indicando cuál es el dato que falta.
