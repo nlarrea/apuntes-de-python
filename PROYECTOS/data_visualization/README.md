@@ -1,6 +1,6 @@
 # Data Visualization
 
-<div id="index"></div>
+<p id="index">He aquí un pequeño índice de los pasos a seguir:</p>
 
 * [Instalar Matplotlib](#instalar-matplotlib)
 * [Trazar un sencillo gráfico de líneas](#trazar-un-sencillo-gráfico-de-líneas)
@@ -52,8 +52,13 @@
     * [Extraer las magnitudes](#extraer-las-magnitudes)
     * [Extraer ubicaciones](#extraer-ubicaciones)
     * [Crear un mapa mundial](#crear-un-mapa-mundial)
+        * [Una forma diferente de especificar datos](#una-forma-diferente-de-especificar-datos)
+        * [Customizar el tamaño de los marcadores](#customizar-el-tamaño-de-los-marcadores)
 
-<br/><hr/>
+<br/>
+
+<hr/>
+
 <hr/><br/>
 
 
@@ -63,8 +68,10 @@ Por suerte, Python tiene muchas librerías de visualización de datos, desde lib
 
 También usaremos un paquete llamado `Plotly`, que crea visualizaciones que funcionan bien en dispositivos digitales, ya que las visualizaciones se redimensionan automáticamente para adaptarse a la pantalla del usuario.
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -94,8 +101,10 @@ pipenv install matplotlib
 
 Para ver los tipos de visualizaciones que se pueden realizar con `Matplotlib`, podemos visitar la [galería de ejemplos](https://matplotlib.org/stable/gallery/index.html) de la documentación oficial. Y al hacer clic en cualquiera de los ejemplos, podemos ver el código que se usó para crear la visualización.
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -131,8 +140,9 @@ La variable `fig` representa la figura completa o la colección de gráficos que
 
 Llamamos a `ax.plot(squares)` para trazar los valores de `squares` y usamos `plt.show()` para mostrar el gráfico en una ventana de Matplotlib.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Modificar la etiqueta y la línea
@@ -165,8 +175,9 @@ ax.tick_params(axis="both", labelsize=14)       # (4)
 * **(3):** se añaden etiquetas a los ejes X e Y.
 * **(4):** se aumenta el tamaño de las etiquetas de los ejes X e Y.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Corregir el gráfico
@@ -197,8 +208,10 @@ ax.plot(input_values, squares, linewidth=3)
 
 Ahora, como le hemos pasado los datos de entrada y de salida a la función `plot()`, Matplotlib no tiene que asumir cómo deben etiquetarse los datos, y el gráfico resultante es correcto.
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -237,8 +250,10 @@ plt.style.use('seaborn-v0_8-darkgrid')
 # ...
 ```
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -302,8 +317,9 @@ ax.tick_params(
 
 Si ejecutamos el archivo, veremos cómo se dibuja un único punto en el gráfico, en el punto (2, 4).
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Series de puntos
@@ -332,8 +348,10 @@ La lista `x_values` contiene los valores de los cuales queremos obtener sus cuad
 
 Si ejecutamos el archivo, veremos cómo se dibujan puntos en el gráfico, en los puntos (1, 1), (2, 4), (3, 9), (4, 16) y (5, 25).
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -369,8 +387,10 @@ ax.axis([0, 1100, 0, 1_100_000])    # (1)
 
 * **(1):** Utilizamos el método `axis()` para especificar el rango de cada eje. Este método requiere cuatro valores: los valores mínimos y máximos para el eje x (*[0 - 1100]*) y los valores mínimos y máximos para el eje y (*[0 - 1.100.000]*).
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -405,8 +425,9 @@ ax.scatter(x_values, y_values, c=(0, 0.8, 0), s=10)
 # ...
 ```
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Usar Colormap
@@ -427,8 +448,10 @@ ax.scatter(x_values, y_values, c=y_values, cmap=plt.cm.Blues, s=10)
 # ...
 ```
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -451,8 +474,10 @@ plt.savefig("plots/squares_plot.png", bbox_inches="tight")
 
 El primer argumento es el directorio y el nombre del archivo de la imagen que queremos guardar. El segundo argumento recorta los espacios en blanco que rodean el gráfico.
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -465,8 +490,9 @@ Un camino aleatorio es una ruta que no tiene una dirección clara, sino que se d
 
 Vamos a crear un programa que genere un camino aleatorio y lo represente en un gráfico.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Crear la clase RandomWalk
@@ -498,8 +524,9 @@ En primer lugar, importamos la función `choice()` del módulo `random`. Esta fu
 
 Como cada camino comienza en el punto (0, 0), inicializamos los atributos `x_values` e `y_values` con una lista que contenga el valor 0.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Elegir direcciones
@@ -550,8 +577,9 @@ En primer lugar, creamos un bucle `while` que se ejecutará mientras no se hayan
 * **(3):** se calcula la posición del siguiente punto del camino aleatorio basándose en el último punto de la lista.
 * **(4):** se añaden los valores de `x` e `y` a las listas `x_values` e `y_values`.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Dibujar el camino aleatorio
@@ -582,8 +610,9 @@ Comenzamos creando una instancia de la clase `RandomWalk`, la cual hemos importa
 
 Finalmente, creamos un gráfico con los puntos del camino aleatorio. Veremos que si ejecutamos dos veces el nuevo código, se generan dos caminos aleatorios diferentes.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Generar varios caminos aleatorios
@@ -615,14 +644,14 @@ while True:
 
 Este código genera un camino aleatorio, lo muestra haciendo uso de `Matplotlib` y, **cuando se cierra el gráfico generado**, pregunta al usuario si quiere generar otro camino aleatorio.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Estilar el camino
 
 En esta sección vamos a customizar los caminos aleatorios. Queremos enfatizar los puntos de tal forma que sea fácil identificar el punto de inicio y el punto final del camino. Así mismo, queremos que se aprecien menos las etiquetas, puesto que en este caso no son tan importantes.
-
 
 <br/><br/>
 
@@ -654,7 +683,6 @@ while True:
 
 Si ejecutamos el código, veremos cómo los puntos se han coloreado en un gradiente de azules, y cómo se ha eliminado el contorno de los mismos.
 
-
 <br/><br/>
 
 
@@ -683,7 +711,6 @@ while True:
 <br/>
 
 Si ejecutamos el código, veremos cómo los puntos de inicio y final se han coloreado en verde y rojo, respectivamente.
-
 
 <br/><br/>
 
@@ -714,8 +741,9 @@ while True:
 
 Si ejecutamos el código, veremos cómo los ejes se han eliminado del gráfico.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Incrementar la cantidad de puntos
@@ -743,8 +771,9 @@ while True:
 
 Si ejecutamos el código, veremos cómo se ha incrementado la cantidad de puntos y cómo se ha reducido su tamaño para que el gráfico se vea bien.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Alterar el tamaño para llenar la pantalla
@@ -783,8 +812,10 @@ while True:
     # ...
 ```
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -797,8 +828,9 @@ En esta sección, vamos a usar la librería `Plotly` para crear visualizaciones 
 
 Para trabajar con esta librería, realizaremos lanzamientos de un dado. Cuando se lanza un dado, cada cara tiene la misma probabilidad de aparecer, sin embargo, al lanzar dos dados, las probabilidades de que ciertos números aparezcan son mayores que las de otros. Vamos a tratar de determinar qué números son más probables que otros al lanzar dos dados.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Instalar Plotly
@@ -810,8 +842,9 @@ Para instalar esta librería, seguiremos el mismo procedimiento visto en seccion
 pipenv install plotly
 ```
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Crear la clase Die
@@ -845,8 +878,9 @@ Después, creamos el constructor de la clase `Die` y le pasamos el número de ca
 
 Además, creamos el método `roll()` que devuelve un número aleatorio entre 1 y el número de caras del dado gracias a la función `randint()`.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Lanzar un dado
@@ -876,7 +910,6 @@ print(results)
 Hemos importado y creado una instancia del dado cuya clase hemos creado anteriormente. A continuación, hemos creado una lista vacía para almacenar los resultados de los lanzamientos del dado.
 
 Vemos que los resultados de los lanzamientos del dado son números aleatorios entre 1 y 6. Esto significa que el dado se está comportando como se espera.
-
 
 <br/><br/>
 
@@ -916,7 +949,6 @@ Si ejecutamos el archivo, obtendremos valores diferentes cada vez. En mi caso:
 <br/>
 
 Podemos observar que cada uno de los valores se repite una cantidad diferente de veces (*puesto que son valores aleatorios*), sin embargo, la diferencia entre la cantidad de veces que se repite cada valor es insignificante.
-
 
 <br/><br/>
 
@@ -965,8 +997,9 @@ Finalmente, para generar el gráfico, usamos la función `offline.plot()`. Esta 
 
 Si ejecutamos el código, veremos que se genera un gráfico interactivo.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Lanzar dos dados
@@ -1020,8 +1053,9 @@ offline.plot({"data": data, "layout": my_layout}, filename="./plots/dice/d6_d6.h
 
 Este gráfico muestra los resultados aproximados de lanzar dos dados. Si ejecutamos el gráfico, veremos que los resultados generan una especie de campana de Gauss, lo que significa que los valores menos probables son los que se encuentran en los extremos (*sacar 2 o 12*), y los valores más probables son los que se encuentran en el centro (*sacar un 7*).
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Lanzar dados de diferentes caras
@@ -1059,8 +1093,10 @@ Si ejecutamos el código, veremos que el valor mínimo se mantine en 2, sin emba
 
 Los valores más probables ahora son 7, 8, 9, 10 y 11, y los menos probables son 2 y 16.
 
+<br/>
 
-<br/><hr/>
+<hr/>
+
 <hr/><br/>
 
 
@@ -1073,8 +1109,9 @@ En este apartado, vamos a ver cómo descargar datos de la web y crear visualizac
 
 Se puede encontrar una cantidad enorme de datos en la web. Estos datos pueden encontrarse en diversos formatos, pero los que vamos a trabajar en esta sección son los archivos CSV (*comma separated values*) y JSON. Vamos a usar Matplotlib para crear visualizaciones con estos datos.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## El formato CSV
@@ -1095,8 +1132,9 @@ Vamos a comenzar con los datos proporcionados sobre el aeropuerto de Sitka, Alas
 
 Crearemos un directorio llamado `download_data_section` y dentro de este otra carpeta llamada `data`. El archivo CSV que contiene los datos ([`sitka_weather_07-2018_simple.csv`](https://github.com/ehmatthes/pcc_2e/blob/master/chapter_16/the_csv_file_format/data/sitka_weather_07-2018_simple.csv)) lo guardaremos dentro de esta carpeta `data`.
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Analizar los encabezados de archivos CSV
@@ -1130,8 +1168,9 @@ Si ejecutamos el archivo desde la terminal, obtendremos la siguiente salida:
 ['STATION', 'NAME', 'DATE', 'PRCP', 'TAVG', 'TMAX', 'TMIN']
 ```
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 
 ## Analizar los encabezados y sus posiciones
@@ -1164,8 +1203,9 @@ Si ejecutamos el archivo, obtendremos la siguiente salida:
 6 TMIN
 ```
 
+<br/>
 
-<br/><hr/><br/>
+<hr/><br/>
 
 ## Extraer y leer datos
 
@@ -1207,7 +1247,9 @@ Este es el resultado obtenido que se almacena en la lista `highs`:
 
 Con esto, hemos obtenido la temperatura máxima de cada fecha y hemos guardado los valores en una lista. Con esto, ahora podemos crear una visualización de los datos.
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Trazar datos en un gráfico de temperatura
 
@@ -1242,7 +1284,9 @@ Vamos a dibujar las temperaturas altas en rojo y las bajas en azul, así que a l
 
 Si ejecutamos el código, veremos cómo se muestra un gráfico simple de color rojo indicando las temperaturas obtenidas del archivo.
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## El módulo datetime
 
@@ -1342,7 +1386,9 @@ plt.title("Daily high temperatures - 2018", fontsize=24)
 
 Con estos dos pequeños cambios, estaríamos mostrando los datos relacionados a las temperaturas de todo un año en lugar de las de un mes.
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Trazar una segunda serie de datos
 
@@ -1389,7 +1435,9 @@ plt.tick_params(axis='both', which='major', labelsize=16)
 plt.show()
 ```
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Sombrear un área en el gráfico
 
@@ -1422,7 +1470,9 @@ plt.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1)
 
 Este código hace que se vea con mayor claridad la diferencia entre temperaturas mínimas y máximas a lo largo de los días del año.
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Comprobar errores
 
@@ -1559,7 +1609,9 @@ Missing data for 2018-02-18 00:00:00
 
 A parte de esto, vemos que se muestra el gráfico con los datos de las temperaturas mínimas y máximas. *¿Por qué?* Porque hemos hecho que cada vez que se produzca un error, el programa sea capáz de seguir funcionando simplemente mostrando un mensaje indicando cuál es el dato que falta.
 
-<br/><hr/><hr/><br/>
+<br/>
+
+<hr/><hr/><br/>
 
 <div align='right'><a href='#index'>Volver arriba</a></div>
 
@@ -1569,7 +1621,9 @@ En esta sección vamos a ver cómo descargar datos que representen todos los ter
 
 Esta información estará contenida en el formato `.json`, por lo que haremos uso de la librería `json`. Además, utilizando la herramienta de creación de mapas de Plotly, podremos crear imágenes que muestren perfectamente la distribución de dichos terremotos.
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Descargar datos de los terremotos
 
@@ -1577,7 +1631,9 @@ Vamos a descargar el archivo [`eq_1_day_m1.json`](https://github.com/ehmatthes/p
 
 Sabemos que los terremotos están categorizados según su magnitud en la escala Richter. Este archivo incluye datos de los terremotos de magnitud M1 o superiores.
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Examinar datos JSON
 
@@ -1663,7 +1719,9 @@ He aquí la información obtenida del primer terremoto del archivo:
 *   **`properties`:** muestra mucha información sobre el terremoto. Estamos interesados sobre todo en la magnitud del mismo, lo cual se muestra en la propiedad `mag`. También nos interesa el `title`, que ofrece una pequeña descripción de la ubicación del mismo.
 *   **`geometry`:** esta sección nos ayuda a conocer dónde ha tendo lugar el terremoto. Necesitaremos esta información para mapear el evento.
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Crear una lista de todos los terremotos
 
@@ -1685,7 +1743,9 @@ print(len(all_eq_dicts))
 
 Con esas dos líneas, obtenemos los datos asociados a la clave `features` del archivo, el cual recordemos que se trata de una lista con los terremotos. Si imprimimos la longitud de esta lista nueva, veremos que la salida muestra el valor `158`, que es la misma cantidad que hemos visto anteriormente en el `metadata` del archivo.
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Extraer las magnitudes
 
@@ -1712,7 +1772,9 @@ Con este código extraemos todas las magnitudes y las almacenamos en la variable
 [0.96, 1.2, 4.3, 3.6, 2.1, 4, 1.06, 2.3, 4.9, 1.8]
 ```
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Extraer ubicaciones
 
@@ -1748,14 +1810,16 @@ Tras ejecutar el nuevo código, obtenemos la siguiente salida:
 [33.4863333, 64.6673, -12.1025, 54.2232, 35.3098333]
 ```
 
-<br/><hr/><br/>
+<br/>
+
+<hr/><br/>
 
 ## Crear un mapa mundial
 
-Con la información que hemos extraído, podemos crear un simple mapa mundial con los datos. Para ello, vamos a importar ciertos módulos y a modificar el código de la siguiente manera:
+Con la información que hemos extraído, podemos crear un simple mapa mundial con los datos. Para ello, vamos a crear un nuevo archivo llamado `eq_world_data.py` donde vamos a copiar el código del archivo anterior y a modificarlo de la siguiente manera:
 
 ```python
-# eq_explore_data.py
+# eq_world_data.py
 
 # ...
 from plotly.graph_objs import Scattergeo, Layout
@@ -1780,3 +1844,65 @@ Hemos importado los módulos necesarios para crear el mapa y hemos creado una li
 Después, creamos un objeto `Layout` que contiene el título del mapa y, por último, creamos un diccionario que contiene los datos y el diseño del mapa. Este diccionario se pasa a la función `offline.plot()` para que cree el mapa.
 
 Con todo esto, hemos creado un mapa muy simple que puede ser mejorado aplicando nuevos estilos que veremos en apartados posteriores.
+
+<br/>
+
+<br/>
+
+### Una forma diferente de especificar datos
+
+Antes de configurar el gráfico, vamos a ver una forma ligeramente diferente de especificar los datos para un gráfico de Plotly. En el código, tenemos los datos definidos en una única línea, de esta forma:
+
+```python
+data = [Scattergeo(lon=lons, lat=lats)]
+```
+
+<br/>
+
+Ésta, probablemente, sea la forma más simple de definir los datos para nuestro gráfico, sin embargo, no es el mejor de los métodos. He aquí otra forma equivalente de hacerlo:
+
+```python
+data = [{
+    "type": "scattergeo",
+    "lon": lons,
+    "lat": lats
+}]
+```
+
+<br/>
+
+De esta manera, toda la información sobre los datos se estructura como pares *clave-valor* en un **diccionario de Python**.
+
+<br/>
+
+<br/>
+
+### Customizar el tamaño de los marcadores
+
+Cuando tratamos de imaginar cómo queremos que sea el mapa, una cosa que queda clara es que queremos que los usuarios sean capaces de obtener la información de él de forma rápida y clara. Para ello, hay que asegurarse de que sean capaces de ver y leer correctamente los datos.
+
+Por ello, vamos a modificar el tamaño de los marcadores de la siguiente manera:
+
+```python
+# ...
+
+# Map the earthquakes
+data = [{
+    "type": "scattergeo",
+    "lon": lons,
+    "lat": lats,
+    "marker": {
+        "size": [5 * mag for mag in mags]
+    }
+}]
+# ...
+```
+
+<br/>
+
+Como se puede observar, Plotly ofrece una gran variedad de opciones para customizar los mapas y gráficos que se generen.
+
+Queremos que los `marker` tengan como tamaño 5 veces la magnitud del terremoto, por lo que haremos uso de la propiedad *list comprehension* propia de las listas de Python para que se encargue de realizar la multiplicación por cada magnitud y almacene los datos en una nueva lista.
+
+Si ejecutamos el código ahora, veremos que se muestran unos círculos de mayor tamaño para cada uno de los terremotos.
+
