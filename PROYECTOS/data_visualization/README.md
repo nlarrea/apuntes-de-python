@@ -54,6 +54,8 @@
     * [Crear un mapa mundial](#crear-un-mapa-mundial)
         * [Una forma diferente de especificar datos](#una-forma-diferente-de-especificar-datos)
         * [Customizar el tamaño de los marcadores](#customizar-el-tamaño-de-los-marcadores)
+        * [Otras escalas de color](#otras-escalas-de-color)
+        * [Añadir un texto de hover](#añadir-un-texto-de-hover)
 
 <br/>
 
@@ -1944,8 +1946,59 @@ En primer lugar, modificamos la dirección del archivo con el que trabajar. Desp
 
 Hecho esto, indicamos qué escala de colores debe ser usada con `colorscale`, seleccionando la opción `Viridis`, que muestra una escala que va desde el azul oscuro a un amarillo claro. Además, usamos `reversescale: True` porque queremos que indique con color claro las magnitudes más bajas y de oscuro las más grandes.
 
+> Para ver qué otras escalas disponibles hay, puedes consultarlas en [el siguiente apartado](#otras-escalas-de-color).
+
 No solo se ha añadido color al mapa, sino que se ha puesto también a modo *leyenda* una barra de color que indica a qué hacen referencia los colores, por lo que tiene como título `"Magnitude"`.
 
 <br/>
 
 <br/>
+
+### Otras escalas de color
+
+Si queremos saber qué escalas de colores hay disponibles, podemos crear y ejecutar el siguiente programa:
+
+```python
+# show_color_scales.py
+
+from plotly import colors
+
+for key in colors.PLOTLY_SCALES.keys():
+    print(key)
+```
+
+<br/>
+
+Plotly almacena las escalas de color en el módulo `colors`, por lo que lo importamos e imprimimos cada una de las opciones:
+
+```
+Greys
+YlGnBu
+Greens
+YlOrRd
+Bluered
+RdBu
+Reds
+Blues
+Picnic
+Rainbow
+Portland
+Jet
+Hot
+Blackbody
+Earth
+Electric
+Viridis
+Cividis
+```
+
+<br/>
+
+¡Siéntete libre de probar cualquiera de las opciones para personalizar el mapa a tu gusto!
+
+<br/>
+
+<br/>
+
+### Añadir un texto de hover
+
