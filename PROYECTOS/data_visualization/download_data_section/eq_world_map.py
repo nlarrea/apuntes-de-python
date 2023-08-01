@@ -3,7 +3,8 @@ from plotly.graph_objs import Scattergeo, Layout
 from plotly import offline
 
 # Explore the structure of the data
-filename = "download_data_section/data/eq_data_1_day_m1.json"
+# filename = "download_data_section/data/eq_data_1_day_m1.json"
+filename = "download_data_section/data/eq_data_30_day_m1.json"
 
 with open(filename) as f:
     all_eq_data = json.load(f)
@@ -26,7 +27,11 @@ data = [{
     "lon": lons,
     "lat": lats,
     "marker": {
-        "size": [5 * mag for mag in mags]
+        "size": [5 * mag for mag in mags],
+        "color": mags,
+        "colorscale": "Viridis",
+        "reversescale": True,
+        "colorbar": {"title": "Magnitude"}
     }
 }]
 my_layout = Layout(title="Global Earthquakes")

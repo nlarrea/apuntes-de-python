@@ -1906,3 +1906,46 @@ Queremos que los `marker` tengan como tamaño 5 veces la magnitud del terremoto,
 
 Si ejecutamos el código ahora, veremos que se muestran unos círculos de mayor tamaño para cada uno de los terremotos.
 
+<br/>
+
+<br/>
+
+### Customizar los colores de los marcadores
+
+Además del tamaño, también podemos customizar los colores de los mismos. Como ejemplo, ahora tomaremos otro archivo que muestre los terremotos de los últimos 30 días en lugar de 24 horas. El nuevo archivo se llama [`eq_data_30_day_m1.json`](https://github.com/ehmatthes/pcc_2e/blob/master/chapter_16/mapping_global_data_sets/data/eq_data_30_day_m1.json), el cual descargaremos de ese enlace y depositaremos en nuestra carpeta de archivos.
+
+A continuación, realizaremos lo siguiente:
+
+```python
+# eq_world_map.py
+
+# ...
+filename = "download_data_section/data/eq_data_30_day_m1.json"
+
+# ...
+
+# Map the earthquakes
+data = [{
+    # ...
+    "marker": {
+        # ...
+        "color": mags,
+        "colorscale": "Viridis",
+        "reversescale": True,
+        "colorbar": {"title": "Magnitude"}
+    }
+}]
+# ...
+```
+
+<br/>
+
+En primer lugar, modificamos la dirección del archivo con el que trabajar. Después, la propiedad `color` dice a Plotly qué magnitud es la que hay que colorear, que en este caso, es `mags`.
+
+Hecho esto, indicamos qué escala de colores debe ser usada con `colorscale`, seleccionando la opción `Viridis`, que muestra una escala que va desde el azul oscuro a un amarillo claro. Además, usamos `reversescale: True` porque queremos que indique con color claro las magnitudes más bajas y de oscuro las más grandes.
+
+No solo se ha añadido color al mapa, sino que se ha puesto también a modo *leyenda* una barra de color que indica a qué hacen referencia los colores, por lo que tiene como título `"Magnitude"`.
+
+<br/>
+
+<br/>
