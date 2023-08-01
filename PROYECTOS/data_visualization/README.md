@@ -2002,3 +2002,36 @@ Cividis
 
 ### Añadir un texto de hover
 
+Para terminar con este mapa y, por tanto, esta sección, veremos cómo añadir cierto texto informativo para que éste aparezca al hacer *hover* sobre el mapa (*cuando pasamos el ratón por encima*).
+
+La longitud y la latitud son datos que se muestran ya por defecto, sin embargo, queremos que se muestren la magnitud y una breve descripción de la localización más próxima también.
+
+Para esto, haremos lo siguiente:
+
+```python
+# eq_world_map.py
+
+# ...
+
+maps, lons, lats, hover_texts = [], [], [], []
+for eq_dict in all_eq_dicts:
+    # ...
+    title = eq_dict["properties"]["title"]
+    
+    # ...
+    hover_texts.append(title)
+    
+# Map the earthquakes
+data = [{
+    # ...,
+    "text": hover_texts,
+    # ...
+}]
+# ...
+```
+
+<br/>
+
+La idea es mostrar la magnitud y una breve información sobre el lugar, sin embargo, la propiedad `title` ya nos ofrece ambas, por lo que podemos añadírselo sin problemas.
+
+Ejecutando el código ahora, se puede comprobar que todo funciona correctamente.
