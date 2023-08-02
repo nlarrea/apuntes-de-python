@@ -27,9 +27,9 @@
     
     * [Crear un mapa mundial](#crear-un-mapa-mundial)
         * [Una forma diferente de especificar datos](#una-forma-diferente-de-especificar-datos)
-            * [Customizar el tamaño de los marcadores](#customizar-el-tamaño-de-los-marcadores)
-            * [Otras escalas de color](#otras-escalas-de-color)
-            * [Añadir un texto de hover](#añadir-un-texto-de-hover)
+        * [Customizar el tamaño de los marcadores](#customizar-el-tamaño-de-los-marcadores)
+        * [Otras escalas de color](#otras-escalas-de-color)
+        * [Añadir un texto de hover](#añadir-un-texto-de-hover)
 
 
 
