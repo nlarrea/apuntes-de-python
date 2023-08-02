@@ -1,38 +1,19 @@
+---
+title: Visualize Data - Get Data
+author: Naia Larrea Loustaunau
+subject: Tutorial
+keywords: [python, tutorial, get data, plot]
+header: ${title} | ${author}
+footer: ${pageNo} / ${pageCount}
+---
+
+
+
 # Visualizar Datos - Generar Datos
 
 <p id="index">He aquí un pequeño índice de los pasos a seguir:</p>
 
-* [Instalar Matplotlib](#instalar-matplotlib)
-* [Trazar un sencillo gráfico de líneas](#trazar-un-sencillo-gráfico-de-líneas)
-    * [Modificar la etiqueta y la línea](#modificar-la-etiqueta-y-la-línea)
-    * [Corregir el gráfico](#corregir-el-gráfico)
-* [Usar estilos integrados](#usar-estilos-integrados)
-* [Trazar y estilizar puntos con scatter()](#trazar-y-estilizar-puntos-con-scatter)
-    * [Puntos individuales](#puntos-individuales)
-    * [Series de puntos](#series-de-puntos)
-* [Calcular datos de automáticamente](#calcular-datos-de-automáticamente)
-* [Definir colores customizados](#definir-colores-customizados)
-    * [Usar Colormap](#usar-colormap)
-* [Guardar gráficos automáticamente](#guardar-gráficos-automáticamente)
-* [Caminos aleatorios](#caminos-aleatorios)
-    * [Crear la clase RandomWalk](#crear-la-clase-randomwalk)
-    * [Elegir direcciones](#elegir-direcciones)
-    * [Dibujar el camino aleatorio](#dibujar-el-camino-aleatorio)
-    * [Generar varios caminos aleatorios](#generar-varios-caminos-aleatorios)
-    * [Estilar el camino](#estilar-el-camino)
-        * [Colorear los puntos](#colorear-los-puntos)
-        * [Dibujar los puntos de inicio y final](#dibujar-los-puntos-de-inicio-y-final)
-        * [Eliminar los ejes](#eliminar-los-ejes)
-    * [Incrementar la cantidad de puntos](#incrementar-la-cantidad-de-puntos)
-    * [Alterar el tamaño para llenar la pantalla](#alterar-el-tamaño-para-llenar-la-pantalla)
-* [Lanzar dados con Plotly](#lanzar-dados-con-plotly)
-    * [Instalar Plotly](#instalar-plotly)
-    * [Crear la clase Die](#crear-la-clase-die)
-    * [Lanzar un dado](#lanzar-un-dado)
-        * [Analizar los resultados](#analizar-los-resultados)
-        * [Crear un histograma](#crear-un-histograma)
-    * [Lanzar dos dados](#lanzar-dos-dados)
-    * [Lanzar dados de diferentes caras](#lanzar-dados-de-diferentes-caras)
+[toc]
 
 <br/>
 
