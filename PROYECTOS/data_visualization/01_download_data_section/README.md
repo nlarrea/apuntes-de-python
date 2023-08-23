@@ -31,8 +31,6 @@
         * [Otras escalas de color](#otras-escalas-de-color)
         * [Añadir un texto de hover](#añadir-un-texto-de-hover)
 
-
-
 <br/>
 
 <hr/>
