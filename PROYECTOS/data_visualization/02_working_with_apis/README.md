@@ -57,3 +57,21 @@ Cuando a los usuarios de GitHub les gusta un proyecto (*también conocido como *
 
 ### Solicitar datos realizando una llamada a la API
 
+GitHub permite solicitar una cantidad enorme de información a través de la API. Para saber cómo se ve una llamada a una API, introduce el siguiente link en tu navegador:
+
+```
+https://api.github.com/search/repositories?q=language:python&sort=stars
+```
+
+<br/>
+
+Vamos a explicar este enlace por partes:
+
+* `https://api.github.com/`: dirige la solicitud a la parte de GitHub que responde a las llamadas de la API.
+* `search/repositories`: le indica a la API que dirija la búsqueda a través de los repositorios de GitHub (*es decir, que estamos buscando repositorios*).
+* `?`: indica que vamos a pasar argumentos para realizar la búsqueda.
+* `q=`: la `q` significa *query*, y el signo `=` nos permite comenzar a escribir una consulta. Al utilizar `language:python` decimos que sólo queremos información de aquellos repositorios cuyo lenguaje principal sea Python. Con `&sort=stars` ordenamos el resultado de la consulta en función de la cantidad de estrellas que tienen los repositorios.
+
+<br/>
+
+Realizando la llamada a través del navegador, verás que se encuentran varios millones de repositorios (*la cantidad devuelta en `total_count`*). Sabemos que se ha realizado correctamente la llamada si en la sección `incomplete_results` tenemos como resultado un `false` en lugar de un `true`.  Después, tendremos `items`, que son los que contienen la información de cada uno de los repositorios encontrados.
