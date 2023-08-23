@@ -7,6 +7,7 @@
     * [Solicitar datos realizando una llamada a la API](#solicitar-datos-realizando-una-llamada-a-la-API)
     * [Instalar Requests](#instalar-requests)
     * [Procesar la respuesta de una API](#procesar-la-respuesta-de-una-api)
+    * [Trabajar con el diccionario de la respuesta](#trabajar-con-el-diccionario-de-la-respuesta)
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -151,3 +152,111 @@ dict_keys(['total_count', 'incomplete_results', 'items'])
 <br/>
 
 <hr/><br/>
+
+### Trabajar con el diccionario de la respuesta
+
+Habiendo almacenado la respuesta de la API en un diccionario, podemos trabajar con los datos almacenados en el mismo. Vamos a generar una salida que resuma el contenido de la información obtenida:
+
+```python
+# python_repos.py
+
+# ...
+
+# Make an API call and store the response
+# ...
+
+# Store API responde in a variable
+response_dict = r.json()
+
+print(f"Total repositories: {response_dict['total_count']}")
+
+# Explore information about the repositories
+repo_dicts = response_dict["items"]
+print(f"Repositories returned: {len(repo)dicts}")
+
+# Examine the first repository
+repo_dict = repo_dicts[0]
+print(f"\nKeys: {len(repo_dict)}")
+
+for key in sorted(repo_dict.keys()):
+    print(key)
+```
+
+<br/>
+
+Explicación:
+
+1. Primero imprimimos el valor asociado al `total_count`, que representa el número total de repositorios de Python en GitHub.
+2. El valor asociado a `items` es una lista que contiene una cantidad de diccionarios, donde cada uno contiene información acerca de un único repositorio. Lo que hacemos es almacenar la lista completa en `repo_dicts` e imprimimos la longitud de la lista para saber cuántos repositorios hemos recibido.
+3. Obtenemos el primer repositorio de la lista y lo almacenamos en `repo_dict`.
+4. Imprimimos la cantidad de claves que tiene dicho diccionario.
+5. Imprimimos todas las claves del diccionario para saber qué información tenemos del mismo.
+
+<br/>
+
+Como resultado se obtiene lo siguiente:
+
+```
+Status code: 200
+Total repositories: 9074612
+Repositories returned: 30
+
+Keys: 80
+allow_forking
+archive_url
+archived
+assignees_url
+	...
+url
+visibility
+watchers
+watchers_count
+web_commit_signoff_required
+```
+
+<br/>
+
+Como se puede observar, la API de GitHub devuelve muchísima información de cada uno de los repositorios: hay `80` claves en `repo_dict`. Mirando estas claves, uno se puede hacer una idea de qué tipo de información puede extraer. Por ejemplo:
+
+```python
+# python_repos.py
+
+# ...
+
+# Examine the first repository
+repo_dict = repo_dicts[0]
+
+
+print("\nSelected information about first repository:")
+print(f"Name: {repo_dict['name']}")						# name of the project
+print(f"Owner: {repo_dict['owner']['login']}")			# owner is a dictionary, we get owner's login name
+print(f"Stars: {repo_dict['stargazers_count']}")		# how many stars the project has earned
+print(f"Repository: {repo_dict['html_url']}")			# url of the project's repository
+print(f"Created: {repo_dict['created_at']}")			# when the repository was created
+print(f"Updated: {repo_dict['updated_at']}")			# when was the last time the repository was updated
+print(f"Description: {repo_dict['description']}")		# repository's description
+```
+
+<br/>
+
+Este es el resultado obtenido (*el resultado varía en función de cuándo se haga la petición a la API, este es el resultado obtenido el día que se escribió esta guía*):
+
+```
+Status code: 200
+Total repositories: 9463565
+Repositories returned: 30
+
+Selected information about first repository:
+Name: public-apis
+Owner: public-apis
+Stars: 252728
+Repository: https://github.com/public-apis/public-apis
+Created: 2016-03-20T23:49:42Z
+Updated: 2023-08-23T22:14:25Z
+Description: A collective list of free APIs
+```
+
+<br/>
+
+<hr/><br/>
+
