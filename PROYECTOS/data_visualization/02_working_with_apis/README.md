@@ -6,7 +6,7 @@
 * [Git y GitHub](#git-y-github)
     * [Solicitar datos realizando una llamada a la API](#solicitar-datos-realizando-una-llamada-a-la-API)
     * [Instalar Requests](#instalar-requests)
-
+    * [Procesar la respuesta de una API](#procesar-la-respuesta-de-una-api)
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -94,3 +94,60 @@ pipenv install requests
 
 <hr/><br/>
 
+### Procesar la respuesta de una API
+
+Ahora que hemos instalado `requests`, vamos a hacer uso de dicha librería y vamos a ver cómo gestionar la respuesta de una API. Para ello, crearemos un archivo llamado `python_repos.py` con el siguiente código:
+
+```python
+# python_repos.py
+
+import requests
+
+# Make an API call and store the response
+url = "https://api.github.com/search/repositories?q=language:python&sort=stars"
+headers = { "Accept": "application/vnd.github.v3+json" }
+
+r = requests.get(url, headers=headers)
+print(f"Status code: {r.status_code}")
+
+# Store API response in a variable
+response_dict = r.json()
+
+# Process results
+print(responde_dict.keys())
+```
+
+<br/>
+
+Estos son los pasos que se han seguido escribiendo las líneas de código mostradas:
+
+1. Se importa la librería `requests` para poder utilizarla en el proyecto.
+2. Se guarda la URL de la llamada a la API en una variable para poder utilizarla a lo largo del archivo.
+3. Definimos el encabezado para la API, de esta forma indicamos que queremos usar la versión 3 de la API de GitHub.
+4. Usamos la librería `requests` para hacer la petición utilizando los parámetros previamente definidos.
+5. El objeto respuesta, `r`, tiene un atributo llamado `status_code`, el cual nos indica si una petición ha sido satisfactoria o no. Imprimimos su valor para asegurarnos de que todo haya salido correctamente.
+6. La API devuelve la información en el formato JSON, por lo que convertimos dicha información en un diccionario de Python con el método `json()`.
+7. Finalmente, imprimimos las claves del diccionario, al cual hemos llamado `response_dict`.
+
+<br/>
+
+Tras ejecutar el programa, veremos que se obtiene lo siguiente:
+
+```powershell
+Status code: 200
+dict_keys(['total_count', 'incomplete_results', 'items'])
+```
+
+<br/>
+
+> Como el *Status code* tiene un valor de `200`, sabemos que todo ha salido correctamente.
+>
+> El diccionario que contiene la respuesta tiene tres claves:
+>
+> * `total_counts`
+> * `incomplete_results`
+> * `tems`
+
+<br/>
+
+<hr/><br/>
