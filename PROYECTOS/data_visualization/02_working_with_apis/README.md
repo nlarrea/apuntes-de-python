@@ -5,6 +5,7 @@
 * [Usar una API web](#usar-una-api-web)
 * [Git y GitHub](#git-y-github)
     * [Solicitar datos realizando una llamada a la API](#solicitar-datos-realizando-una-llamada-a-la-API)
+    * [Instalar Requests](#instalar-requests)
 
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
@@ -75,3 +76,21 @@ Vamos a explicar este enlace por partes:
 <br/>
 
 Realizando la llamada a través del navegador, verás que se encuentran varios millones de repositorios (*la cantidad devuelta en `total_count`*). Sabemos que se ha realizado correctamente la llamada si en la sección `incomplete_results` tenemos como resultado un `false` en lugar de un `true`.  Después, tendremos `items`, que son los que contienen la información de cada uno de los repositorios encontrados.
+
+<br/>
+
+<hr/><br/>
+
+### Instalar Requests
+
+El paquete `requests` permite a Python realizar solicitudes a una página web de forma muy sencilla y examinar la respuesta. Vamos a usar `pip` para instalarlo:
+
+```powershell
+# desde el directorio del proyecto
+pipenv install requests
+```
+
+<br/>
+
+<hr/><br/>
+
