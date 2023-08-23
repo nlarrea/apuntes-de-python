@@ -41,7 +41,7 @@ Como siempre, los ejercicios están resueltos por mí, pero se agradece cualquie
 ## Proyectos
 
 * **#00** - [Alien Invasion](./PROYECTOS/alien_invasion/README.md#alien-invasion) | *Crea un juego en el que el jugador controla una nave que aparece en la parte inferior de la pantalla. El jugador puede moverse hacia la izquierda y hacia la derecha, y disparar balas contra el enemigo. Cuando el juego comienza, una flota de alienígenas llena el cielo y se mueve hacia la derecha e izquierda de la pantalla. El jugador dispara y destruye a los alienígenas. Si el jugador golpea a un alienígena o si un alienígena llega a la parte inferior de la pantalla, el jugador pierde una nave. Si el jugador se queda sin naves, el juego termina.*
-* **#01** - [Data Visualization](./PROYECTOS/data_visualization/README.md#data-visualization) | *Aprende a generar datos y crear una serie de visualizaciones funcionales y bonitas de esos datos. Aprende también a acceder a datos de fuentes en línea para alimentar un paquete de visualización que cree gráficos. Esto te permite explorar el campo de la minería de datos.*
+* **#01** - [Data Visualization](./PROYECTOS/data_visualization/) | *Aprende a generar datos y crear una serie de visualizaciones funcionales y bonitas de esos datos. Aprende también a acceder a datos de fuentes en línea para alimentar un paquete de visualización que cree gráficos. Esto te permite explorar el campo de la minería de datos.*
 * **#02** - Web Applications - *próximamente...*
 
 

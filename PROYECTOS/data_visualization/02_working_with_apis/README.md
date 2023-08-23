@@ -8,6 +8,7 @@
     * [Instalar Requests](#instalar-requests)
     * [Procesar la respuesta de una API](#procesar-la-respuesta-de-una-api)
     * [Trabajar con el diccionario de la respuesta](#trabajar-con-el-diccionario-de-la-respuesta)
+    * [Resumir los repositorios principales](#resumir-los-repositorios-principales)
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -255,6 +256,41 @@ Created: 2016-03-20T23:49:42Z
 Updated: 2023-08-23T22:14:25Z
 Description: A collective list of free APIs
 ```
+
+<br/>
+
+<hr/><br/>
+
+### Resumir los repositorios principales
+
+Ahora que sabemos cómo acceder a la información de un único repositorio, vamos a dar el siguiente paso: hacerlo con los repositorios más *top* de la lista. Para ello, vamos a escribir un bucle que imprima la información seleccionada de cada repositorio de la lista `repo_dicts`:
+
+```python
+# python_repos.py
+
+# ...
+
+# Explore information about the repositories
+# repo_dicts = ...
+# print(...)
+
+print("\nSelected information about each repository:")
+for repo_dict in repo_dicts:
+    print("\nSelected information about first repository:")
+    print(f"Name: {repo_dict['name']}")
+    print(f"Owner: {repo_dict['owner']['login']}")
+    print(f"Stars: {repo_dict['stargazers_count']}")
+    print(f"Repository: {repo_dict['html_url']}")
+    print(f"Created: {repo_dict['created_at']}")
+    print(f"Updated: {repo_dict['updated_at']}")
+    print(f"Description: {repo_dict['description']}")
+```
+
+<br/>
+
+En primer lugar, imprimimos un mensaje introductorio, y, después, los mismos elementos informativos vistos anteriormente, esta vez de todos los ítems de la lista `repo_dicts`.
+
+A primera vista, el resultado puede ser muy tedioso de leer, pero en seguida comenzaremos a realizar las visualizaciones necesarias para que esto no sea un problema.
 
 <br/>
 
