@@ -4,6 +4,8 @@
 
 * [Usar una API web](#usar-una-api-web)
 * [Git y GitHub](#git-y-github)
+    * [Solicitar datos realizando una llamada a la API](#solicitar-datos-realizando-una-llamada-a-la-API)
+
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -36,4 +38,22 @@ La información vendrá facilitada en un formato tipo JSON, CSV o parecidos, es 
 <br/>
 
 <hr/><hr/><br/>
+
+## Git y GitHub
+
+Vamos a basar nuestras visualizaciones en información obtenida de [GitHub](https://github.com/), un sitio que, entre otras cosas, permite a los programadores colaborar en proyectos de código. Vamos a usar la API de GitHub para solicitar información acerca de proyectos de Python almacenados en la plataforma y realizar visualizaciones sobre la popularidad de dichos proyectos.
+
+> GitHub recibe su nombre de [Git](https://git-scm.com/), un sistema de control de versiones. Git ayuda muchísimo a gestionar el trabajo sobre un proyecto, especialmente si se trabaja en grupo, puesto que el trabajo realizado por un sujeto, no perjudica ni modifica el trabajo realizado por otro.
+>
+> Al implementar una nueva *feature* en un proyecto, Git realiza el seguimiento de los cambios realizados en cada archivo del mismo.
+
+<br/>
+
+Cuando a los usuarios de GitHub les gusta un proyecto (*también conocido como **repositorio***), pueden añadirlo a favoritos o darle una *estrella*. En esta sección vamos a crear un programa capaz de descargar datos automáticamente de los proyectos más valorados sobre Python en GitHub, y crearemos una visualización de ello.
+
+<br/>
+
+<hr/><br/>
+
+### Solicitar datos realizando una llamada a la API
 
