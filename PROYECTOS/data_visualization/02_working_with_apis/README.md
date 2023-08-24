@@ -11,6 +11,7 @@
     * [Resumir los repositorios principales](#resumir-los-repositorios-principales)
     * [Monitorizar los límites de cuota de la API](#monitorizar-los-límites-de-cuota-de-la-api)
     * [Visualizar repositorios usando Plotly](#visualizar-repositorios-usando-plotly)
+    * [Modificar los gráficos](#modificar-los-gráficos)
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -329,6 +330,8 @@ Vamos a crear un gráfico interactivo con la información que hemos recopilado h
 A continuación, añadiremos algunas líneas al código, de tal forma que el archivo al completo quede de la siguiente manera:
 
 ```python
+# python_repos_visual.py
+
 import requests
 
 # (1)
@@ -379,3 +382,74 @@ offline.plot(fig, filename="./02_working_with_apis/git-github/python_repos.html"
 <br/>
 
 Si ejecutamos el código, veremos que se genera un gráfico de barras donde se muestra la información mencionada.
+
+<br/>
+
+<hr/><br/>
+
+### Modificar los gráficos
+
+Viendo que el gráfico se ha generado correctamente, vamos a realizar un par de mejoras en los estilos del mismo.
+
+Para comenzar, vamos a realizar las siguientes modificaciones en `data`, lo que cambiará el estilo de las barras:
+
+```python
+# python_repos_visual.py
+
+# ...
+
+# Make visualization
+data = [{
+    # ...
+    "marker": {
+        "color": "rgb(60, 100, 150)",
+        "line": { "width": 1.5, "color": "rgb(25, 25, 25)" }
+    },
+    "opacity": 0.6,
+}]
+
+# ...
+```
+
+<br/>
+
+Los ajustes añadidos afectan a las barras del gráfico. Hemos añadido un color azul y una línea externa de color gris de 1.5 píxeles de grosor. También les hemos dado una opacidad de `0.6` a las barras para que tengan un estilo más *suave*.
+
+A continuación, vamos a modificar `my_layout`:
+
+```python
+# python_repos_visual.py
+
+# ...
+
+my_layout = {
+    "title": "Most-Starred Python Projects on GitHub",
+    "titlefont": { "size": 28 },
+    "xaxis": {
+        "title": "Repository",
+        "titlefont": { "size": 24 },
+        "tickfont": { "size": 14 }
+    },
+    "yaxis": {
+        "title": "Stars",
+        "titlefont": { "size": 24 },
+        "tickfont": { "size": 14 }
+    }
+}
+
+# ...
+```
+
+<br/>
+
+* `titlefont`: con ello hemos definido el tamaño de la fuente.
+* `tickfont`: para definir el tamaño de la fuente de las etiquetas.
+
+<br/>
+
+Solo hemos añadido tamaños de la fuente a los ajustes, sin embargo, podrían modificarse también características como el color del texto.
+
+<br/>
+
+<hr/><br/>
+
