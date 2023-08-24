@@ -10,6 +10,7 @@
     * [Trabajar con el diccionario de la respuesta](#trabajar-con-el-diccionario-de-la-respuesta)
     * [Resumir los repositorios principales](#resumir-los-repositorios-principales)
     * [Monitorizar los límites de cuota de la API](#monitorizar-los-límites-de-cuota-de-la-api)
+    * [Visualizar repositorios usando Plotly](#visualizar-repositorios-usando-plotly)
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -316,3 +317,65 @@ Veremos que se muestra información en formato JSON, donde se indica:
 <br/>
 
 Si hemos alcanzado el límite, solo se debe esperar un rato hasta que tengamos permitido volver a realizar las llamadas.
+
+<br/>
+
+<hr/><br/>
+
+### Visualizar repositorios usando Plotly
+
+Vamos a crear un gráfico interactivo con la información que hemos recopilado hasta ahora. Para ello, crearemos el archivo `python_repos_visual.py` donde copiaremos el código de `python_repos.py` para partir desde ese punto.
+
+A continuación, añadiremos algunas líneas al código, de tal forma que el archivo al completo quede de la siguiente manera:
+
+```python
+import requests
+
+# (1)
+from plotly.graph_objs import Bar
+from plotly import offline
+
+# Make an API call and store the response
+url = "https://api.github.com/search/repositories?q=language:python&sort=stars"
+headers = { "Accept": "application/vnd.github.v3+json" }
+
+r = requests.get(url, headers=headers)
+print(f"Status code: {r.status_code}")
+
+# Process results
+response_dict = r.json()
+repo_dicts = response_dict["items"]
+
+# (2)
+repo_names, stars = [], []
+for repo_dict in repo_dicts:
+    repo_names.append(repo_dict["name"])
+    stars.append(repo_dict["stargazers_count"])
+
+# Make visualization
+data = [{			# (3)
+    "type": "bar",
+    "x": repo_names,
+    "y": stars
+}]
+
+my_layout = {		# (4)
+    "title": "Most-Starred Python Projects on GitHub",
+    "xaxis": { "title": "Repository" },
+    "yaxis": { "title": "Stars" }
+}
+
+fig = { "data": data, "layout": my_layout }
+offline.plot(fig, filename="./02_working_with_apis/git-github/python_repos.html")
+```
+
+<br/>
+
+1. Hemos importado la clase `Bar` y el módulo `offline` de `plotly`.
+2. Creamos dos listas vacías para almacenar el nombre de cada repositorio y la cantidad de estrellas que tiene.
+3. Generamos la lista `data` a partir de los datos obtenidos. Indicamos qué tipo de gráfico va a ser y definimos los valores para los ejes `x` e `y`.
+4. Definimos el *layout* del gráfico, donde se indican las etiquetas de los ejes y el título del mismo.
+
+<br/>
+
+Si ejecutamos el código, veremos que se genera un gráfico de barras donde se muestra la información mencionada.
