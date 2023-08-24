@@ -9,6 +9,7 @@
     * [Procesar la respuesta de una API](#procesar-la-respuesta-de-una-api)
     * [Trabajar con el diccionario de la respuesta](#trabajar-con-el-diccionario-de-la-respuesta)
     * [Resumir los repositorios principales](#resumir-los-repositorios-principales)
+    * [Monitorizar los límites de cuota de la API](#monitorizar-los-límites-de-cuota-de-la-api)
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -296,3 +297,22 @@ A primera vista, el resultado puede ser muy tedioso de leer, pero en seguida com
 
 <hr/><br/>
 
+### Monitorizar los límites de cuota de la API
+
+La mayoría de las APIs tienen limitada la cantidad de llamadas que se les puede hacer en un período determinado de tiempo. Para saber si estamos alcanzando el límite de llamadas permitidas, debemos insertar este enlace en el navegador:
+
+```
+https://api.github.com/rate_limit
+```
+
+<br/>
+
+Veremos que se muestra información en formato JSON, donde se indica:
+
+* El límite de llamadas por minuto para cada sección de la API.
+* La cantidad de llamadas restantes que tenemos.
+* El tiempo que queda hasta que se reseteen los valores.
+
+<br/>
+
+Si hemos alcanzado el límite, solo se debe esperar un rato hasta que tengamos permitido volver a realizar las llamadas.
