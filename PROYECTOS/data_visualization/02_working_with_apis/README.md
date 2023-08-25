@@ -12,6 +12,7 @@
     * [Monitorizar los límites de cuota de la API](#monitorizar-los-límites-de-cuota-de-la-api)
     * [Visualizar repositorios usando Plotly](#visualizar-repositorios-usando-plotly)
     * [Modificar los gráficos](#modificar-los-gráficos)
+    * [Añadir tooltips personalizados](#añadir-tooltips-personalizados)
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -453,3 +454,40 @@ Solo hemos añadido tamaños de la fuente a los ajustes, sin embargo, podrían m
 
 <hr/><br/>
 
+### Añadir tooltips personalizados
+
+Lo que queremos conseguir (y la definición de *tooltip*) es que al hacer *hover* (*pasar el ratón*) por encima de las barras del gráfico, se muestre un mensaje emergente con la información del mismo.
+
+En nuestro caso, el *tooltip* deberá mostrar tanto la descripción de cada repositorio como el creador del mismo.
+
+Vamos a necesitar más datos para poder hacer esto, así que añadamos las siguientes líneas:
+
+```python
+# python_repos_visual.py
+
+# ...
+repo_names, stars, labels = [], [], []
+for repo_dict in repo_dicts:
+    # ...
+    
+    owner = repo_dict["owner"]["login"]
+    description = repo_dict["description"]
+    
+    label = f"{owner}<br />{description}"
+    labels.append(label)
+    
+data = [{
+    # ...
+    "hovertext": labels,
+    # markers ...
+}]
+# ...
+```
+
+<br/>
+
+1. Creamos una nueva lista vacía llamada `labels`.
+2. Utilizamos el bucle `for` que ya habíamos definido anteriormente para obtener el `owner` y la `description` del repositorio.
+3. Creamos una etiqueta (`label`) que sea un *string* que contenga ambos datos.
+4. Añadimos la nueva etiqueta a la lista de etiquetas (`labels`).
+5. Añadimos la opción `hovertext` dentro del diccionario de `data`, y le damos el valor de la lista que acabamos de crear.
