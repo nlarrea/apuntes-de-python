@@ -58,22 +58,14 @@ También usaremos un paquete llamado `Plotly`, que crea visualizaciones que func
 
 # Instalar Matplotlib
 
-Para usar este paquete, debemos instalarlo usando `pip`. Al igual que en el resto de proyectos de este repositorio, usaremos un entorno virtual para instalarlo (`pipenv`).
+Para usar este paquete, debemos instalarlo usando `pip`. Al igual que en el resto de proyectos de este repositorio, usaremos un entorno virtual para instalarlo (`venv`).
 
 Para instalar `matplotlib` en nuestro entorno virtual, ejecutamos el siguiente comando en la terminal:
 
 ```bash
 # desde el directorio donde crearemos el proyecto
-pipenv install matplotlib
+pip install matplotlib
 ```
-
-<br/>
-
-> Si no se estuviera usando el entorno virtual:
->
-> ```bash
-> python -m pip install --user matplotlib
-> ```
 
 
 <br/>
@@ -203,9 +195,9 @@ Matplotlib trae varios estilos predefinidos que podemos usar para personalizar n
 
 Podemos ver qué estilos trae Matplotlib ejecutando el siguiente código desde la terminal (*dentro del directorio del proyecto*):
 
-```python
+```bash
 # si aún no se está usando el entorno virtual
-pipenv shell
+./data_venv/Scripts/activate
 
 # ejecutar el intérprete de Python
 python
@@ -818,7 +810,7 @@ Para instalar esta librería, seguiremos el mismo procedimiento visto en seccion
 
 ```bash
 # desde el directorio donde crearemos el proyecto
-pipenv install plotly
+pip install plotly
 ```
 
 <br/>

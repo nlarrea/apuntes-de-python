@@ -13,6 +13,7 @@
     * [Visualizar repositorios usando Plotly](#visualizar-repositorios-usando-plotly)
     * [Modificar los gráficos](#modificar-los-gráficos)
     * [Añadir tooltips personalizados](#añadir-tooltips-personalizados)
+    * [Añadir links clicables](#añadir-links-clicables)
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -93,7 +94,7 @@ El paquete `requests` permite a Python realizar solicitudes a una página web de
 
 ```powershell
 # desde el directorio del proyecto
-pipenv install requests
+pip install requests
 ```
 
 <br/>
@@ -491,3 +492,52 @@ data = [{
 3. Creamos una etiqueta (`label`) que sea un *string* que contenga ambos datos.
 4. Añadimos la nueva etiqueta a la lista de etiquetas (`labels`).
 5. Añadimos la opción `hovertext` dentro del diccionario de `data`, y le damos el valor de la lista que acabamos de crear.
+
+
+<hr/><br/>
+
+
+### Añadir links clicables
+
+Como `Plotly` permite utilizar HTML en los elementos de texto, podemos añadir links de forma muy sencilla a los gráficos.
+
+Vamos a utilizar el eje x para añadir links a los repositorios. Para ello, añadimos las siguientes líneas:
+
+```python
+# python_repos_visual.py
+
+# ...
+repo_links, stars, labels = [], [], []
+for repo_dict in repo_dicts:
+    # ...
+    
+    repo_name = repo_dict["name"]
+    repo_url = repo_dict["html_url"]
+    repo_link = f"<a href='{repo_url}'>{repo_name}</a>"
+    repo_links.append(repo_link)
+    
+    stars.append(repo_dict["stargazers_count"])
+    # ...
+
+# Make visualization
+data = [{
+    # ...
+    "x": repo_links,
+    # ...
+}]
+
+# ...
+```
+
+<br/>
+
+1. Creamos una nueva lista vacía llamada `repo_links`, sustituyendo la `repo_names` que teníamos antes.
+2. Creamos una variable `repo_name` que almacene el nombre del repositorio.
+3. Creamos una variable `repo_url` que almacene la URL del repositorio.
+4. Creamos una variable `repo_link` que almacene un *string* con el link del repositorio.
+5. Añadimos el link a la lista `repo_links`.
+6. Añadimos la lista `repo_links` al diccionario `data` en el eje `x`.
+
+
+<hr/><br/>
+

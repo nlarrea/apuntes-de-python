@@ -80,17 +80,17 @@
 
 En esta ocasión vamos a crear el más que conocido *'juego de los alienígenas'*.
 
-Antes de comenzar a descargar paquetes, se va a hacer uso de un entorno virtual mediante `pipenv` para evitar posibles problemas posteriores, así como la instalación de *demasiados* recursos.
+Antes de comenzar a descargar paquetes, se va a hacer uso de un entorno virtual mediante `venv` para evitar posibles problemas posteriores, así como la instalación de *demasiados* recursos.
 
 Por ello, en primer lugar y desde el directorio actual en la terminal, se ejecuta lo siguiente:
 
 ```bash
-pipenv --python 3.10.7
+# Crear el entorno virtual (Windows)
+py -m venv data_venv
+
+# Activar el entorno virtual
+./game_venv/Scripts/activate
 ```
-
-<br/>
-
-De esta forma, se trabajará con esa versión de Python y se instalarán aquí únicamente aquellos paquetes necesarios para llevar a cabo este proyecto.
 
 
 <br/><hr/><br/>
@@ -98,7 +98,7 @@ De esta forma, se trabajará con esa versión de Python y se instalarán aquí �
 
 ## Descripción del proyecto
 
-El proyecto consiste en crear un videojuego. En él, el usuario controlará una nave espacial que se moverá de forma horizontal en la parte inferior de la pantalla haciendo uso de las flechas de dirección. A su vez, al pusar la tecla de espacio, la nave disparará balas.
+El proyecto consiste en crear un videojuego. En él, el usuario controlará una nave espacial que se moverá de forma horizontal en la parte inferior de la pantalla haciendo uso de las flechas de dirección. A su vez, al pulsar la tecla de espacio, la nave disparará balas.
 
 Cuando el juego comienza, una flota alienígena que se va moviendo por la pantalla aparece. El jugador debe disparar para destruir a los alienígenas.
 
@@ -112,19 +112,11 @@ Si el jugador destruye a todos los enemigos, una nueva flota aparece, una que se
 
 Antes de comenzar a crear el programa, es necesario instalar `Pygame`, un paquete que permitirá trabajar de forma mucho más sencilla a lo largo de este proyecto.
 
-Como hemos decidido usar `pipenv`, debemos ejecutar el siguiente comando desde el directorio de trabajo:
+Como hemos decidido usar `venv`, debemos ejecutar el siguiente comando desde el directorio de trabajo:
 
 ```bash
-pipenv install pygame
+pip install pygame
 ```
-
-<br/>
-
-> Si no se estuviera usando `pipenv`:
->
-> ```bash
-> python -m pip install --user pygame
-> ```
 
 
 <br/><hr/>
@@ -326,7 +318,7 @@ Los cambios realizados son los siguientes:
 
 <br/>
 
-Si ejecutamos los cambios (*recordatorio: estamos usando `pipenv`*), veremos que el juego sigue funcionando exactamente igual que antes, pero ahora tenemos una clase `Settings` que podemos usar para almacenar todas las configuraciones del juego.
+Si ejecutamos los cambios (*recordatorio: estamos usando `venv`*), veremos que el juego sigue funcionando exactamente igual que antes, pero ahora tenemos una clase `Settings` que podemos usar para almacenar todas las configuraciones del juego.
 
 
 <br/><hr/>
@@ -1449,11 +1441,11 @@ Cada vez que se llama al método `draw()` en un grupo, Pygame dibuja cada elemen
 
 Si arrancamos el juego de nuevo, deberíamos ver un alien en la esquina superior izquierda de la pantalla.
 
-> Como estamos trabajando con `pipenv`, para arrancar el juego, recordar ejecutar los siguientes comandos desde consola:
+> Como estamos trabajando con `venv`, para arrancar el juego, recordar ejecutar los siguientes comandos desde consola:
 >
 > ```bash
 > # desde la carpeta del proyecto
-> pipenv shell
+> ./data_venv/Scripts/activate
 > python alien_invasion.py
 > ```
 
