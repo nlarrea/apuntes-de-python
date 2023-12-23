@@ -14,6 +14,9 @@
     * [Modificar los gráficos](#modificar-los-gráficos)
     * [Añadir tooltips personalizados](#añadir-tooltips-personalizados)
     * [Añadir links clicables](#añadir-links-clicables)
+    * [Más sobre Plotly y la API de GitHub](#más-sobre-plotly-y-la-api-de-github)
+* [Hacker News API](#hacker-news-api)
+    
 
 <!-- CÓMO HACER LOS ÍNDICES --> 
 
@@ -540,4 +543,24 @@ data = [{
 
 
 <hr/><br/>
+
+
+### Más sobre Plotly y la API de GitHub
+
+Si quieres aprender más acerca de `Plotly`, puedes visitar las siguientes páginas:
+
+* [Plotly User Guide in Python](https://plot.ly/python/user-guide/) - Muestra cómo Plotly usa tus datos para generar gráficos.
+* [Python figure reference](https://plot.ly/python/reference/) - Muestra todas las opciones de configuración que se pueden utilizar para personalizar los gráficos.
+
+<br/>
+
+Si lo que quieres es más información acerca de la API de GitHub, puedes visitar la siguiente página:
+
+* [GitHub API documentation](https://developer.github.com/v3/) - Muestra toda la información acerca de la API de GitHub.
+
+
+<br/><hr/><br/>
+
+
+## Hacker News API
 
