@@ -4,7 +4,7 @@
 'r' -> por defecto si no lo especificamos = read mode
 
 'w' -> para escribir un archivo desde 0 (se borra el contenido anterior). Si no
-existía un archivo con ese nobre, lo crea = writing mode
+existía un archivo con ese nombre, lo crea = writing mode
 
 'a' -> para escribir un archivo desde el último punto de éste, o desde cero si
 no existía un archivo con ese nombre = append mode
@@ -14,7 +14,7 @@ no existía un archivo con ese nombre = append mode
 # ESCRIBIR EN UN ARCHIVO VACÍO -> "w" (writing mode)
 
 """
-Para escribir en un archivo vacío, primero hay que abir el archivo como se ha
+Para escribir en un archivo vacío, primero hay que abrir el archivo como se ha
 hecho hasta ahora con 'open()', pero esta vez, añadiendo un segundo argumento
 al usar esta función: 'w'.
 
@@ -30,7 +30,7 @@ with open("files/write_message.txt", "w") as file:
 """
 Este código no tiene salida en la terminal, sin embargo, si accedemos a la ruta
 especificada, veremos que se ha creado el archivo y se ha escrito en él 'Hello
-Wolrd!'
+World!'
 """
 
 

@@ -16,17 +16,7 @@
     * [Añadir links clicables](#añadir-links-clicables)
     * [Más sobre Plotly y la API de GitHub](#más-sobre-plotly-y-la-api-de-github)
 * [Hacker News API](#hacker-news-api)
-    
-
-<!-- CÓMO HACER LOS ÍNDICES --> 
-
-<!-- * Git y Github -->
-
-<!-- 	* ... -->
-
-<!-- * Hacker News API -->
-
-<!-- 	* ... -->
+* [Fin](#fin)
 
 <br/>
 
@@ -38,9 +28,14 @@ Como las APIs web son lugares que generalmente permanecen actualizados, utilizan
 
 <br/>
 
-<hr/><hr/><br/>
+<br/><hr/>
+<hr/><br/>
 
-## Usar una API web
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+# Usar una API web
 
 Una API web es una parte de un sitio web designado a interactuar con programas. Dichos programas utilizan URLs muy concretas para solicitar la información. A esta acción se le llama *llamar a una API*.
 
@@ -48,9 +43,14 @@ La información vendrá facilitada en un formato tipo JSON, CSV o parecidos, es 
 
 <br/>
 
-<hr/><hr/><br/>
+<br/><hr/>
+<hr/><br/>
 
-## Git y GitHub
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+# Git y GitHub
 
 Vamos a basar nuestras visualizaciones en información obtenida de [GitHub](https://github.com/), un sitio que, entre otras cosas, permite a los programadores colaborar en proyectos de código. Vamos a usar la API de GitHub para solicitar información acerca de proyectos de Python almacenados en la plataforma y realizar visualizaciones sobre la popularidad de dichos proyectos.
 
@@ -66,7 +66,7 @@ Cuando a los usuarios de GitHub les gusta un proyecto (*también conocido como *
 
 <hr/><br/>
 
-### Solicitar datos realizando una llamada a la API
+## Solicitar datos realizando una llamada a la API
 
 GitHub permite solicitar una cantidad enorme de información a través de la API. Para saber cómo se ve una llamada a una API, introduce el siguiente link en tu navegador:
 
@@ -91,7 +91,7 @@ Realizando la llamada a través del navegador, verás que se encuentran varios m
 
 <hr/><br/>
 
-### Instalar Requests
+## Instalar Requests
 
 El paquete `requests` permite a Python realizar solicitudes a una página web de forma muy sencilla y examinar la respuesta. Vamos a usar `pip` para instalarlo:
 
@@ -104,7 +104,7 @@ pip install requests
 
 <hr/><br/>
 
-### Procesar la respuesta de una API
+## Procesar la respuesta de una API
 
 Ahora que hemos instalado `requests`, vamos a hacer uso de dicha librería y vamos a ver cómo gestionar la respuesta de una API. Para ello, crearemos un archivo llamado `python_repos.py` con el siguiente código:
 
@@ -162,7 +162,7 @@ dict_keys(['total_count', 'incomplete_results', 'items'])
 
 <hr/><br/>
 
-### Trabajar con el diccionario de la respuesta
+## Trabajar con el diccionario de la respuesta
 
 Habiendo almacenado la respuesta de la API en un diccionario, podemos trabajar con los datos almacenados en el mismo. Vamos a generar una salida que resuma el contenido de la información obtenida:
 
@@ -269,7 +269,7 @@ Description: A collective list of free APIs
 
 <hr/><br/>
 
-### Resumir los repositorios principales
+## Resumir los repositorios principales
 
 Ahora que sabemos cómo acceder a la información de un único repositorio, vamos a dar el siguiente paso: hacerlo con los repositorios más *top* de la lista. Para ello, vamos a escribir un bucle que imprima la información seleccionada de cada repositorio de la lista `repo_dicts`:
 
@@ -304,7 +304,7 @@ A primera vista, el resultado puede ser muy tedioso de leer, pero en seguida com
 
 <hr/><br/>
 
-### Monitorizar los límites de cuota de la API
+## Monitorizar los límites de cuota de la API
 
 La mayoría de las APIs tienen limitada la cantidad de llamadas que se les puede hacer en un período determinado de tiempo. Para saber si estamos alcanzando el límite de llamadas permitidas, debemos insertar este enlace en el navegador:
 
@@ -328,7 +328,7 @@ Si hemos alcanzado el límite, solo se debe esperar un rato hasta que tengamos p
 
 <hr/><br/>
 
-### Visualizar repositorios usando Plotly
+## Visualizar repositorios usando Plotly
 
 Vamos a crear un gráfico interactivo con la información que hemos recopilado hasta ahora. Para ello, crearemos el archivo `python_repos_visual.py` donde copiaremos el código de `python_repos.py` para partir desde ese punto.
 
@@ -392,7 +392,7 @@ Si ejecutamos el código, veremos que se genera un gráfico de barras donde se m
 
 <hr/><br/>
 
-### Modificar los gráficos
+## Modificar los gráficos
 
 Viendo que el gráfico se ha generado correctamente, vamos a realizar un par de mejoras en los estilos del mismo.
 
@@ -458,7 +458,7 @@ Solo hemos añadido tamaños de la fuente a los ajustes, sin embargo, podrían m
 
 <hr/><br/>
 
-### Añadir tooltips personalizados
+## Añadir tooltips personalizados
 
 Lo que queremos conseguir (y la definición de *tooltip*) es que al hacer *hover* (*pasar el ratón*) por encima de las barras del gráfico, se muestre un mensaje emergente con la información del mismo.
 
@@ -500,7 +500,7 @@ data = [{
 <hr/><br/>
 
 
-### Añadir links clicables
+## Añadir links clicables
 
 Como `Plotly` permite utilizar HTML en los elementos de texto, podemos añadir links de forma muy sencilla a los gráficos.
 
@@ -545,7 +545,7 @@ data = [{
 <hr/><br/>
 
 
-### Más sobre Plotly y la API de GitHub
+## Más sobre Plotly y la API de GitHub
 
 Si quieres aprender más acerca de `Plotly`, puedes visitar las siguientes páginas:
 
@@ -559,8 +559,129 @@ Si lo que quieres es más información acerca de la API de GitHub, puedes visita
 * [GitHub API documentation](https://developer.github.com/v3/) - Muestra toda la información acerca de la API de GitHub.
 
 
+<br/><hr/>
+<hr/><br/>
+
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
+
+# Hacker News API
+
+Para explorar cómo funcionan otras APIs, vamos a ver la API de [Hacker News](https://news.ycombinator.com/), un sitio web que muestra noticias sobre tecnología.
+
+Esta API permite el acceso sin necesidad de registrarse para obtener claves. Este enlace muestra información sobre uno de los artículos de la misma:
+
+[https://hacker-news.firebaseio.com/v0/item/19155826.json](https://hacker-news.firebaseio.com/v0/item/19155826.json)
+
+<br/>
+
+Para facilitar la visualización de la información json que se obtiene, vamos a hacer uso de `json.dumps()`:
+
+```python
+# hn_article.py
+
+import requests
+import json
+
+# Make an API call and store the response
+url = "https://hacker-news.firebaseio.com/v0/item/19155826.json"
+r = requests.get(url)
+print(f"Status code: {r.status_code}")
+
+# Explore the structure of the data
+response_dict = r.json()
+readable_file = "data/readable_hn_data.json"
+with open(readable_file, "w") as f:
+    json.dump(response_dict, f, indent=4)
+```
+
+<br/>
+
+Con este código hemos obtenido información acerca de el artículo de Hacker News con el ID `19155826` y la hemos almacenado en un archivo llamado `readable_hn_data.json`.
+
+Vamos a analizar las claves más interesantes del archivo obtenido:
+
+* La clave `descendants` indica el número de comentarios que tiene el artículo.
+* La clave `kids` contiene una lista con los IDs de los comentarios.
+* Tenemos la clave `title`, que contiene el título del artículo.
+
+<br/>
+
+El siguiente enlace nos permite obtener los artículos más populares de Hacker News:
+
+[https://hacker-news.firebaseio.com/v0/topstories.json](https://hacker-news.firebaseio.com/v0/topstories.json)
+
+<br/>
+
+Podemos hacer uso de este enlace para obtener los IDs de los artículos más populares, y, después, utilizar el enlace anterior para obtener la información de cada uno de los artículos y mostrar un resumen de cada uno:
+
+```python
+# hn_submissions.py
+
+from operator import itemgetter
+import requests
+
+# Make an API call and store the response
+url = "https://hacker-news.firebaseio.com/v0/topstories.json"
+r = requests.get(url)
+print(f"Status code: {r.status_code}")
+
+# Process information about each submission
+submission_ids = r.json()
+submission_dicts = []
+for submission_id in submission_ids[:30]:
+    # Make a separate API call for each submission
+    url = f"https://hacker-news.firebaseio.com/v0/item/{submission_id}.json"
+    r = requests.get(url)
+    print(f"id: {submission_id}\tstatus: {r.status_code}")
+    response_dict = r.json()
+
+    # Build a dictionary for each article
+    submission_dict = {
+        "title": response_dict["title"],
+        "hn_link": f"http://news.ycombinator.com/item?id={submission_id}",
+        # "comments": response_dict["descendants"] -> esto devuelve un error si no hay comentarios
+        # Mejoramos el código original añadiendo un valor por defecto:
+        "comments": response_dict.get("descendants", 0)
+        # Ahora, si no hay comentarios, se asigna un valor de 0 en lugar de devolver un error
+    }
+    submission_dicts.append(submission_dict)
+
+submission_dicts = sorted(
+    submission_dicts,
+    key=itemgetter("comments"),
+    reverse=True
+)
+
+for submission_dict in submission_dicts:
+    print(f"\nTitle: {submission_dict['title']}")
+    print(f"Discussion link: {submission_dict['hn_link']}")
+    print(f"Comments: {submission_dict['comments']}")
+```
+
+<br/>
+
+1. Hacemos una llamada a la API para obtener los IDs de los artículos más populares.
+2. Creamos una lista vacía para almacenar los diccionarios de cada artículo.
+3. Hacemos un bucle `for` para obtener la información de cada artículo.
+4. Hacemos una llamada a la API para obtener la información de cada artículo.
+5. Creamos un diccionario para cada artículo. - *En este caso, hemos añadido un valor por defecto para el número de comentarios, de tal forma que si no hay comentarios, se asigna un valor de 0 en lugar de devolver un error.*
+6. Añadimos el diccionario a la lista de diccionarios.
+7. Ordenamos la lista de diccionarios por el número de comentarios.
+8. Imprimimos la información de cada artículo.
+
+
 <br/><hr/><br/>
 
 
-## Hacker News API
+<div align="right">
+    <a href="#index">Volver arriba</a>
+</div>
 
+
+# Fin
+
+**Este es el final del proyecto.** Si has llegado hasta aquí, ¡enhorabuena! Has aprendido a generar gráficos a partir de datos obtenidos de diferentes formas, incluyendo APIs web.
+
+Espero que hayas disfrutado de este proyecto tanto como yo. ¡Hasta la próxima!
