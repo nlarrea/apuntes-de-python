@@ -19,6 +19,7 @@
 * [Crear una aplicación](#crear-una-aplicación)
     * [Definir los modelos](#definir-los-modelos)
     * [Activar los modelos](#activar-los-modelos)
+    * [El sitio Admin de Django](#el-sitio-admin-de-django)
 
 <br/>
 
@@ -250,5 +251,55 @@ class Topic(models.Model):
 
 
 ## Activar los modelos
+
+Para usar los modelos que hemos creado, debemos decirle a Django que los incluya en el proyecto. Busca y abre el archivo `settings.py` (*dentro de `learning_log`*). Busca la lista `INSTALLED_APPS` y añade la siguiente línea:
+
+```python
+INSTALLED_APPS = [
+    # My apps
+    "learning_logs",
+
+    # Default django apps
+    # ...
+]
+```
+
+<br/>
+
+Agrupar las aplicaciones en un único lugar ayuda a mantener la organización del proyecto. En este caso, hemos añadido la aplicación `learning_logs` a la lista de aplicaciones instaladas, que es nuestra única aplicación por ahora.
+
+Es importante escribir nuestras aplicaciones antes que las predeterminadas de Django si queremos sobrescribir alguna de las funcionalidades de Django.
+
+Ahora, debemos decirle a Django que modifique la base de datos para incluir la información que acabamos de añadir. Para ello, ejecutamos el siguiente comando:
+
+```bash
+python manage.py makemigrations learning_logs
+```
+
+<br/>
+
+El comando `makemigrations` le dice a Django que busque las modificaciones que se han hecho en los modelos y que las guarde como una migración. Veremos que se ha añadido un archivo llamado `0001_initial.py` al directorio `migrations` de la aplicación `learning_logs`. Esto crea una tabla para el modelo `Topic` en la base de datos.
+
+Ahora, ejecutamos el siguiente comando para aplicar la migración a la base de datos:
+
+```bash
+python manage.py migrate
+```
+
+<br/>
+
+Veremos que se muestra un mensaje de confirmación de que se ha aplicado la migración.
+
+Cada vez que modifiquemos los modelos, tendremos que repetir estos tres pasos:
+
+1. Modificar los modelos en `models.py`.
+2. Ejecutar `python manage.py makemigrations appname`.
+3. Ejecutar `python manage.py migrate`.
+
+
+<br/><hr/><br/>
+
+
+## El sitio Admin de Django
 
 *Próximamente...*
