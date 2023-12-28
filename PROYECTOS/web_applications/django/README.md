@@ -1,5 +1,11 @@
 # APLICACIONES WEB - Django
 
+> Documentación de Django:
+>
+> https://docs.djangoproject.com/en/5.0/
+
+<br/>
+
 <div id="index" />
 
 * [Primeros pasos con Django](#django)
@@ -77,7 +83,6 @@ ll_env/Scripts/activate
 > ```bash
 > deactivate
 > ```
-> <br/>
 
 
 <br/><hr/><br/>
