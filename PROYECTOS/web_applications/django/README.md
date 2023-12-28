@@ -8,6 +8,7 @@
     * [Crear el entorno virtual](#crear-el-entorno-virtual)
     * [Instalar Django](#instalar-django)
 * [Crear un proyecto de Django](#crear-un-proyecto-de-django)
+* [Crear la base de datos](#crear-la-base-de-datos)
 
 <br/>
 
@@ -59,6 +60,8 @@ Un entorno virtual es un directorio que contiene una versión específica de Pyt
 
 Crearemos el entorno virtual de la siguiente forma:
 
+<div id='activate-venv' />
+
 ```bash
 # Desde el directorio de Django:
 py -m venv ll_env
@@ -99,3 +102,53 @@ Esperamos a que se instale y listo, podremos usar Django en nuestro proyecto. Se
 
 # Crear un proyecto de Django
 
+Teniendo el entorno virtual activado, vamos a crear un proyecto de Django con los siguientes comandos:
+
+> Si el entorno virtual está desactivado, se ha de [activar](#activate-venv) antes de ejecutar los siguientes comandos.
+
+```bash
+# Desde el directorio de Django:
+django-admin startproject learning_log .
+```
+
+<br/>
+
+Con el comando de arriba, indicamos que queremos crear un proyecto de Django llamado `learning_log` y que el punto final le dice a Django que cree el proyecto con la estructura de directorios en la que nos encontramos.
+
+Lo que ocurre después de ejecutar el comando es que se crea un directorio llamado `learning_log` que contiene los siguientes archivos:
+
+* `__init__.py`: Un archivo vacío que le dice a Python que trate el directorio como un paquete.
+* `settings.py`: Un archivo que le dice a Django cómo comportarse.
+* `urls.py`: Un archivo que le dice a Django qué páginas debe crear en respuesta a las solicitudes de los usuarios.
+* `wsgi.py`: Un archivo que ayuda a Django a servir los archivos que componen el proyecto en un servidor web.
+* `asgi.py`: Un archivo que ayuda a Django a servir los archivos que componen el proyecto en un servidor web.
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Crear la base de datos
+
+Django almacena casi toda la información en una base de datos, por lo que necesitamos crear una base de datos para nuestro proyecto.
+
+Inserta los siguientes comandos por consola:
+
+> Recuerda que el entorno virtual ha de estar [activado](#activate-venv).
+
+```bash
+python manage.py migrate
+```
+
+<br/>
+
+Cada vez que modificamos la base de datos, estamos pidiendo que se haga una *migración*. Ejecutando la orden `migrate`, estamos pidiendo a Django que se asegure de que la base de datos concuerda con el estado actual del proyecto.
+
+Como es la primera vez que ejecutamos esa orden, Django crea una base de datos SQLite para nosotros. Si miramos el directorio del proyecto, veremos que se ha creado un archivo llamado `db.sqlite3`.
+
+SQLite es una base de datos que se ejecuta en un archivo en lugar de en un servidor. Esto hace que sea ideal para el desarrollo y la prueba de aplicaciones web, o aplicaciones muy sencillas.
