@@ -18,6 +18,7 @@
     * [Ver el proyecto en el navegador](#ver-el-proyecto-en-el-navegador)
 * [Crear una aplicación](#crear-una-aplicación)
     * [Definir los modelos](#definir-los-modelos)
+    * [Activar los modelos](#activar-los-modelos)
 
 <br/>
 
@@ -217,5 +218,37 @@ Si miramos el directorio del proyecto ahora, veremos que tenemos la carpeta `lea
 
 
 ## Definir los modelos
+
+Pensemos en nuestros datos por un momento. Cada uno de los usuarios necesitará crear una serie de temas. Cada tema estará asociado a un tema, y esas entradas estarán mostradas como texto. También almacenaremos la fecha y hora en que se creó cada entrada, para que podamos mostrar a los usuarios cuándo se creó cada entrada.
+
+Abre el archivo `models.py` y añade el siguiente código:
+
+```python
+from django.db import models
+
+class Topic(models.Model):
+    """A topic the user is learning about."""
+    
+    text = models.CharField(max_length=200)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """Return a string representation of the model."""
+    
+        return self.text
+```
+
+<br/>
+
+1. Hemos creado la clase `Topic` que hereda de `Model`, una clase que contiene la funcionalidad básica de los modelos de Django.
+2. Hemos definido un atributo `text` que es un objeto `CharField` de Django, un tipo de datos que le indica a Django que reserve una cantidad fija de espacio en la base de datos. En este caso, reservamos un espacio de 200 caracteres.
+3. Hemos definido un atributo `date_added` que es un objeto `DateTimeField` de Django, un tipo de datos que le indica a Django que reserve un espacio para almacenar una fecha y hora.
+4. Hemos definido un método `__str__()` que devuelve una cadena que representa al modelo. Django utiliza esta representación en muchos lugares, como en la vista de administración. Si no definimos un método `__str__()`, Django devolverá una representación de cadena básica que no es muy útil.
+
+
+<br/><hr/><br/>
+
+
+## Activar los modelos
 
 *Próximamente...*
