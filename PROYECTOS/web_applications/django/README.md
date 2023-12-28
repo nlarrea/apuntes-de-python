@@ -7,8 +7,11 @@
     * [Escribir una especificación](#escribir-una-especificación)
     * [Crear el entorno virtual](#crear-el-entorno-virtual)
     * [Instalar Django](#instalar-django)
-* [Crear un proyecto de Django](#crear-un-proyecto-de-django)
-* [Crear la base de datos](#crear-la-base-de-datos)
+    * [Crear un proyecto de Django](#crear-un-proyecto-de-django)
+    * [Crear la base de datos](#crear-la-base-de-datos)
+    * [Ver el proyecto en el navegador](#ver-el-proyecto-en-el-navegador)
+* [Crear una aplicación](#crear-una-aplicación)
+    * [Definir los modelos](#definir-los-modelos)
 
 <br/>
 
@@ -93,14 +96,9 @@ pip install django
 Esperamos a que se instale y listo, podremos usar Django en nuestro proyecto. Se ha de tener en cuenta que para poder utilizar Django, el entorno virtual ha de estar activado.
 
 
-<br/><hr/>
-<hr/><br/>
+<br/><hr/><br/>
 
-<div align='right'>
-    <a href="#index">Volver arriba</a>
-</div>
-
-# Crear un proyecto de Django
+## Crear un proyecto de Django
 
 Teniendo el entorno virtual activado, vamos a crear un proyecto de Django con los siguientes comandos:
 
@@ -124,16 +122,10 @@ Lo que ocurre después de ejecutar el comando es que se crea un directorio llama
 * `asgi.py`: Un archivo que ayuda a Django a servir los archivos que componen el proyecto en un servidor web.
 
 
-<br/><hr/>
-<hr/><br/>
+<br/><hr/><br/>
 
 
-<div align='right'>
-    <a href="#index">Volver arriba</a>
-</div>
-
-
-# Crear la base de datos
+## Crear la base de datos
 
 Django almacena casi toda la información en una base de datos, por lo que necesitamos crear una base de datos para nuestro proyecto.
 
@@ -152,3 +144,73 @@ Cada vez que modificamos la base de datos, estamos pidiendo que se haga una *mig
 Como es la primera vez que ejecutamos esa orden, Django crea una base de datos SQLite para nosotros. Si miramos el directorio del proyecto, veremos que se ha creado un archivo llamado `db.sqlite3`.
 
 SQLite es una base de datos que se ejecuta en un archivo en lugar de en un servidor. Esto hace que sea ideal para el desarrollo y la prueba de aplicaciones web, o aplicaciones muy sencillas.
+
+
+<br/><hr/><br/>
+
+
+## Ver el proyecto en el navegador
+
+Para ver el proyecto en el navegador, ejecutamos el siguiente comando:
+
+```bash
+python manage.py runserver
+```
+
+<br/>
+
+Veremos un mensaje que dice lo siguiente:
+
+```bash
+Starting development server at http://127.0.0.1:8000/
+```
+
+<br/>
+
+Para ver el proyecto, copiamos la dirección y la pegamos en el navegador (*o hacemos click sobre ella*). Se puede utilizar también la dirección `http://localhost:8000/`, que es lo mismo que la anterior.
+
+Si queremos terminar el servidor, pulsamos `Ctrl + C` en la terminal donde se está ejecutando.
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Crear una aplicación
+
+Los proyectos de Django están compuestos por grupos de aplicaciones individuales que trabajan juntas para hacer que el proyecto funcione como un todo.
+
+Por ahora, crearemos una única aplicación que se encargue de gestionar todo lo posible. Más adelante, crearemos otras aplicaciones para gestionar otras partes del proyecto.
+
+Por ahora, deberías mantener el servidor del apartado anterior en ejecución. Abre una nueva terminal y navega al directorio donde se encuentra el archivo `manage.py`. [Activa el entorno virtual](#activate-venv) y ejecuta el siguiente comando:
+
+```bash
+python manage.py startapp learning_logs
+```
+
+<br/>
+
+El comando `startapp appname` le dice a Django que genere la estructura necesaria para crear una aplicación.
+
+Si miramos el directorio del proyecto ahora, veremos que tenemos la carpeta `learning_logs` que contiene los siguientes archivos:
+
+* `__init__.py`: Un archivo vacío que le dice a Python que trate el directorio como un paquete.
+* `admin.py`: Un archivo que nos permite construir una interfaz para gestionar la aplicación a través del sitio web de administración de Django.
+* `apps.py`: Un archivo que almacena la configuración de la aplicación.
+* `models.py`: Un archivo que nos permite definir los datos que queremos gestionar en nuestra aplicación.
+* `tests.py`: Un archivo que nos permite escribir pruebas automáticas para la aplicación.
+* `views.py`: Un archivo que nos permite escribir las funciones que gestionan las solicitudes que recibe la aplicación y devuelven una respuesta.
+* `migrations/`: Un directorio que Django utiliza para gestionar las migraciones de la base de datos.
+
+
+<br/><hr/><br/>
+
+
+## Definir los modelos
+
+*Próximamente...*
