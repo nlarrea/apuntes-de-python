@@ -20,6 +20,8 @@
     * [Definir los modelos](#definir-los-modelos)
     * [Activar los modelos](#activar-los-modelos)
     * [El sitio Admin de Django](#el-sitio-admin-de-django)
+        * [Crear un superusuario](#crear-un-superusuario)
+        * [Registrar un modelo usando el sitio admin](#registrar-un-modelo-usando-el-sitio-admin)
 
 <br/>
 
@@ -301,5 +303,44 @@ Cada vez que modifiquemos los modelos, tendremos que repetir estos tres pasos:
 
 
 ## El sitio Admin de Django
+
+Django hace que sea fácil trabajar con los modelos creados a través del *sitio admin*. Sólo los administradores tienen acceso a este sitio, no los usuarios comunes.
+
+En esta sección, vamos a configurar el sitio admin y vamos a usarlo para añadir algunos temas a través del modelo `Topic`.
+
+
+<br/><br/>
+
+
+### Crear un superusuario
+
+Django nos permite crear un *superuser*, un usuario que tiene todos los privilegios, y estos privilegios son los que permiten a los usuarios hacer diferentes tareas.
+
+La configuración de privilegios con más restricciones sólo permitiría a los usuarios leer de la página. Normalmente, los usuarios registrados tienen acceso a mayor contenido en una aplicación.
+
+Para crear un superusuario, ejecutamos el siguiente comando:
+
+> Recuerda que el entorno virtual ha de estar [activado](#activate-venv).
+
+```bash
+python manage.py createsuperuser
+Username (leave blank to use 'user'): ll_admin
+Email address:
+Password:
+Password (again):
+Superuser created successfully.
+```
+
+<!-- contraseña guardada en .env -->
+
+<br/>
+
+Como se puede observar, se nos piden una serie de datos para crear el superusuario. El nombre de usuario y la contraseña son obligatorios, pero el correo electrónico es opcional.
+
+
+<br/><br/>
+
+
+### Registrar un modelo usando el sitio admin
 
 *Próximamente...*
