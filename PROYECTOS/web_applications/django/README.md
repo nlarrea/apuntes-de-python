@@ -22,6 +22,7 @@
     * [El sitio Admin de Django](#el-sitio-admin-de-django)
         * [Crear un superusuario](#crear-un-superusuario)
         * [Registrar un modelo usando el sitio admin](#registrar-un-modelo-usando-el-sitio-admin)
+        * [Añadir un tema](#añadir-un-tema)
 
 <br/>
 
@@ -343,4 +344,51 @@ Como se puede observar, se nos piden una serie de datos para crear el superusuar
 
 ### Registrar un modelo usando el sitio admin
 
-*Próximamente...*
+Django incluye algunos modelos de forma automática en el sitio admin, como los modelos `User` y `Group`, pero los modelos que creamos nosotros, deben ser añadidos manualmente.
+
+Cuando creamos la aplicación `learning_logs`, Django creó un archivo llamado `admin.py` en el directorio de la aplicación. Abre este archivo y añade el siguiente código:
+
+```python
+from django.contrib import admin
+
+# Register your models here.
+from .models import Topic
+
+admin.site.register(Topic)
+```
+
+<br/>
+
+Este código importa el modelo `Topic` que queremos registrar y luego usa la función `register()` para decirle a Django que administre nuestro modelo a través del sitio admin.
+
+Ahora, ejecutamos el servidor y abrimos el sitio admin en el navegador. Si el servidor no estaba ya en ejecución, ejecutamos el siguiente comando:
+
+```bash
+python manage.py runserver
+```
+
+<br/>
+
+A continuación, abrimos el navegador y accedemos a la dirección `http://localhost:8000/admin/`. Veremos una página de inicio de sesión. Introducimos las credenciales del superusuario que creamos anteriormente y pulsamos `Log in`.
+
+Veremos una página que dice `Site administration` donde encontramos los apartados:
+
+* `AUTHENTICATION AND AUTHORIZATION`
+    * `Groups`
+    * `Users`
+* `LEARNING_LOGS`
+    * `Topics`
+
+
+<br/><br/>
+
+
+### Añadir un tema
+
+Ahora que hemos registrado el modelo `Topic`, podemos añadir algunos temas a través del sitio admin.
+
+Para ello, haz clic en `Topics` para ir a la página de temas (*[localhost:8000/admin/learning_logs/topic/](localhost:8000/admin/learning_logs/topic/)*). Desde aquí, haz clic en `Add topic` (*arriba a la derecha*) y aparecerá un formulario para añadir un nuevo tema. Introduce `Chess` en el primer campo de texto y pulsa `Save`. Veremos que se ha añadido un nuevo tema a la lista.
+
+Habrás sido revuelto a la página donde están los temas donde, ahora verás que el tema `Chess` aparece en la lista.
+
+¡Creemos un segundo tema! Haz clic en `Add topic` y añade `Rock Climbing`. Veremos que se ha añadido un segundo tema a la lista.
