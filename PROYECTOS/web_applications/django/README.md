@@ -27,6 +27,7 @@
     * [Migrar el modelo Entry](#migrar-el-modelo-entry)
     * [Registrar el modelo Entry en el sitio admin](#registrar-el-modelo-entry-en-el-sitio-admin)
     * [El intérprete de Django](#el-intérprete-de-django)
+* [Crear páginas: La página principal](#crear-páginas-la-página-principal)
 
 <br/>
 
@@ -542,5 +543,80 @@ Estas tres entradas nos permitirán tener algo de contenido para trabajar mientr
 
 
 ## El intérprete de Django
+
+Ahora que hemos introducido algunos datos con los que poder trabajar, vamos a explorar esos datos de forma programática. Para ello, vamos a utilizar el intérprete de Django, el cual es un entorno estupendo para testear el proyecto.
+
+He aquí un ejemplo de cómo usar el intérprete de Django para explorar los datos que hemos introducido:
+
+```bash
+python manage.py shell
+>>> from learning_logs.models import Topic
+>>> Topic.objects.all()
+<QuerySet [<Topic: Chess>, <Topic: Rock Climbing>]>
+>>>
+```
+
+> Usa `exit()` para salir del intérprete cuando lo desees.
+
+<br/>
+
+El comando `shell` le dice a Django que abra un intérprete de Python que nos permita trabajar con los datos del proyecto. El intérprete de Django es un entorno de prueba estupendo, ya que nos permite trabajar con los datos de la aplicación sin tener que escribir código para crear una vista.
+
+En el ejemplo mostrado, hemos importado el modelo `Topic` del módulo `learning_logs.models`. A continuación, hemos usado el método `objects.all()` para obtener todos los objetos `Topic` de la base de datos. El resultado es un objeto `QuerySet` que contiene todos los temas de la base de datos.
+
+Podemos iterar sobre un `QuerySet` para ver cada tema individualmente:
+
+```bash
+>>> topics = Topic.objects.all()
+>>> for topic in topics:
+...     print(topic.id, topic)
+...
+1 Chess
+2 Rock Climbing
+>>>
+```
+
+<br/>
+
+Hemos almacenado el `QuerySet` en la variable `topics` y luego hemos iterado sobre la variable para mostrar el ID y el texto de cada tema.
+
+Si conoces el ID de un objeto en particular, puedes utilizar el método `objects.get()` para obtener ese objeto y mostrar su información:
+
+```bash
+>>> t = Topic.objects.get(id=1)
+>>> t.text
+'Chess'
+>>> t.date_added
+datetime.datetime(2023, 12, 30, 10, 44, 23, 406934, tzinfo=datetime.timezone.utc)
+>>>
+```
+
+<br/>
+
+Podemos, también, observar las entradas relacionadas a un tema concreto. Anteriormente, hemos definido el atributo `topic` en el modelo `Entry` como un objeto `ForeignKey`, una conexión entre cada entrada y un tema. Django puede usar esta conexión para obtener las entradas asociadas a un tema en particular:
+
+```bash
+>>> t.entry_set.all()
+<QuerySet [<Entry: The opening is the first part of the game, roughly...>]>
+>>>
+```
+
+<br/>
+
+Para obtener los datos de una entrada a través de una `ForeignKey`, se utiliza el nombre (*en minúsculas*) del modelo relacionado seguido de `_set`. Esto le dice a Django que obtenga las entradas asociadas al tema que hemos almacenado en `t`.
+
+Utilizaremos esta sintaxis más adelante cuando comencemos a crear las páginas de los usuarios. El intérprete es muy útil para asegurarse de recibir la información deseada. No usaremos mucho el intérprete a lo largo del desarrollo de la aplicación, pero es muy recomendable que la sigas usando para aprender y explorar las oportunidades que ofrece, además de seguir las buenas prácticas.
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+<div align='right'>
+    <a href="#index">Volver arriba</a>
+</div>
+
+
+# Crear páginas: La página principal
 
 *Próximamente...*
