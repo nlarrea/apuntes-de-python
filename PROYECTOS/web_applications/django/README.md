@@ -23,6 +23,9 @@
         * [Crear un superusuario](#crear-un-superusuario)
         * [Registrar un modelo usando el sitio admin](#registrar-un-modelo-usando-el-sitio-admin)
         * [Añadir un tema](#añadir-un-tema)
+    * [Definir el modelo Entry](#definir-el-modelo-entry)
+    * [Migrar el modelo Entry](#migrar-el-modelo-entry)
+    * [Registrar el modelo Entry en el sitio admin](#registrar-el-modelo-entry-en-el-sitio-admin)
 
 <br/>
 
@@ -392,3 +395,75 @@ Para ello, haz clic en `Topics` para ir a la página de temas (*[localhost:8000/
 Habrás sido revuelto a la página donde están los temas donde, ahora verás que el tema `Chess` aparece en la lista.
 
 ¡Creemos un segundo tema! Haz clic en `Add topic` y añade `Rock Climbing`. Veremos que se ha añadido un segundo tema a la lista.
+
+
+<br/><hr/><br/>
+
+
+## Definir el modelo Entry
+
+Hemos añadido los temas `Chess` y `Rock Climbing`, pero debemos definir un modelo para las entradas de cada tema para que los usuarios puedan añadir entradas a cada uno de ellos. Cada entrada debe ir asociada a un tema concreto.
+
+He aquí el código para el modelo `Entry`:
+
+```python
+# models.py
+
+from django.db import models
+
+
+class Topic(models.Model):
+    # ...
+
+
+class Entry(models.Model):
+    """ Something specific learned about a topic. """
+
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    text = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "entries"
+
+    def __str__(self):
+        """ Return a string representation of the model. """
+
+        return f"{self.text[:50]}..."
+```
+
+<br/>
+
+1. Hemos creado la clase `Entry` que hereda de `Model`, una clase que contiene la funcionalidad básica de los modelos de Django, al igual que hicimos con el modelo `Topic`.
+2. Hemos definido un atributo `topic` que es un objeto `ForeignKey` de Django, un tipo de datos que le indica a Django que relacione cada entrada con un tema específico. Cada tema se asocia con una clave primaria, un ID único que Django utiliza para referirse a cada entrada. *Es decir, hemos relacionado cada entrada `Entry` con un tema `Topic`*.
+3. Hemos definido un atributo `text` que es un objeto `TextField` de Django, un tipo de datos que le indica a Django que reserve un espacio para almacenar un texto largo.
+4. Hemos definido un atributo `date_added` que es un objeto `DateTimeField` de Django, un tipo de datos que le indica a Django que reserve un espacio para almacenar una fecha y hora.
+5. Hemos definido una clase `Meta` que contiene metadatos para administrar un modelo. En este caso, le decimos a Django que use la forma plural de `entry` para referirse a más de una entrada. Sin esta clase, Django usaría `Entrys` como nombre para más de una entrada.
+6. Hemos definido un método `__str__()` que devuelve una cadena que representa al modelo. Django utiliza esta representación en muchos lugares, como en la vista de administración.
+
+
+<br/><hr/><br/>
+
+
+## Migrar el modelo Entry
+
+Ahora que hemos definido el modelo `Entry`, debemos decirle a Django que modifique la base de datos para incluir la información que acabamos de añadir.
+
+Esto es algo que ya hemos visto anteriormente, por lo que simplemente introducimos los siguientes comandos:
+
+```bash
+python manage.py makemigrations learning_logs
+python manage.py migrate
+```
+
+<br/>
+
+Se habrá generado una nueva migración llamada `0002_entry.py` en el directorio `migrations` de la aplicación `learning_logs`. Esto crea una tabla para el modelo `Entry` en la base de datos.
+
+
+<br/><hr/><br/>
+
+
+## Registrar el modelo Entry en el sitio admin
+
+*Próximamente...*
