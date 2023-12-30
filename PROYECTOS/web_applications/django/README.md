@@ -28,6 +28,8 @@
     * [Registrar el modelo Entry en el sitio admin](#registrar-el-modelo-entry-en-el-sitio-admin)
     * [El intérprete de Django](#el-intérprete-de-django)
 * [Crear páginas: La página principal](#crear-páginas-la-página-principal)
+    * [Mapear una URL](#mapear-una-url)
+    * [Escribir una vista](#escribir-una-vista)
 
 <br/>
 
@@ -618,5 +620,104 @@ Utilizaremos esta sintaxis más adelante cuando comencemos a crear las páginas 
 
 
 # Crear páginas: La página principal
+
+Crear páginas web con Django consta de tres pasos:
+
+1. Definir las URLs de la aplicación.
+2. Escribir las *vistas* de la aplicación.
+3. Escribir las plantillas de la aplicación.
+
+>Puede seguirse cualquier orden, pero deben hacerse los tres. En este caso, comenzaremos siempre por definir las URLs.
+
+<br/>
+
+Una plantilla de URL describe la forma en la que la URL está estructurada. Además, también le indica a Django qué debe buscar cuando recibe una solicitud.
+
+Cada una de estas URLs se mapea a una *vista*, una función que recibe y devuelve la información necesaria para esa página. La función normalmente muestra la página siguiendo una plantilla, la cual contiene la estructura de la página web.
+
+Por ahora, comenzaremos creando la página de inicio de la aplicación para poner en práctica estos tres pasos.
+
+
+<br/><hr/><br/>
+
+
+## Mapear una URL
+
+Los usuarios hacen peticiones de páginas a través de URLs. La página principal será la que tenga la URL base de la aplicación, que en este momento es: `http://localhost:8000/`, la cual muestra una página por defecto de Django.
+
+Vamos a cambiar esto. Para empezar, accederemos al archivo `urls.py` situado dentro de `learning_log`. Este es el código que deberías ver:
+
+```python
+# urls.py
+
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+]
+```
+
+<br/>
+
+Las primeras dos líneas importan los módulos necesarios para el sitio admin. La lista `urlpatterns` define las URLs de la aplicación, y dentro de esta lista encontramos `admin.site.urls`, que define las URLs del sitio admin.
+
+Debemos incluir las URLs de `learning_logs`, así que añadimos lo siguiente:
+
+```python
+# urls.py
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('learning_logs.urls')),
+]
+```
+
+<br/>
+
+Con esta modificación, hemos añadido el módulo `include`. Después, hemos indicado que añada en la lista `urlpatterns` las URLs de la aplicación `learning_logs`, ubicadas en el módulo `urls.py` (*que aún no hemos creado*).
+
+Vamos a crear el archivo `urls.py` dentro de `learning_logs` y añadimos el siguiente código:
+
+```python
+# learning_logs/urls.py
+
+""" Defines URL patterns for learning_logs. """
+
+from django.urls import path
+
+from . import views
+
+
+app_name = "learning_logs"
+urlpatterns = [
+    # Home page
+    path("", views.index, name="index"),
+]
+```
+
+<br/>
+
+1. Hemos importado el módulo `path` que es necesario para mapear las URLs a las *vistas*. También hemos importado el módulo `views` de la aplicación `learning_logs`.
+    > El punto inicial le dice a Python que busque el módulo `views.py` en el mismo directorio en el que se encuentra el propio archivo `urls.py`.
+2. La variable `app_name` ayuda a Django a distinguir este archivo `urls.py` de los archivos `urls.py` de otras aplicaciones. En este caso, la aplicación se llama `learning_logs`, por lo que el valor de `app_name` es `"learning_logs"`.
+3. La variable `urlpatterns` es una lista de páginas individuales que se pueden solicitar a la aplicación.
+
+<br/>
+
+La plantilla de URL para la página principal es una llamada a `path()` que incluye tres argumentos:
+
+1. Una cadena que permite a Django mostrar la página correcta. Se ignora la parte de la URL que coincide con la URL base del proyecto, `http://localhost:8000/`, por ello hemos dejado la cadena vacía, para que la URL de la página principal coincida con la URL base.
+2. La función que se llama cuando se solicita la página. En este caso, la función `index()` de `views.py` (*escribiremos esta vista en el siguiente apartado*).
+3. El nombre de la plantilla de la URL, que nos permite referirnos a ella en otras partes del código. En este caso, el nombre es `"index"`.
+
+
+<br/><hr/><br/>
+
+
+## Escribir una vista
 
 *Próximamente...*
