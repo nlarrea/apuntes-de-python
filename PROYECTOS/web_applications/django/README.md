@@ -26,6 +26,7 @@
     * [Definir el modelo Entry](#definir-el-modelo-entry)
     * [Migrar el modelo Entry](#migrar-el-modelo-entry)
     * [Registrar el modelo Entry en el sitio admin](#registrar-el-modelo-entry-en-el-sitio-admin)
+    * [El intérprete de Django](#el-intérprete-de-django)
 
 <br/>
 
@@ -465,5 +466,81 @@ Se habrá generado una nueva migración llamada `0002_entry.py` en el directorio
 
 
 ## Registrar el modelo Entry en el sitio admin
+
+Ahora debemos modificar el archivo `admin.py` para registrar el modelo `Entry`:
+
+```python
+# admin.py
+
+from django.contrib import admin
+
+# Register your models here.
+from .models import Topic, Entry
+
+admin.site.register(Topic)
+admin.site.register(Entry)
+```
+
+<br/>
+
+Si accedemos de nuevo a la página de administración (*[localhost:8000/admin/](localhost:8000/admin/)*), veremos que ahora tenemos el apartado `Entries` en la sección `LEARNING_LOGS`.
+
+Tenemos dos opciones para añadir entradas:
+
+1. Seguir los mismos pasos utilizados para los `Topics`:
+    1. Hacer clic en `Entries` para ir a la página de entradas (*[localhost:8000/admin/learning_logs/entry/](localhost:8000/admin/learning_logs/entry/)*).
+    2. Hacer clic en `Add entry` (*arriba a la derecha*) y aparecerá un formulario para añadir una nueva entrada.
+2. Hacer clic en `Add` sin entrar en la página de entradas.
+
+<br/>
+
+En cualquier caso, cuando aparezca el formulario, deberíamos ver un menú desplegable con los temas que hemos creado. Si hacemos clic en el menú desplegable, veremos que aparecen los temas `Chess` y `Rock Climbing`.
+
+Escogemos el tema `Chess` y añadimos el siguiente texto:
+
+```text
+The opening is the first part of the game, roughly the first ten
+moves or so. In the opening, it’s a good idea to do three things
+—bring out your bishops and knights, try to control the center
+of the board, and castle your king.
+Of course, these are just guidelines. It will be important to
+learn when to follow these guidelines and when to disregard
+these suggestions.
+```
+
+<br/>
+
+Cuando hayamos escrito o pegado el texto en el campo, pulsamos `Save` y veremos que se ha añadido una nueva entrada a la lista. Aquí, veremos el beneficio de usar `text[:50]` como la representación de cadena para cada entrada. En lugar de ver el texto completo de la entrada, vemos los primeros 50 caracteres, seguidos de puntos suspensivos.
+
+Ahora, añadimos una segunda entrada para el tema `Chess`:
+
+```text
+In the opening phase of the game, it’s important to bring out
+your bishops and knights. These pieces are powerful and
+maneuverable enough to play a significant role in the
+beginning moves of a game.
+```
+
+<br/>
+
+Y añade una entrada más, esta vez para el tema `Rock Climbing`:
+
+```text
+One of the most important concepts in climbing is to keep
+your weight on your feet as much as possible. There’s a myth
+that climbers can hang all day on their arms. In reality, good
+climbers have practiced specific ways of keeping their weight
+over their feet whenever possible.
+```
+
+<br/>
+
+Estas tres entradas nos permitirán tener algo de contenido para trabajar mientras desarrollamos la aplicación.
+
+
+<br/><hr/><br/>
+
+
+## El intérprete de Django
 
 *Próximamente...*
