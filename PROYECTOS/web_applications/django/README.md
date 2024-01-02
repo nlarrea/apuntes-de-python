@@ -32,6 +32,10 @@
     * [Escribir una vista](#escribir-una-vista)
     * [Escribir una plantilla](#escribir-una-plantilla)
 * [Escribir páginas adicionales](#escribir-páginas-adicionales)
+    * [Herencia de plantillas](#herencia-de-plantillas)
+        * [La plantilla base](#la-plantilla-base)
+        * [La plantilla hija](#la-plantilla-hija)
+    * [Página de temas](#página-de-temas)
 
 <br/>
 
@@ -806,5 +810,94 @@ Puede parecer un proceso largo y complicado para crear simplemente una vista, pe
 </div>
 
 # Escribir páginas adicionales
+
+Ahora que hemos establecido una ruta para crear una página, podemos comenzar a crear el proyecto Learning Log. Vamos a crear dos páginas para mostrar datos:
+
+1. Una página que muestre todos los temas.
+2. Una página que muestre todas las entradas de un tema en particular.
+
+<br/>
+
+Para cada una de las páginas, especificaremos un patrón de URL, escribiremos una función de vista y crearemos una plantilla.
+
+Antes de hacer esto, crearemos una plantilla base de la cual todas las demás plantillas del proyecto puedan heredar.
+
+
+<br/><hr/><br/>
+
+
+## Herencia de plantillas
+
+Al crear una aplicación web, existen elementos que serán requeridos continuamente, y se repetirán en todas las páginas. En lugar de crear esos elementos en todas las plantillas, podemos escribir una plantilla base de la que hereden las demás.
+
+Esto permite focalizarse en el contenido individual de cada una de las páginas.
+
+
+<br/><br/>
+
+
+### La plantilla base
+
+Crearemos una plantilla llamada `base.html` en el mismo directorio que creamos `index.html`.
+
+> `learning_logs/templates/learning_logs/base.html`
+
+<br/>
+
+Dentro de esta nueva plantilla, añadimos el siguiente código:
+
+```html
+<!-- base.html -->
+
+<!-- 1 -->
+<p>
+    <a href="{% url 'learning_logs:index' %}">Learning Log</a>
+<p>
+
+<!-- 2 -->
+{% block content %}{% endblock content %}
+```
+
+<br/>
+
+1. Hemos creado un párrafo que contiene el nombre del proyecto, el cual también actúa como una especie de enlace a la página principal. Para generar el link, a parte de usar la etiqueta de link `<a>`, hemos usado usado un *template tag* de Django, el cual se indica con `{% %}`. En este caso, el *template tag* es `url`, y le hemos pasado como argumento el nombre de la plantilla de la URL, que en este caso es `learning_logs:index`. Esto genera una URL que coincide con el patrón de URL definido en `learning_logs/urls.py` con el nombre `index`. `learning_logs` actúa como un *namespace* e `index` sería el nombre propio de la URL de ese *namespace*. El valor del *namespace* viene dado por la variable `app_name` que definimos en `learning_logs/urls.py`.
+
+2. Hemos insertado un par de etiquetas de bloque. Este bloque, llamado `content`, es un *placeholder*, la plantilla **hija** que herede de esta plantilla base, definirá el contenido dentro de esta *template tag*.
+
+> Una plantilla hija no tiene por qué definir tantos bloques como tenga la plantilla base, puede definir menos, en cuyo caso hará uso sólo de aquellos que necesite.
+
+
+<br/><br/>
+
+
+### La plantilla hija
+
+Vamos a aprovechar la plantilla creada en apartados anteriores llamada `index.html` para hacer que herede de la plantilla base que acabamos de crear.
+
+Para ello, abrimos el archivo `index.html` y lo modificamos de la siguiente manera:
+
+```html
+<!-- index.html -->
+
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+    <p>Learning Log helps you keep track of your learning, for any topic you're learning about.</p>
+{% endblock content %}
+```
+
+<br/>
+
+Como habrás podido deducir, hemos sustituido el párrafo original que contenía el nombre de la aplicación, por aquello que hemos añadido en la plantilla `base.html`, que es el enlace a la página de inicio.
+
+Hemos definido el contenido del bloque `content` con el párrafo que teníamos originalmente en `index.html`, y después, hemos indicado dónde termina dicho bloque.
+
+> La etiqueta {% endblock %} no necesita de ningún nombre, pero es una buena práctica añadirlo para que sea más sencillo leer y organizar el código, sobre todo cuando el número de bloques es mayor.
+
+
+<br/><hr/><br/>
+
+
+## Página de temas
 
 *Próximamente...*
