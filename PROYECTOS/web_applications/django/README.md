@@ -30,6 +30,8 @@
 * [Crear páginas: La página principal](#crear-páginas-la-página-principal)
     * [Mapear una URL](#mapear-una-url)
     * [Escribir una vista](#escribir-una-vista)
+    * [Escribir una plantilla](#escribir-una-plantilla)
+* [Escribir páginas adicionales](#escribir-páginas-adicionales)
 
 <br/>
 
@@ -719,5 +721,90 @@ La plantilla de URL para la página principal es una llamada a `path()` que incl
 
 
 ## Escribir una vista
+
+La función de una vista toma información de la petición del usuario, prepara los datos necesarios para generar una página y envía esos datos al navegador, muchas veces, haciendo uso de una plantilla.
+
+El archivo `views.py` de `learning_logs` se generó automáticamente cuando ejecutamos `python manage.py startapp`. Abre este archivo y modifica el contenido de la siguiente manera:
+
+```python
+# views.py
+
+from django.shortcuts import render
+
+# Create your views here.
+def index(request):
+    """ The home page for Learning Log. """
+
+    return render(request, "learning_logs/index.html")
+```
+
+<br/>
+
+Cuando una petición de URL coincide con un patrón de URL que hemos definido en `urls.py`, Django llama a la función `index()` de `views.py`. Entonces, Django pasa un objeto `request` a la vista.
+
+En este caso, no tenemos que manipular ningún dato, así que dentro de la función solo tendremos que llamar a `render()`. Esta función `render()` recibe dos parámetros:
+
+1. El objeto `request` original.
+2. La plantilla que se va a utilizar para construir la página.
+
+
+<br/><hr/><br/>
+
+
+## Escribir una plantilla
+
+Las plantillas definen cómo se va a ver la página web, y Django las rellena con la información necesaria cada vez que se solicita la página. Las plantillas permiten acceder a los datos proporcionados por las vistas.
+
+> Como nuestra página de inicio no requiere de datos, la plantilla va a ser muy simple.
+
+<br/>
+
+* Dentro de la carpeta `learning_logs`, crea una nueva carpeta llamada `templates`.
+* Dentro de esta nueva carpeta, crea una nueva carpeta llamada `learning_logs`.
+* Dentro de esta nueva carpeta, crea un archivo llamado `index.html`.
+
+> `learning_logs/templates/learning_logs/index.html`
+>
+> Esta puede resultar una estructura demasiado redundante, sin embargo, es muy útil trabajar de esta forma, debido a que en ocasiones se crean varias aplicaciones que finalmente forman una sola dentro de un mismo proyecto. En este caso, nuestra aplicación está formada por una única aplicación, pero es una buena práctica seguir esta estructura.
+
+<br/>
+
+Dentro del archivo `index.html`, añade el siguiente código:
+    
+```html
+<p>Learning Log</p>
+
+<p>Learning Log helps you keep track of your learning, for any topic you're learning about.</p>
+```
+
+<br/>
+
+> Las etiquetas `<p>` son etiquetas de párrafo (teniendo las *versiones* de apertura `<p>`, y de cierre `</p>`), donde el contenido mostrado entre las etiquetas de apertura y cierre forma un nuevo párrafo.
+
+<br/>
+
+Ahora, ejecutamos el servidor y abrimos el navegador en la dirección `http://localhost:8000/`. Veremos la página de inicio de nuestra aplicación.
+
+> Para ejecutar la aplicación, si no lo estuviera ya, se debe usar el siguiente comando:
+>
+> ```python
+> python manage.py runserver
+> ```
+
+<br/>
+
+Al haber realizado una petición a la URL base de la aplicación, Django ha buscado un patrón de URL que coincida con la URL base (coincide en el patrón `""`). Entonces, Django llama a `views.index()`, función que renderizará la página a través de la plantilla `index.html`.
+
+Puede parecer un proceso largo y complicado para crear simplemente una vista, pero este proceso nos permite crear aplicaciones web complejas de forma sencilla y eficiente, separando las URL, las vistas y las plantillas. En proyectos más grandes, esto permite separar el trabajo entre varios aspectos de la aplicación.
+
+
+<br/><hr/>
+<hr/><br/>
+
+<div align='right'>
+    <a href="#index">Volver arriba</a>
+</div>
+
+# Escribir páginas adicionales
 
 *Próximamente...*
