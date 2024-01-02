@@ -40,6 +40,11 @@
         * [La vista de los temas](#la-vista-de-los-temas)
         * [La plantilla de los temas](#la-plantilla-de-los-temas)
     * [Páginas de temas individuales](#páginas-de-temas-individuales)
+        * [Patrón de URL para los temas individuales](#patrón-de-url-para-los-temas-individuales)
+        * [La vista de los temas individuales](#la-vista-de-los-temas-individuales)
+        * [La plantilla de los temas individuales](#la-plantilla-de-los-temas-individuales)
+        * [Links para las páginas de temas individuales](#links-para-las-páginas-de-temas-individuales)
+* [Cuentas de usuario](#cuentas-de-usuario)
 
 <br/>
 
@@ -1040,5 +1045,161 @@ Si accedemos a la web en el navegador y hacemos clic en el enlace `Topics` (*o e
 
 
 ## Páginas de temas individuales
+
+Ahora que hemos creado la página de temas, vamos a crear la página de temas individuales. Estas páginas mostrarán el nombre del tema y todas las entradas asociadas a ese tema en particular.
+
+
+<br/><br/>
+
+
+### Patrón de URL para los temas individuales
+
+Este patrón de URL va a ser ligeramente diferente a los vistos hasta ahora, y es que vamos a usar el `id` de cada tema para generar la URL. De esta forma, la URL para el tema `Chess` (*cuyo `id` es `1`*) será `http://localhost:8000/topics/1/`.
+
+He aquí el código que debes situar en `learning_logs/urls.py`:
+
+```python
+# urls.py
+
+# ...
+
+urlpatterns = [
+    # Home page
+    # ...
+    # Page that shows all topics
+    # ...
+    # Detail page for a single topic
+    path("topics/<int:topic_id>/", views.topic, name="topic"),
+]
+```
+
+<br/>
+
+La cadena de texto `topics/<int:topic_id>` dice a Django lo siguiente:
+
+1. **`topics`:** Es la primera parte de la cadena y dice a Django que busque URLs que tengan la palabra *topics* después de la base de la URL.
+2. **`/<int:topic_id>`:** Busca un tipo de dato entero y almacena el entero en un argumento llamado `topic_id`.
+
+<br/>
+
+Cuando Django encuentra una URL que coincide con este patrón, llama a la función de vista `topic()` con el valor almacenado en `topic_id` como argumento. Utilizaremos este valor para obtener el tema correcto dentro de la función.
+
+
+<br/><br/>
+
+
+### La vista de los temas individuales
+
+Hemos dicho anteriormente que la función `topic()` debe obtener como argumento el `topic_id` y obtener la información de dicho tema. Para ello, crearemos la siguiente función:
+
+```python
+# views.py
+
+# ...
+
+def topic(request, topic_id):
+    """ Show a single topic and all its entries. """
+
+    topic = Topic.objects.get(id=topic_id)
+    entries = topic.entry_set.order_by("-date_added")
+    context = {
+        "topic": topic,
+        "entries": entries
+    }
+    return render(request, "learning_logs/topic.html", context)
+```
+
+<br/>
+
+En este caso, la función no solo recibe el objeto `request`, sino que debe obtener el valor del `id` almacenado en `topic_id` como parámetro, valor obtenido dentro de la URL como `<int:topic_id>`.
+
+A continuación, hacemos uso de `get()` para obtener el tema en base al ID.
+
+Después de esto, obtenemos las entradas referidas a esos temas ordenadas en función de la fecha. Se coloca el signo negativo, `-`, para indicar que sea en sentido reverso, es decir, que se muestren primero las entradas más recientes.
+
+Finalmente, se genera el contexto, añadiendo el tema y las entradas del mismo, y se llama a la función `render()` con el objeto `request`, la ruta a la vista y el contexto como parámetros.
+
+
+<br/><br/>
+
+
+### La plantilla de los temas individuales
+
+En primer lugar, crearemos el archivo `topic.html` en la ruta `learning_logs/templates/learning_logs/` y añadiremos el siguiente código en el archivo:
+
+```html
+<!-- topic.html -->
+
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+
+<p>Topic: {{ topic }}</p>
+
+<p>Entries:</p>
+<ul>
+    {% for entry in entries %}
+        <li>
+            <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
+            <p>{{ entry.text|linebreaks }}</p>
+        </li>
+    {% empty %}
+        <li>There are no entries for this topic yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
+```
+
+<br/>
+
+En el primer párrafo hemos añadido la palabra *Topic* y, después de los dos puntos, hemos añadido el valor almacenado en `topic` dentro del contexto, el cual es el propio nombre del tema seleccionado.
+
+Después, hemos añadido un segundo párrafo que dice *Entries*, al cual sigue una lista de las entradas almacenadas en `entries` dentro del contexto. Se genera un ítem nuevo en la lista gracias al bucle `for` que se ha definido. Además, si no existen entradas aún, se muestra el mensaje `There are no entries for this topic yet.`.
+
+En caso de existir entradas, se muestran:
+
+1. La información referente a la fecha de creación de la misma a la que se ha aplicado el siguiente filtro (*en Django se insertan filtros usando `|`*): `M d, Y H:i`. Este filtro implica que se va a mostrar la fecha con el siguiente formato: `January 1, 2024, 22:13`.
+2. El texto contenido en la propia entrada. A este texto también se le ha aplicado un filtro (`linebreaks`), el cual se asegura de que muestre el texto con saltos de línea adecuados para mostrar el contenido en la web, en lugar de mostrarlo todo en una sola línea.
+
+
+<br/><br/>
+
+
+### Links para las páginas de temas individuales
+
+Antes de observar cómo se ve cada tema individual en la página web, comenzaremos modificando el archivo `topics.html` para asegurarnos de que se muestra el tema correcto al hacer click en los temas de la lista:
+
+```html
+<!-- topics.html -->
+
+<!-- ... -->
+
+<ul>
+    {% for topic in topics %}
+        <li>
+            <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+        </li>
+    {% empty %}
+    <!-- ... -->
+</ul>
+
+<!-- ... -->
+```
+
+<br/>
+
+Con esta modificación, hemos conseguido que al mostrarse la página con todos los temas, éstos sean realmente enlaces que puedan llevar al usuario a las páginas individuales de los mismos.
+
+Esto se consigue indicando que la URL está basada en el patrón `topic` de `learning_logs`, y como requiere de un `topic_id` como argumento, le añadimos el `topic.id` al final.
+
+Si refrescas la web, verás cómo te permite navegar entre los diferentes temas.
+
+
+<br/><hr/>
+<hr/><br/>
+
+
+# Cuentas de usuario
 
 *Próximamente...*
