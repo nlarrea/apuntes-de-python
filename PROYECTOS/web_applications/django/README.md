@@ -36,6 +36,10 @@
         * [La plantilla base](#la-plantilla-base)
         * [La plantilla hija](#la-plantilla-hija)
     * [Página de temas](#página-de-temas)
+        * [Patrón de URL para los temas](#patrón-de-url-para-los-temas)
+        * [La vista de los temas](#la-vista-de-los-temas)
+        * [La plantilla de los temas](#la-plantilla-de-los-temas)
+    * [Páginas de temas individuales](#páginas-de-temas-individuales)
 
 <br/>
 
@@ -899,5 +903,142 @@ Hemos definido el contenido del bloque `content` con el párrafo que teníamos o
 
 
 ## Página de temas
+
+Ahora que hemos creado una plantilla base, podemos crear nuestras siguientes dos páginas (*como ya hemos mencionado anteriormente*):
+
+1. Una página que muestre todos los temas.
+2. Una página que muestre todas las entradas de un tema en particular.
+
+<br/>
+
+Comenzaremos por la primera, la página de temas.
+
+
+<br/><br/>
+
+
+### Patrón de URL para los temas
+
+Comenzaremos definiendo la URL para la página de temas. Normalmente, se suelen utilizar URLs que describan lo que va a mostrarse en dicha página. En nuestro caso, la URL que usaremos será `http://localhost:8000/topics/`.
+
+Vamos a modificar el archivo `learning_logs/urls.py` de la siguiente manera:
+
+```python
+# learning_logs/urls.py
+
+# ...
+
+urlpatterns = [
+    # Home page
+    # ...
+    # Page that shows all topics
+    path("topics/", views.topics, name="topics"),
+]
+```
+
+<br/>
+
+Hemos añadido un nuevo patrón de URL que coincide con la URL `http://localhost:8000/topics/`. El nombre de la plantilla de la URL es `"topics"`, y la función de vista que se llama es `views.topics()`.
+
+
+<br/><br/>
+
+
+### La vista de los temas
+
+La función de vista `topics()` debe obtener los datos necesarios de la base de datos y enviarlos a la plantilla. Para ello, abrimos el archivo `views.py` y añadimos el siguiente código:
+
+```python
+# views.py
+
+# ...
+from .models import Topic
+
+
+# Create your views here.
+def index(request):
+    # ...
+
+
+def topics(request):
+    """ Show all topics. """
+
+    topics = Topic.objects.order_by("date_added")
+    context = {"topics": topics}
+    return render(request, "learning_logs/topics.html", context)
+```
+
+<br/>
+
+En primer lugar, hemos importado el modelo `Topic` asociado a los datos que necesitamos. La función `topics()` necesita un parámetro: el objeto `request` que Django recibe del servidor.
+
+A continuación, realizamos una petición a la base de datos para obtener los objetos de tipo `Topic`, ordenados por la fecha de creación. El resultado de esta petición lo almacenamos en la variable `topics`.
+
+Definimos el contexto que será enviado a la plantilla. Un *contexto* es un diccionario en el que las claves son los nombres que se usarán en la plantilla para acceder a los datos, y los valores son los datos que se enviarán a la misma.
+
+Finalmente, llamamos a `render()` y le pasamos el objeto `request`, la ruta a la plantilla y el contexto.
+
+
+<br/><br/>
+
+
+### La plantilla de los temas
+
+La plantilla para los temas recibe el diccionario `context`, de esta forma, puede acceder a los datos que le aporta la función de vista `topics()`.
+
+Crea un archivo llamado `topics.html` dentro de la carpeta `learning_logs/templates/learning_logs/` y añade el siguiente código:
+
+```html
+<!-- topics.html -->
+
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+    
+    <p>Topics</p>
+
+    <ul>
+        {% for topic in topics %}
+            <li>{{ topic }}</li>
+        {% empty %}
+            <li>No topics have been added yet.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
+```
+
+<br/>
+
+Como hemos visto en [apartados anteriores](#herencia-de-plantillas), hemos usado la etiqueta `{% extends %}` para heredar de la plantilla base, y hemos definido el contenido del bloque `content`.
+
+El contenido de esta plantilla contiene una lista de temas, que se genera a través de un bucle `for` que recorre el diccionario `context` y muestra cada uno de los temas. En este caso, como no se trata de código Python, se debe utilizar la etiqueta `{% endfor %}` para indicar el fin de un bucle `for`.
+
+La etiqueta `{% empty %}` se usa para mostrar un mensaje cuando no hay ningún tema en la base de datos.
+
+Ahora, vamos a modificar la plantilla base para que muestre un enlace a la página de temas. Abre el archivo `base.html` y modifica el código para que quede de la siguiente manera:
+
+```html
+<!-- base.html -->
+
+<p>
+    <a href="{% url 'learning_logs:index' %}">Learning Log</a> - 
+    <a href="{% url 'learnign_logs:topics' %}">Topics</a>
+</p>
+
+{% block content %}{% endblock content %}
+```
+
+<br/>
+
+Hemos añadido un ` - ` al final del primer enlace para separar los dos enlaces. A continuación, hemos añadido un enlace a la página de temas, y hemos usado el *template tag* `url` para generar la URL correcta.
+
+Si accedemos a la web en el navegador y hacemos clic en el enlace `Topics` (*o escribimos `localhost:8000/topics/`*), veremos que se muestra la página de temas, y si no hay ningún tema en la base de datos, se mostrará el mensaje `No topics have been added yet.`.
+
+
+<br/><hr/><br/>
+
+
+## Páginas de temas individuales
 
 *Próximamente...*
